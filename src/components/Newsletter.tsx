@@ -1,0 +1,5 @@
+import Container from './Container';import ImgBg from './ImgBg';import Button from './Button';
+export default function Newsletter(){
+return <div className="bg-white"><div className="bg-navy"><Container className="-mb-px"><ImgBg name="newsletter" className="-translate-y-0 rounded-2xl" overlay="bg-navy/60"><div className="px-4 py-12 text-center text-white md:py-16"><p className="text-[10px] uppercase tracking-wider text-sky">Stay inspired</p><h2 className="mt-2 text-2xl font-medium md:text-3xl">Stay Inspired This Winter</h2>
+<p className="mx-auto mt-2 max-w-md text-xs text-white/70">Get winter travel inspiration, exclusive stays and special offers delivered straight to your inbox.</p>
+<form onSubmit={e=>e.preventDefault()} className="mx-auto mt-5 flex max-w-sm flex-col gap-2 sm:flex-row"><input type="email" required placeholder="Enter your email address" className="flex-1 rounded-lg bg-white/10 px-3 py-2.5 text-xs outline-none placeholder:text-white/50"/><Button variant="sky">Subscribe</Button></form><p className="mt-3 text-[10px] text-white/50">No spam. Just winter inspiration.</p></div></ImgBg></Container></div></div>}
