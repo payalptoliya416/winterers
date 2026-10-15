@@ -1,10 +1,122 @@
-import {useState} from 'react';import {Link,NavLink} from 'react-router-dom';import Button from './Button';import {nav} from '../data';
-export default function Header(){
-const [o,setO]=useState(false);
-return <header className="absolute inset-x-0 top-0 z-30 p-2 sm:p-3"><div className="mx-auto max-w-[1400px] rounded-xl bg-white shadow-md"><div className="flex items-center justify-between px-3 py-2 sm:px-4">
-<Link to="/" className="font-head text-lg font-bold tracking-tight">▲ WINTERERS</Link>
-<nav className="hidden items-center gap-8 text-xs lg:flex">{nav.map(([l,t])=><NavLink key={t} to={t} className={({isActive})=>isActive?'text-sky':'hover:text-sky'}>{l}</NavLink>)}</nav>
-<div className="hidden items-center gap-2 lg:flex"><Button variant="line" size="sm">Sign In</Button><Button to="/list-property" size="sm">List Your Property</Button></div>
-<button aria-label="Menu" onClick={()=>setO(!o)} className="flex h-9 w-9 flex-col items-center justify-center gap-1 lg:hidden"><i className={`h-0.5 w-5 bg-navy transition ${o?'translate-y-1.5 rotate-45':''}`}/><i className={`h-0.5 w-5 bg-navy ${o?'opacity-0':''}`}/><i className={`h-0.5 w-5 bg-navy transition ${o?'-translate-y-1.5 -rotate-45':''}`}/></button></div>
-{o&&<div className="space-y-1 border-t border-navy/10 p-4 lg:hidden">{nav.map(([l,t])=><NavLink key={t} to={t} onClick={()=>setO(false)} className={({isActive})=>`block rounded-lg px-3 py-2 text-sm ${isActive?'bg-mist text-sky':''}`}>{l}</NavLink>)}
-<div className="flex gap-2 pt-2"><Button variant="line" className="flex-1">Sign In</Button><Button to="/list-property" className="flex-1" onClick={()=>setO(false)}>List Your Property</Button></div></div>}</div></header>}
+import { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import WinterersLogo from './WinterersLogo';
+import { nav } from '../data';
+
+export default function Header() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <header className="absolute inset-x-0 top-0 z-30 pt-3 sm:pt-5 md:pt-6 px-3 sm:px-6 lg:px-8">
+      <div className="rounded-2xl md:rounded-[18px] bg-white transition-all">
+        <div className="flex items-center justify-between px-4 sm:px-8 md:px-[25px] py-3 sm:py-[17px]">
+          {/* Logo */}
+          <Link
+            to="/"
+            className="shrink-0 transition-opacity hover:opacity-95"
+            onClick={() => setOpen(false)}
+          >
+            <WinterersLogo />
+          </Link>
+
+          {/* Navigation Links (Desktop) */}
+          <nav className="hidden items-center gap-7 lg:gap-10 text-[13px] sm:text-sm font-medium lg:flex">
+            {nav.map(([label, path]) => (
+              <NavLink
+                key={path}
+                to={path}
+                className={({ isActive }) =>
+                  isActive
+                    ? 'text-sky font-semibold transition-colors'
+                    : 'text-navy/85 hover:text-sky transition-colors'
+                }
+              >
+                {label}
+              </NavLink>
+            ))}
+          </nav>
+
+          {/* Action Buttons (Desktop) */}
+          <div className="hidden items-center gap-3 lg:flex">
+            <Link
+              to="#"
+              className="inline-flex items-center justify-center rounded-full border border-slate-200/90 bg-white px-5 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-[13px] font-medium text-navy hover:border-slate-300 hover:bg-slate-50 transition"
+            >
+              Sign In
+            </Link>
+            <Link
+              to="/list-property"
+              className="inline-flex items-center justify-center rounded-full bg-navy px-5 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-[13px] font-medium text-white hover:bg-navy/90 transition shadow-sm"
+            >
+              List Your Property
+            </Link>
+          </div>
+
+          {/* Mobile Menu Hamburger Toggle */}
+          <button
+            type="button"
+            aria-label="Toggle navigation menu"
+            onClick={() => setOpen(!open)}
+            className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-lg text-navy hover:bg-mist lg:hidden transition"
+          >
+            <span
+              className={`h-0.5 w-5 bg-navy transition-transform duration-200 ${
+                open ? 'translate-y-2 rotate-45' : ''
+              }`}
+            />
+            <span
+              className={`h-0.5 w-5 bg-navy transition-opacity duration-200 ${
+                open ? 'opacity-0' : ''
+              }`}
+            />
+            <span
+              className={`h-0.5 w-5 bg-navy transition-transform duration-200 ${
+                open ? '-translate-y-2 -rotate-45' : ''
+              }`}
+            />
+          </button>
+        </div>
+
+        {/* Mobile Dropdown Menu */}
+        {open && (
+          <div className="border-t border-navy/10 px-5 py-4 lg:hidden animate-in fade-in slide-in-from-top-2 duration-200">
+            <nav className="flex flex-col space-y-1">
+              {nav.map(([label, path]) => (
+                <NavLink
+                  key={path}
+                  to={path}
+                  onClick={() => setOpen(false)}
+                  className={({ isActive }) =>
+                    `block rounded-xl px-4 py-2.5 text-sm font-medium transition ${
+                      isActive
+                        ? 'bg-mist text-sky font-semibold'
+                        : 'text-navy hover:bg-mist/70'
+                    }`
+                  }
+                >
+                  {label}
+                </NavLink>
+              ))}
+            </nav>
+            <div className="mt-4 flex flex-col gap-2 pt-3 border-t border-navy/10">
+              <Link
+                to="#"
+                onClick={() => setOpen(false)}
+                className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white py-2.5 text-sm font-medium text-navy hover:bg-slate-50 transition"
+              >
+                Sign In
+              </Link>
+              <Link
+                to="/list-property"
+                onClick={() => setOpen(false)}
+                className="inline-flex items-center justify-center rounded-full bg-navy py-2.5 text-sm font-medium text-white hover:bg-navy/90 transition shadow-sm"
+              >
+                List Your Property
+              </Link>
+            </div>
+          </div>
+        )}
+      </div>
+    </header>
+  );
+}

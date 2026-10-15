@@ -1,3 +1,21 @@
 @tailwind base;@tailwind components;@tailwind utilities;
 body{@apply font-body text-navy antialiased overflow-x-hidden}
-h1,h2,h3{@apply font-head}
+h1,h2,h3,h4,h5,h6{@apply font-head}
+/* react-datepicker theme overrides */
+.react-datepicker{font-family:"DM Sans",sans-serif;border:1px solid #e2e8f0;border-radius:1rem;box-shadow:0 10px 40px -8px rgba(6,37,65,0.18);overflow:hidden}
+.react-datepicker__header{background:#062541;border-bottom:none;border-radius:0;padding:12px 0 8px}
+.react-datepicker__current-month{color:#fff;font-family:"Space Grotesk",sans-serif;font-weight:600;font-size:0.875rem}
+.react-datepicker__navigation-icon::before{border-color:#5CBDE5}
+.react-datepicker__day-name{color:#5CBDE5;font-weight:600;font-size:0.7rem}
+.react-datepicker__day{border-radius:0.5rem;font-size:0.8rem;color:#062541}
+.react-datepicker__day:hover{background:#EEF4FA;border-radius:0.5rem}
+.react-datepicker__day--selected,.react-datepicker__day--range-start,.react-datepicker__day--range-end{background:#062541 !important;color:#fff !important;border-radius:0.5rem !important}
+.react-datepicker__day--in-range,.react-datepicker__day--in-selecting-range{background:#EEF4FA;color:#062541}
+.react-datepicker__day--keyboard-selected{background:#5CBDE5;color:#fff;border-radius:0.5rem}
+.react-datepicker__day--today{font-weight:700;color:#5CBDE5}
+.react-datepicker__day--disabled{color:#cbd5e1}
+.react-datepicker__triangle{display:none}
+.react-datepicker-popper{z-index:50}
+
+/* Large text elements → Space Grotesk */
+[class~="text-lg"],[class~="text-xl"],[class~="text-2xl"],[class~="text-3xl"],[class~="text-4xl"],[class~="text-5xl"],[class~="text-6xl"]{font-family:"Space Grotesk",sans-serif}

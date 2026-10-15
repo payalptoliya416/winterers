@@ -1,9 +1,79 @@
-import type {ReactNode} from 'react';
-import ImgBg from './ImgBg';import Container from './Container';
-export default function Hero({name,eyebrow,title,accent,text,tall,children,search}:{name:string;eyebrow?:string;title:string;accent:string;text?:string;tall?:boolean;children?:ReactNode;search?:ReactNode}){
-return <ImgBg name={name} overlay="bg-navy/70"><div className={`flex flex-col items-center text-center text-white ${tall?'pb-28 md:pb-36':'pb-16 md:pb-24'} pt-36 md:pt-40`}><Container>
-{eyebrow&&<p className="mb-3 text-[10px] uppercase tracking-wider text-white/60">{eyebrow}</p>}
-<h1 className="text-4xl font-medium leading-tight sm:text-5xl md:text-6xl">{title}<br className="hidden sm:block"/> <span className="text-sky">{accent}</span></h1>
-{text&&<p className="mx-auto mt-4 max-w-md text-xs text-white/70 md:text-sm">{text}</p>}
-{children&&<div className="mt-6 flex flex-wrap justify-center gap-3">{children}</div>}</Container></div>
-{search&&<Container className="absolute inset-x-0 bottom-0 translate-y-1/2 !max-w-[900px]">{search}</Container>}</ImgBg>}
+import type { ReactNode } from 'react';
+import ImgBg from './ImgBg';
+import Container from './Container';
+
+interface HeroProps {
+  name: string;
+  eyebrow?: string;
+  title: ReactNode;
+  accent?: string;
+  text?: string;
+  tall?: boolean;
+  overlay?: string;
+  children?: ReactNode;
+  search?: ReactNode;
+}
+
+export default function Hero({
+  name,
+  eyebrow,
+  title,
+  accent,
+  text,
+  tall = false,
+  overlay = 'bg-gradient-to-b from-[#062541]/45 via-[#062541]/35 to-[#062541]/65',
+  children,
+  search,
+}: HeroProps) {
+  return (
+    <ImgBg name={name} overlay={overlay} className="relative overflow-visible">
+      <div
+        className={`flex flex-col items-center text-center text-white ${
+          tall ? 'pb-32 sm:pb-36 md:pb-44' : 'pb-16 sm:pb-20 md:pb-28'
+        } pt-36 sm:pt-40 md:pt-44`}
+      >
+        <Container className="!max-w-[1000px]">
+          {eyebrow && (
+            <p className="mb-3.5 text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-white/85">
+              {eyebrow}
+            </p>
+          )}
+
+          {typeof title === 'string' ? (
+            <h1 className="text-4xl font-semibold leading-[1.12] sm:text-5xl md:text-6xl lg:text-[64px] tracking-tight text-white">
+              {title}
+              {accent && (
+                <>
+                  <br className="hidden sm:block" />{' '}
+                  <span className="text-sky">{accent}</span>
+                </>
+              )}
+            </h1>
+          ) : (
+            <h1 className="text-4xl font-semibold leading-[1.12] sm:text-5xl md:text-6xl lg:text-[64px] tracking-tight text-white">
+              {title}
+            </h1>
+          )}
+
+          {text && (
+            <p className="mx-auto mt-4 sm:mt-5 max-w-xl text-xs sm:text-sm md:text-base leading-relaxed text-white/80">
+              {text}
+            </p>
+          )}
+
+          {children && (
+            <div className="mt-7 sm:mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+              {children}
+            </div>
+          )}
+        </Container>
+      </div>
+
+      {search && (
+        <div className="absolute inset-x-0 bottom-0 translate-y-1/2 z-20 px-3 sm:px-6">
+          <div className="mx-auto max-w-[1140px]">{search}</div>
+        </div>
+      )}
+    </ImgBg>
+  );
+}
