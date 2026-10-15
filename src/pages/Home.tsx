@@ -5,8 +5,10 @@ import SectionHead from '../components/SectionHead';
 import Feature from '../components/Feature';
 import Button from '../components/Button';
 import ImgTile from '../components/ImgTile';
+import StayTypesGrid from '../components/StayTypesGrid';
 import { FeaturedStays, Destinations, Experiences, Deals } from '../components/Blocks';
 import HostBanner from '../components/HostBanner';
+import LaplandFeature from '../components/LaplandFeature';
 import { Snowflake, Gem, ShieldCheck, MountainSnow, Lock, Headphones } from 'lucide-react';
 
 const why = [
@@ -41,37 +43,18 @@ export default function Home() {
         <SectionHead
           eyebrow="Discover your stay"
           title="Find Your Perfect Kind of Stay"
-          sub="Discover handpicked winter stays, from cosy mountain cabins and ski chalets to unforgettable escapes surrounded by snow."
+          sub="From coastal escapes to secluded mountain hideaways, discover a stay that fits your way of travelling."
           action="Explore All Stays"
           to="/stays"
         />
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-          {[
-            ['Cabins', 'cabin1'],
-            ['Chalets', 'chalet'],
-            ['Lodges', 'forest'],
-            ['Glass Houses', 'aurora'],
-          ].map(([l, n]) => (
-            <ImgTile key={l} label={l} name={n} className="h-40" />
-          ))}
-        </div>
+        <StayTypesGrid />
       </Section>
 
       <FeaturedStays />
       <Destinations />
       <Experiences />
 
-      <Section>
-        <Feature
-          name="lapland"
-          reverse
-          eyebrow="Winter wonderlands"
-          title="Lapland After Dark"
-          text="Experience a world where snow-covered forests stretch endlessly beneath the Northern Lights."
-        >
-          <Button>Explore Lapland</Button>
-        </Feature>
-      </Section>
+      <LaplandFeature />
 
       <Deals />
 

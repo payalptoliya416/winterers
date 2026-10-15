@@ -11,7 +11,7 @@ const variants: Record<string, string> = {
 };
 
 const sizes: Record<string, string> = {
-  sm: 'px-3.5 py-1.5 text-xs',
+  sm: 'px-5 py-3 text-base',
   md: 'px-5 py-2.5 text-sm',
   lg: 'px-7 py-3 text-sm font-semibold',
 };

@@ -40,13 +40,13 @@ export default function Header() {
           <div className="hidden items-center gap-3 lg:flex">
             <Link
               to="#"
-              className="inline-flex items-center justify-center rounded-full border border-slate-200/90 bg-white px-5 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-[13px] font-medium text-navy hover:border-slate-300 hover:bg-slate-50 transition"
+              className="inline-flex items-center justify-center rounded-[18px] border border-slate-200/90 bg-white px-5 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-navy hover:border-slate-300 hover:bg-slate-50 transition"
             >
               Sign In
             </Link>
             <Link
               to="/list-property"
-              className="inline-flex items-center justify-center rounded-full bg-navy px-5 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-[13px] font-medium text-white hover:bg-navy/90 transition shadow-sm"
+              className="inline-flex items-center justify-center rounded-[18px] bg-[#02213B] px-5 sm:px-6 py-2 sm:py-2.5 text-sm sm:text-base font-medium text-white hover:bg-navy/90 transition"
             >
               List Your Property
             </Link>
