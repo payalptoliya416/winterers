@@ -43,7 +43,7 @@ export default function SearchBar({
     <div
       className={`rounded-2xl sm:rounded-[28px] bg-white p-4 sm:p-5 lg:p-6 text-navy shadow-[0_12px_45px_rgba(0,0,0,0.08)] border border-slate-100 ${className}`}
     >
-      <div className="flex flex-col gap-2.5 lg:flex-row lg:items-center lg:gap-3">
+      <div className="flex flex-col gap-2.5 lg:flex-row lg:items-center lg:gap-3 text-left">
         {/* Where — takes wide space */}
         <label className={`${fieldCls} flex-1 min-w-[200px]`}>
           <span className="block text-[13px] font-bold text-[#15293E] mb-1 leading-none">Where</span>
@@ -58,7 +58,7 @@ export default function SearchBar({
 
         {/* Check-in */}
         <div
-          className={`${fieldCls} w-full lg:w-[130px] lg:flex-none cursor-pointer [&_.react-datepicker-wrapper]:w-full [&_.react-datepicker__input-container]:w-full [&_.react-datepicker__input-container_input]:w-full`}
+          className={`${fieldCls} w-full lg:w-[160px] lg:flex-none cursor-pointer [&_.react-datepicker-wrapper]:w-full [&_.react-datepicker__input-container]:w-full [&_.react-datepicker__input-container_input]:w-full`}
         >
           <span className="block text-[13px] font-bold text-[#15293E] mb-1 leading-none">Check-in</span>
           <DatePicker
@@ -77,7 +77,7 @@ export default function SearchBar({
 
         {/* Check-out */}
         <div
-          className={`${fieldCls} w-full lg:w-[130px] lg:flex-none cursor-pointer [&_.react-datepicker-wrapper]:w-full [&_.react-datepicker__input-container]:w-full [&_.react-datepicker__input-container_input]:w-full`}
+          className={`${fieldCls} w-full lg:w-[160px] lg:flex-none cursor-pointer [&_.react-datepicker-wrapper]:w-full [&_.react-datepicker__input-container]:w-full [&_.react-datepicker__input-container_input]:w-full`}
         >
           <span className="block text-[13px] font-bold text-[#15293E] mb-1 leading-none">Check-out</span>
           <DatePicker
@@ -95,7 +95,7 @@ export default function SearchBar({
         </div>
 
         {/* Guests */}
-        <label className={`${fieldCls} w-full lg:w-[130px] lg:flex-none`}>
+        <label className={`${fieldCls} w-full lg:w-[160px] lg:flex-none`}>
           <span className="block text-[13px] font-bold text-[#15293E] mb-1 leading-none">Guests</span>
           <input
             type="text"
@@ -110,7 +110,7 @@ export default function SearchBar({
         <div className="w-full lg:w-auto lg:flex-none">
           <button
             type="button"
-            className="w-full lg:w-auto h-[68px] inline-flex items-center justify-center rounded-[18px] bg-[#071D36] hover:bg-[#051527] px-8 font-medium text-white transition whitespace-nowrap text-sm tracking-wide shadow-sm"
+            className="w-full lg:w-[220px] h-[68px] inline-flex items-center justify-center rounded-[18px] bg-[#071D36] hover:bg-[#051527] px-8 font-medium text-white transition whitespace-nowrap text-sm tracking-wide shadow-sm"
           >
             {cta}
           </button>
