@@ -24,7 +24,6 @@ export default function SearchBar({
   const handleCheckIn = (date: Date | null) => {
     setCheckIn(date);
     d(setField({ name: 'checkIn', value: date ? date.toISOString() : '' }));
-    // if checkout is before checkin, reset it
     if (date && checkOut && checkOut <= date) {
       setCheckOut(null);
       d(setField({ name: 'checkOut', value: '' }));
@@ -36,31 +35,30 @@ export default function SearchBar({
     d(setField({ name: 'checkOut', value: date ? date.toISOString() : '' }));
   };
 
+  /* shared field wrapper */
+  const fieldCls = 'flex flex-col justify-center px-4 py-[13px] rounded-[18px] bg-[#F4F5F5] transition cursor-text';
+
   return (
     <div
-      className={`rounded-2xl sm:rounded-3xl bg-white p-3 sm:p-4 text-navy shadow-2xl shadow-navy/15 border border-slate-100 ${className}`}
+      className={`rounded-2xl sm:rounded-[26px] bg-white p-5 text-navy border border-[#D0DCE8] ${className}`}
     >
-      <div className="flex flex-col gap-2 lg:flex-row lg:items-stretch lg:gap-0 lg:divide-x lg:divide-slate-200">
+      <div className="flex flex-col gap-2 lg:flex-row lg:items-stretch lg:gap-[25px]">
 
-        {/* Where */}
-        <label className="flex flex-1 flex-col justify-center rounded-xl lg:rounded-none lg:first:rounded-l-xl px-4 py-3 bg-[#F4F7FB] lg:bg-transparent hover:bg-[#EEF3F8] transition cursor-text">
-          <span className="block text-[11px] font-bold text-navy uppercase tracking-wider mb-0.5">
-            Where
-          </span>
+        {/* Where — takes remaining space */}
+        <label className={`${fieldCls} flex-1`}>
+          <span className="block text-base font-bold text-navy mb-0.5">Where</span>
           <input
             type="text"
             placeholder="Where do you want to go?"
             value={v.where}
             onChange={(e) => d(setField({ name: 'where', value: e.target.value }))}
-            className="w-full bg-transparent text-[13px] text-navy placeholder:text-navy/40 outline-none font-normal"
+            className="w-full bg-transparent text-base text-navy placeholder:text-navy/40 outline-none font-normal"
           />
         </label>
 
         {/* Check-in */}
-        <div className="flex flex-col justify-center rounded-xl lg:rounded-none px-4 py-3 bg-[#F4F7FB] lg:bg-transparent hover:bg-[#EEF3F8] transition cursor-pointer [&_.react-datepicker-wrapper]:w-full [&_.react-datepicker-wrapper_input]:w-full">
-          <span className="block text-[11px] font-bold text-navy uppercase tracking-wider mb-0.5">
-            Check-in
-          </span>
+        <div className={`${fieldCls} [&_.react-datepicker-wrapper]:w-full [&_.react-datepicker__input-container_input]:w-full`}>
+          <span className="block text-base font-bold text-navy mb-0.5">Check-in</span>
           <DatePicker
             selected={checkIn}
             onChange={handleCheckIn}
@@ -70,16 +68,14 @@ export default function SearchBar({
             minDate={new Date()}
             placeholderText="Add date"
             dateFormat="dd MMM yyyy"
-            className="bg-transparent text-[13px] text-navy placeholder:text-navy/40 outline-none font-normal cursor-pointer w-full"
+            className="bg-transparent text-base text-navy placeholder:text-navy/40 outline-none font-normal cursor-pointer"
             popperPlacement="bottom-start"
           />
         </div>
 
         {/* Check-out */}
-        <div className="flex flex-col justify-center rounded-xl lg:rounded-none px-4 py-3 bg-[#F4F7FB] lg:bg-transparent hover:bg-[#EEF3F8] transition cursor-pointer [&_.react-datepicker-wrapper]:w-full [&_.react-datepicker-wrapper_input]:w-full">
-          <span className="block text-[11px] font-bold text-navy uppercase tracking-wider mb-0.5">
-            Check-out
-          </span>
+        <div className={`${fieldCls} [&_.react-datepicker-wrapper]:w-full [&_.react-datepicker__input-container_input]:w-full`}>
+          <span className="block text-base font-bold text-navy mb-0.5">Check-out</span>
           <DatePicker
             selected={checkOut}
             onChange={handleCheckOut}
@@ -89,30 +85,28 @@ export default function SearchBar({
             minDate={checkIn ?? new Date()}
             placeholderText="Add date"
             dateFormat="dd MMM yyyy"
-            className="bg-transparent text-[13px] text-navy placeholder:text-navy/40 outline-none font-normal cursor-pointer w-full"
+            className="bg-transparent text-base text-navy placeholder:text-navy/40 outline-none font-normal cursor-pointer"
             popperPlacement="bottom-start"
           />
         </div>
 
         {/* Guests */}
-        <label className="flex flex-col justify-center rounded-xl lg:rounded-none px-4 py-3 bg-[#F4F7FB] lg:bg-transparent hover:bg-[#EEF3F8] transition cursor-text">
-          <span className="block text-[11px] font-bold text-navy uppercase tracking-wider mb-0.5">
-            Guests
-          </span>
+        <label className={fieldCls}>
+          <span className="block text-base font-bold text-navy mb-0.5">Guests</span>
           <input
             type="text"
             placeholder="Add guests"
             value={v.guests}
             onChange={(e) => d(setField({ name: 'guests', value: e.target.value }))}
-            className="w-full bg-transparent text-[13px] text-navy placeholder:text-navy/40 outline-none font-normal"
+            className="w-full bg-transparent text-base text-navy placeholder:text-navy/40 outline-none font-normal"
           />
         </label>
 
         {/* Search Button */}
-        <div className="flex items-center pl-0 lg:pl-3">
+        <div className="flex items-center lg:pl-2">
           <button
             type="button"
-            className="w-full lg:w-auto inline-flex items-center justify-center rounded-xl lg:rounded-2xl bg-navy hover:bg-[#0a355c] px-7 py-4 text-sm font-semibold text-white transition whitespace-nowrap shadow-sm"
+            className="w-full lg:w-auto inline-flex items-center justify-center rounded-[18px] bg-navy hover:bg-[#0a355c] px-7 py-6 font-semibold text-white transition whitespace-nowrap text-base"
           >
             {cta}
           </button>

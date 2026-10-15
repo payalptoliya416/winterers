@@ -34,7 +34,7 @@ export default function Hero({
       >
         <Container className="!max-w-[1000px]">
           {eyebrow && (
-            <p className="mb-3.5 text-xs sm:text-sm font-semibold uppercase tracking-[0.2em] text-white/85">
+            <p className="mb-3.5 text-sm sm:text-lg font-semibold uppercase text-[#7EC8E3]">
               {eyebrow}
             </p>
           )}
@@ -70,7 +70,7 @@ export default function Hero({
       </div>
 
       {search && (
-        <div className="absolute inset-x-0 bottom-0 translate-y-1/2 z-20 px-3 sm:px-6">
+        <div className="absolute inset-x-0 bottom-0 translate-y-1/2 z-20">
           <div className="mx-auto max-w-[1140px]">{search}</div>
         </div>
       )}
