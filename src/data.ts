@@ -94,9 +94,9 @@ export const experiences: string[][] = [
   ["Remote Wilderness", "remote"],
 ];
 export const deals: string[][] = [
-  ["Alpine Mountain Chalet", "deal1"],
-  ["Northern Lights Cabin", "deal2"],
-  ["Luxury Ski Lodge", "deal3"],
+  ["Alpine Mountain Chalet", "deal1.png"],
+  ["Northern Lights Cabin", "deal2.png"],
+  ["Luxury Ski Lodge", "deal3.png"],
 ];
 export const footer: [string, string[]][] = [
   ["Explore", ["Winter Stays", "Destinations", "Experiences", "Offers"]],

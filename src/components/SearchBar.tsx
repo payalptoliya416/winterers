@@ -46,19 +46,19 @@ export default function SearchBar({
 
         {/* Where — takes remaining space */}
         <label className={`${fieldCls} flex-1`}>
-          <span className="block text-base font-bold text-navy mb-0.5">Where</span>
+          <span className="block text-sm font-bold text-navy mb-0.5">Where</span>
           <input
             type="text"
             placeholder="Where do you want to go?"
             value={v.where}
             onChange={(e) => d(setField({ name: 'where', value: e.target.value }))}
-            className="w-full bg-transparent text-base text-navy placeholder:text-navy/40 outline-none font-normal"
+            className="w-full bg-transparent text-sm text-navy placeholder:text-navy/40 outline-none font-normal"
           />
         </label>
 
         {/* Check-in */}
         <div className={`${fieldCls} [&_.react-datepicker-wrapper]:w-full [&_.react-datepicker__input-container_input]:w-full`}>
-          <span className="block text-base font-bold text-navy mb-0.5">Check-in</span>
+          <span className="block text-sm font-bold text-navy mb-0.5">Check-in</span>
           <DatePicker
             selected={checkIn}
             onChange={handleCheckIn}
@@ -75,7 +75,7 @@ export default function SearchBar({
 
         {/* Check-out */}
         <div className={`${fieldCls} [&_.react-datepicker-wrapper]:w-full [&_.react-datepicker__input-container_input]:w-full`}>
-          <span className="block text-base font-bold text-navy mb-0.5">Check-out</span>
+          <span className="block text-sm font-bold text-navy mb-0.5">Check-out</span>
           <DatePicker
             selected={checkOut}
             onChange={handleCheckOut}
@@ -92,21 +92,21 @@ export default function SearchBar({
 
         {/* Guests */}
         <label className={fieldCls}>
-          <span className="block text-base font-bold text-navy mb-0.5">Guests</span>
+          <span className="block text-sm font-bold text-navy mb-0.5">Guests</span>
           <input
             type="text"
             placeholder="Add guests"
             value={v.guests}
             onChange={(e) => d(setField({ name: 'guests', value: e.target.value }))}
-            className="w-full bg-transparent text-base text-navy placeholder:text-navy/40 outline-none font-normal"
+            className="w-full bg-transparent text-sm text-navy placeholder:text-navy/40 outline-none font-normal"
           />
         </label>
 
         {/* Search Button */}
-        <div className="flex items-center lg:pl-2">
+        <div className="flex items-center">
           <button
             type="button"
-            className="w-full lg:w-auto inline-flex items-center justify-center rounded-[18px] bg-navy hover:bg-[#0a355c] px-7 py-6 font-semibold text-white transition whitespace-nowrap text-base"
+            className="w-full lg:w-auto inline-flex items-center justify-center rounded-[18px] bg-navy hover:bg-[#0a355c] px-4 py-5 font-semibold text-white transition whitespace-nowrap text-sm"
           >
             {cta}
           </button>
