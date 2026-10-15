@@ -25,12 +25,58 @@ import {
   X,
   LayoutGrid,
   List,
+  Map,
+  Bath,
+  Check,
 } from 'lucide-react';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FreeMode, Mousewheel } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/free-mode';
+
+const locationStays = [
+  {
+    id: 2,
+    type: 'Chalet',
+    name: 'Alpine Ridge Chalet',
+    location: 'Chamonix, France',
+    country: 'France',
+    price: 749,
+    rating: 4.8,
+    img: 'location01.png',
+  },
+  {
+    id: 1,
+    type: 'Lodge',
+    name: 'Northern Lights Lodge',
+    location: 'Abisko, Sweden',
+    country: 'Sweden',
+    price: 569,
+    rating: 4.9,
+    img: 'location01.png',
+  },
+  {
+    id: 3,
+    type: 'Chalet',
+    name: 'Glacier Edge Chalet',
+    location: 'Zermatt, Switzerland',
+    country: 'Switzerland',
+    price: 899,
+    rating: 5.0,
+    img: 'location02.png',
+  },
+  {
+    id: 4,
+    type: 'Retreat',
+    name: 'Nordic Forest Retreat',
+    location: 'Rovaniemi, Finland',
+    country: 'Finland',
+    price: 319,
+    rating: 4.7,
+    img: 'location01.png',
+  },
+];
 
 const browseTypes = [
   { label: 'Cabins', sub: '124 stays', img: 'browse01.png' },
@@ -117,6 +163,9 @@ export default function WinterStays() {
   const [openFilter, setOpenFilter] = useState<string | null>(null);
   const [sortOpen, setSortOpen] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [mapMode, setMapMode] = useState<'map' | 'list'>('map');
+  const [selectedStayId, setSelectedStayId] = useState<number>(2);
+  const [locationFilter, setLocationFilter] = useState<string>('All');
   const sortRef = useRef<HTMLDivElement>(null);
   const filterBarRef = useRef<HTMLDivElement>(null);
 
@@ -166,7 +215,7 @@ export default function WinterStays() {
         {/* Subtle gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#062541]/45 via-[#062541]/30 to-[#062541]/55" />
 
-        <div className="relative z-10 flex flex-col items-center text-center text-white pt-32 sm:pt-36 md:pt-40 pb-12 sm:pb-16 px-4 sm:px-6">
+        <div className="relative z-10 flex flex-col items-center text-center text-white pt-32 sm:pt-36 md:pt-[220px] pb-12 sm:pb-16 px-4 sm:px-6">
           <div className="mx-auto max-w-[1000px]">
             <p className="mb-3.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#7EC8E3]">
               PREMIUM WINTER PROPERTIES
@@ -474,8 +523,8 @@ export default function WinterStays() {
             </div>
 
             {/* Right side floating property card */}
-            <div className="w-full max-w-sm lg:w-[312px] rounded-2xl bg-white p-5 sm:p-6 shadow-2xl shrink-0 text-navy">
-              <p className="text-[11px] font-semibold uppercase tracking-wider text-sky">
+            <div className="w-full max-w-sm lg:w-[312px] rounded-[14px] bg-white p-5 sm:p-6 shrink-0 text-navy">
+              <p className="text-sm font-semibold uppercase tracking-wider text-sky">
                 GLACIER EDGE CHALET
               </p>
 
@@ -483,13 +532,13 @@ export default function WinterStays() {
                 Zermatt, Switzerland
               </h3>
 
-              <p className="mt-1 text-[11px] sm:text-xs text-navy/55">
+              <p className="mt-1 text-[11px] sm:text-sm text-navy/55">
                 Glacier views · Private spa · 5 bedrooms
               </p>
 
               {/* Rating */}
               <div className="mt-2.5 flex items-center gap-1.5 text-xs text-navy/60">
-                <div className="flex items-center gap-0.5 text-navy/40">
+                <div className="flex items-center gap-0.5 text-[#02213B]">
                   {[...Array(5)].map((_, i) => (
                     <svg
                       key={i}
@@ -505,21 +554,21 @@ export default function WinterStays() {
                     </svg>
                   ))}
                 </div>
-                <span className="text-[11px] text-navy/50">(63 reviews)</span>
+                <span className="text-sm text-navy/50">(63 reviews)</span>
               </div>
 
               {/* Bottom row: Price & View Property Button */}
-              <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
+              <div className="mt-4 pt-4 flex items-center justify-between">
                 <div>
                   <span className="font-head text-lg sm:text-xl font-bold text-navy">
                     €899
                   </span>{' '}
-                  <span className="text-[11px] text-navy/50">/ night</span>
+                  <span className="text-xs text-[#7A8FA6]">/ night</span>
                 </div>
 
                 <Link
                   to="/stays/2"
-                  className="inline-flex items-center justify-center rounded-full bg-navy hover:bg-[#06182c] px-5 py-2 text-xs font-semibold text-white transition-all active:scale-95 shadow-sm"
+                  className="inline-flex items-center justify-center rounded-[12px] bg-navy hover:bg-[#06182c] px-5 py-2 text-sm font-semibold text-white transition-all active:scale-95"
                 >
                   View Property
                 </Link>
@@ -530,7 +579,7 @@ export default function WinterStays() {
       </div>
 
       {/* Browse by Type Swiper Slider Section */}
-      <section className="bg-mist py-12 md:py-16 overflow-hidden mt-12 sm:mt-16">
+      <section className="bg-[#EEF6FC] py-12 md:py-[110px] overflow-hidden mt-12 sm:mt-[110px]">
         <div className="mx-auto max-w-[1440px] px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
@@ -578,11 +627,11 @@ export default function WinterStays() {
                     alt={item.label}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 pointer-events-none"
                   />
-                  <div className="absolute bottom-3.5 left-4 text-white pointer-events-none">
-                    <p className="font-semibold text-sm sm:text-[15px] leading-tight text-white drop-shadow-sm">
+                  <div className="absolute bottom-4 left-4 text-white pointer-events-none">
+                    <p className="font-semibold text-sm sm:text-base leading-tight text-white drop-shadow-sm">
                       {item.label}
                     </p>
-                    <p className="text-[11px] sm:text-xs text-white/75 mt-0.5">
+                    <p className="text-[11px] sm:text-sm text-[#C8E6F5] mt-0.5">
                       {item.sub}
                     </p>
                   </div>
@@ -593,28 +642,480 @@ export default function WinterStays() {
         </div>
       </section>
 
-      <Section tone="dark">
-        <SectionHead dark eyebrow="Staff pick" title="This Week's Highlighted Stay" />
-        <Feature
-          tone="light"
-          name="highlight"
-          eyebrow="Glass Lodge · 5.0"
-          title="Aurora Glass Lodge"
-          text="Sleep under the northern lights in this architecturally stunning glass lodge."
-        >
-          <Button to="/stays/3">View Full Property</Button>
-        </Feature>
-      </Section>
+      {/* Find Stays by Location Section */}
+      <section className="py-12 md:py-16 bg-white">
+        <div className="mx-auto max-w-[1440px] px-4 sm:px-6">
+          {/* Header with Title & View Mode Toggle & Location Filters */}
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-6">
+            <div>
+              <p className="text-xs sm:text-[13px] font-semibold uppercase tracking-wider text-sky mb-1">
+                EXPLORE THE MAP
+              </p>
+              <h2 className="font-head text-2xl sm:text-3xl font-semibold text-navy tracking-tight">
+                Find Stays by Location
+              </h2>
+            </div>
 
-      <Section>
-        <SectionHead
-          eyebrow="Personalised for you"
-          title="Stays You May Like"
-          action="See all recommendations"
-          to="/stays"
-        />
-        <StayGrid items={s.slice(0, 3)} detailed />
-      </Section>
+            <div className="flex flex-wrap items-center gap-3">
+              {/* Location Filter Pills */}
+              <div className="inline-flex items-center gap-1 p-1 bg-slate-100 rounded-xl">
+                {['All', 'France', 'Sweden', 'Switzerland', 'Finland'].map((loc) => (
+                  <button
+                    key={loc}
+                    type="button"
+                    onClick={() => {
+                      setLocationFilter(loc);
+                      const matching = loc === 'All' ? locationStays : locationStays.filter((st) => st.country === loc);
+                      if (matching.length > 0 && !matching.some((st) => st.id === selectedStayId)) {
+                        setSelectedStayId(matching[0].id);
+                      }
+                    }}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
+                      locationFilter === loc
+                        ? 'bg-white text-navy shadow-sm'
+                        : 'text-slate-500 hover:text-navy'
+                    }`}
+                  >
+                    {loc === 'All' ? 'All Locations' : loc}
+                  </button>
+                ))}
+              </div>
+
+              {/* Map view / List view Toggle */}
+              <div className="inline-flex items-center rounded-xl border border-slate-200 bg-white p-1 shadow-sm">
+                <button
+                  type="button"
+                  onClick={() => setMapMode('map')}
+                  className={`inline-flex items-center gap-1.5 rounded-lg px-3.5 py-1.5 text-xs sm:text-sm font-semibold transition cursor-pointer ${
+                    mapMode === 'map'
+                      ? 'bg-[#071D36] text-white shadow-sm'
+                      : 'text-slate-600 hover:text-navy'
+                  }`}
+                >
+                  <Map className="w-3.5 h-3.5" />
+                  <span>Map view</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setMapMode('list')}
+                  className={`inline-flex items-center gap-1.5 rounded-lg px-3.5 py-1.5 text-xs sm:text-sm font-semibold transition cursor-pointer ${
+                    mapMode === 'list'
+                      ? 'bg-[#071D36] text-white shadow-sm'
+                      : 'text-slate-600 hover:text-navy'
+                  }`}
+                >
+                  <List className="w-3.5 h-3.5" />
+                  <span>List view</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {(() => {
+            const filtered = locationFilter === 'All'
+              ? locationStays
+              : locationStays.filter((item) => item.country === locationFilter);
+            const currentStay =
+              filtered.find((item) => item.id === selectedStayId) ||
+              filtered[0] ||
+              locationStays[0];
+
+            return mapMode === 'map' ? (
+              /* Map View: Left Stays List & Right Interactive Map */
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
+                {/* Left Side: Stays List */}
+                <div className="lg:col-span-5 flex flex-col">
+                  <p className="text-sm text-slate-400 font-normal mb-3.5">
+                    Showing {filtered.length} stays · Click stay to view on map
+                  </p>
+
+                  <div className="space-y-3.5">
+                    {filtered.map((item) => {
+                      const isSelected = currentStay.id === item.id;
+                      return (
+                        <div
+                          key={item.id}
+                          onClick={() => setSelectedStayId(item.id)}
+                          className={`group rounded-2xl border p-4 transition-all duration-300 flex items-center justify-between gap-3.5 cursor-pointer ${
+                            isSelected
+                              ? 'border-sky bg-sky/[0.04] ring-2 ring-sky/30 shadow-md'
+                              : 'border-slate-200/80 bg-white hover:border-slate-300 hover:shadow-md'
+                          }`}
+                        >
+                          <div className="flex items-center gap-3.5 min-w-0">
+                            {/* Thumbnail */}
+                            <div className="relative h-[108px] w-[108px] sm:h-22 sm:w-22 shrink-0 overflow-hidden rounded-xl bg-slate-100">
+                              <img
+                                src={`/images/${item.img}`}
+                                alt={item.name}
+                                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                              />
+                              {isSelected && (
+                                <span className="absolute bottom-1.5 left-1.5 rounded-full bg-sky text-white text-[9px] font-bold px-1.5 py-0.5 shadow-sm">
+                                  Active
+                                </span>
+                              )}
+                            </div>
+
+                            {/* Details */}
+                            <div className="min-w-0">
+                              <p className="text-sm font-medium text-[#7A8FA6]">
+                                {item.type}
+                              </p>
+                              <h3 className="font-head text-sm sm:text-base font-semibold text-[#0D1B2A] truncate">
+                                {item.name}
+                              </h3>
+                              <div className="mt-0.5 flex items-center gap-1 text-sm text-[#7A8FA6]">
+                                <MapPin className="w-3 h-3 text-[#7A8FA6] shrink-0" />
+                                <span className="truncate">{item.location}</span>
+                              </div>
+                              <p className="mt-3 text-sm text-[#0D1B2A] font-bold">
+                                €{item.price}{' '}
+                                <span className="text-xs font-normal text-[#7A8FA6]">/night</span>
+                              </p>
+                            </div>
+                          </div>
+
+                          {/* Right Side: Rating & View Link */}
+                          <div className="flex flex-col items-end justify-between self-stretch shrink-0 py-0.5">
+                            <span className="flex items-center gap-1 text-xs font-semibold text-navy">
+                              <Star className="w-3.5 h-3.5 text-navy/70" />
+                              {item.rating}
+                            </span>
+                            <Link
+                              to={`/stays/${item.id}`}
+                              onClick={(e) => e.stopPropagation()}
+                              className="text-sm font-semibold text-[#1A5F9E] underline transition"
+                            >
+                              View
+                            </Link>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Right Side: Map Container */}
+                <div className="lg:col-span-7">
+                  <div className="relative overflow-hidden rounded-[28px] sm:rounded-[32px] bg-slate-100 shadow-sm border border-slate-200/80 w-full h-[480px] sm:h-[520px] md:h-[703px]">
+                    {/* Floating location badge */}
+                    <div className="absolute top-4 left-4 z-10 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-md border border-slate-200/60 flex items-center gap-2 text-xs font-semibold text-navy">
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                      <span>{currentStay.name}</span>
+                      <span className="text-slate-400 font-normal">· {currentStay.location}</span>
+                    </div>
+
+                    <iframe
+                      key={currentStay.id}
+                      title="Find Stays Map"
+                      src={`https://maps.google.com/maps?q=${encodeURIComponent(currentStay.name + ', ' + currentStay.location)}&t=&z=12&ie=UTF8&iwloc=&output=embed`}
+                      className="w-full h-full border-0 rounded-[28px] sm:rounded-[32px]"
+                      loading="lazy"
+                      allowFullScreen
+                    />
+                  </div>
+                </div>
+              </div>
+            ) : (
+              /* List View: Full Width Stays Cards */
+              <div className="space-y-4">
+                <p className="text-sm text-slate-400 font-normal">
+                  Showing all {filtered.length} location stays
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                  {filtered.map((item) => (
+                    <div
+                      key={item.id}
+                      className="group rounded-[24px] border border-slate-200/80 bg-white p-4 hover:shadow-lg hover:border-slate-300 transition-all duration-300 flex flex-col justify-between"
+                    >
+                      <div>
+                        <div className="relative h-48 w-full overflow-hidden rounded-2xl bg-slate-100 mb-3.5">
+                          <img
+                            src={`/images/${item.img}`}
+                            alt={item.name}
+                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
+                          <span className="absolute top-2.5 left-2.5 rounded-full bg-[#071D36]/80 backdrop-blur-sm px-2.5 py-0.5 text-[11px] font-medium text-white">
+                            {item.type}
+                          </span>
+                          <span className="absolute top-2.5 right-2.5 rounded-full bg-white/95 px-2.5 py-0.5 text-xs font-semibold text-navy flex items-center gap-1 shadow-sm">
+                            <Star className="w-3 h-3 text-navy/70" />
+                            {item.rating}
+                          </span>
+                        </div>
+
+                        <h3 className="font-head text-base font-semibold text-navy">
+                          {item.name}
+                        </h3>
+                        <div className="mt-1 flex items-center gap-1 text-xs text-slate-400">
+                          <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                          <span>{item.location}</span>
+                        </div>
+                      </div>
+
+                      <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+                        <div>
+                          <span className="font-head text-lg font-bold text-navy">€{item.price}</span>
+                          <span className="text-xs text-slate-400"> /night</span>
+                        </div>
+                        <Link
+                          to={`/stays/${item.id}`}
+                          className="rounded-full bg-[#071D36] text-white px-4 py-1.5 text-xs font-semibold hover:bg-sky transition"
+                        >
+                          View stay
+                        </Link>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })()}
+        </div>
+      </section>
+
+      {/* This Week’s Highlighted Stay Section */}
+      <section className="bg-[#031B33] py-16 md:py-20 lg:py-24">
+        <div className="mx-auto max-w-[1440px] px-4 sm:px-6">
+          <div className="mb-6 sm:mb-8">
+            <p className="text-xs sm:text-[13px] font-semibold uppercase tracking-wider text-[#7EC8E3] mb-1.5">
+              STAFF PICK
+            </p>
+            <h2 className="font-head text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-tight">
+              This Week’s Highlighted Stay
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-stretch">
+            {/* Left: Image Container */}
+            <div className="lg:col-span-8">
+              <div className="relative overflow-hidden rounded-[28px] w-full h-[360px] sm:h-[440px] lg:h-full min-h-[380px]">
+                <img
+                  src="/images/highlight-stay.png"
+                  alt="Aurora Glass Lodge"
+                  className="w-full h-full object-cover transition-transform duration-700"
+                />
+              </div>
+            </div>
+
+            {/* Right: Floating White Card */}
+            <div className="lg:col-span-4 flex">
+              <div className="w-full rounded-[28px] bg-white p-6 sm:p-8 md:p-9 shadow-2xl flex flex-col justify-between">
+                <div>
+                  {/* Top: Category Badge & Star Rating */}
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="rounded-full bg-[#EBF5FF] px-3.5 py-1 text-xs font-semibold text-[#0284C7]">
+                      Glass Lodge
+                    </span>
+                    <div className="flex items-center gap-1.5 text-xs font-semibold text-[#071D36]">
+                      <Star className="w-3.5 h-3.5 text-[#071D36] fill-[#071D36]" />
+                      <span>5.0</span>
+                      <span className="text-slate-400 font-normal">(94)</span>
+                    </div>
+                  </div>
+
+                  {/* Title & Location */}
+                  <h3 className="font-head text-2xl sm:text-[30px] font-bold text-[#071D36] mt-4 leading-tight">
+                    Aurora Glass Lodge
+                  </h3>
+                  <div className="mt-1 flex items-center gap-1.5 text-sm text-[#7A8FA6]">
+                    <MapPin className="w-3.5 h-3.5 text-[#7A8FA6] shrink-0" />
+                    <span>Tromsø, Norway</span>
+                  </div>
+
+                  {/* 3 Stat Pill Blocks */}
+                  <div className="grid grid-cols-3 gap-2.5 mt-5">
+                    <div className="rounded-xl bg-[#EEF6FC] p-3 text-center flex flex-col items-center justify-center gap-1">
+                      <Users className="w-4 h-4 text-[#0D1B2A]" />
+                      <span className="text-xs font-semibold text-[#0D1B2A]">2 Guests</span>
+                    </div>
+                    <div className="rounded-xl bg-[#EEF6FC] p-3 text-center flex flex-col items-center justify-center gap-1">
+                      <Bed className="w-4 h-4 text-[#0D1B2A]" />
+                      <span className="text-xs font-semibold text-[#0D1B2A]">1 Bedroom</span>
+                    </div>
+                    <div className="rounded-xl bg-[#EEF6FC] p-3 text-center flex flex-col items-center justify-center gap-1">
+                      <Bath className="w-4 h-4 text-[#0D1B2A]" />
+                      <span className="text-xs font-semibold text-[#0D1B2A]">1 Bathroom</span>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="mt-5 text-xs sm:text-sm text-[#64748B] leading-relaxed">
+                    Sleep under the northern lights in this architecturally stunning glass lodge. The panoramic ceiling offers uninterrupted aurora views from your bed. Includes private sauna, guided aurora tours, and a private chef on request.
+                  </p>
+
+                  {/* Feature Checklist (2 columns) */}
+                  <div className="grid grid-cols-2 gap-y-2.5 gap-x-3 text-sm font-medium text-[#0D1B2A] mt-5">
+                    <div className="flex items-center gap-2">
+                      <Check className="w-3.5 h-3.5 text-[#071D36] shrink-0" />
+                      <span>Private sauna</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Check className="w-3.5 h-3.5 text-[#071D36] shrink-0" />
+                      <span>Aurora observatory</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Check className="w-3.5 h-3.5 text-[#071D36] shrink-0" />
+                      <span>Wi-Fi</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Check className="w-3.5 h-3.5 text-[#071D36] shrink-0" />
+                      <span>Breakfast included</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Check className="w-3.5 h-3.5 text-[#071D36] shrink-0" />
+                      <span>Hot tub</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Check className="w-3.5 h-3.5 text-[#071D36] shrink-0" />
+                      <span>Snowmobile tours</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer with Price & Button */}
+                <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between gap-4">
+                  <div>
+                    <div className="flex items-baseline gap-1">
+                      <span className="font-head text-2xl font-bold text-[#071D36]">€459</span>
+                      <span className="text-sm text-slate-400 font-normal">/ night</span>
+                    </div>
+                    <p className="text-sm text-slate-400 mt-0.5">
+                      €3,213 total · 7 nights
+                    </p>
+                  </div>
+                  <Link
+                    to="/stays/1"
+                    className="rounded-[18px] bg-[#071D36] text-white px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold hover:bg-sky transition whitespace-nowrap"
+                  >
+                    View Full Property
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Stays You May Like Section with Swiper Slider */}
+      <section className="py-12 md:py-16 bg-white overflow-hidden">
+        <div className="mx-auto max-w-[1440px] px-4 sm:px-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+            <div>
+              <p className="text-xs sm:text-[13px] font-semibold uppercase tracking-wider text-sky mb-1">
+                PERSONALISED FOR YOU
+              </p>
+              <h2 className="font-head text-2xl sm:text-3xl font-semibold text-navy tracking-tight">
+                Stays You May Like
+              </h2>
+            </div>
+            <Link
+              to="/stays"
+              className="inline-flex items-center justify-center rounded-full bg-[#071D36] hover:bg-[#051527] px-6 py-2.5 text-xs sm:text-sm font-semibold text-white transition-all active:scale-95 shadow-sm whitespace-nowrap self-start sm:self-auto"
+            >
+              See all recommendations
+            </Link>
+          </div>
+        </div>
+
+        {/* Swiper Slider: starts at left container edge and bleeds off to the right edge */}
+        <div
+          className="mt-6 sm:mt-8"
+          style={{
+            paddingLeft: 'max(1rem, calc((100vw - 1440px) / 2 + 1.5rem))',
+          }}
+        >
+          <Swiper
+            modules={[FreeMode, Mousewheel]}
+            slidesPerView="auto"
+            spaceBetween={20}
+            freeMode={true}
+            grabCursor={true}
+            mousewheel={{ forceToAxis: true }}
+            className="!overflow-visible"
+          >
+            {s.map((item) => (
+              <SwiperSlide key={item.id} className="!w-auto">
+                <div
+                  className="w-[280px] sm:w-[320px] md:w-[340px] lg:w-[380px]"
+                  style={{
+                    width: 'clamp(280px, calc((min(100vw, 1440px) - 108px) / 3.5), 382px)',
+                  }}
+                >
+                  <div className="group rounded-[24px] border border-slate-200/80 bg-white p-3.5 hover:shadow-lg transition-all duration-300 flex flex-col justify-between h-full">
+                    <div>
+                      {/* Card Image with Rating Badge */}
+                      <div className="relative h-48 sm:h-52 w-full overflow-hidden rounded-2xl bg-slate-100">
+                        <img
+                          src={img(item.img)}
+                          alt={item.name}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <span className="absolute right-2.5 top-2.5 rounded-full bg-white/95 px-2.5 py-0.5 text-xs font-semibold text-navy flex items-center gap-1 shadow-sm backdrop-blur-sm">
+                          <Star className="w-3 h-3 text-navy/70 fill-navy/70" />
+                          {item.rating}
+                        </span>
+                      </div>
+
+                      {/* Location & Title */}
+                      <div className="pt-3 px-1">
+                        <div className="flex items-center gap-1 text-xs text-slate-400">
+                          <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                          <span>{item.country}</span>
+                        </div>
+
+                        <h3 className="font-head text-base sm:text-lg font-semibold text-navy mt-1 truncate">
+                          {item.name}
+                        </h3>
+
+                        {/* Guests and Bedrooms */}
+                        <div className="flex items-center gap-3 text-xs text-slate-500 mt-1.5 font-body">
+                          <span className="flex items-center gap-1">
+                            <Users className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                            {item.guests} guests
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Bed className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                            {item.beds} beds
+                          </span>
+                        </div>
+
+                        {/* Tags */}
+                        <p className="mt-2 text-xs text-slate-400 truncate">
+                          {item.tags}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Bottom Row: Price & View Stay Button */}
+                    <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between px-1">
+                      <div>
+                        <div className="flex items-baseline gap-1">
+                          <span className="font-head text-lg sm:text-xl font-bold text-navy">
+                            €{item.price}
+                          </span>
+                          <span className="text-xs text-slate-400">/night</span>
+                        </div>
+                        <p className="text-sm text-slate-400 mt-0.5">
+                          €{item.price * 7} total · 7 nights
+                        </p>
+                      </div>
+
+                      <Link
+                        to={`/stays/${item.id}`}
+                        className="inline-flex items-center justify-center rounded-xl bg-[#071D36] hover:bg-sky px-4 py-2 text-xs font-semibold text-white transition-all active:scale-95 shadow-sm whitespace-nowrap"
+                      >
+                        View Stay
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      </section>
     </>
   );
 }

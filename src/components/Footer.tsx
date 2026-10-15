@@ -45,7 +45,7 @@ export default function Footer() {
         {/* Upper 50% split background in white to match page above */}
         <div className="absolute inset-x-0 top-0 h-1/2 bg-white pointer-events-none" />
 
-        <div className="relative z-10 mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="relative z-10 mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
           <div className="relative overflow-hidden rounded-[24px] sm:rounded-[32px] bg-slate-900 shadow-2xl">
             {/* Background Image of Cozy Winter Cabin */}
             <div
@@ -94,7 +94,7 @@ export default function Footer() {
       </div>
 
       {/* Main Footer Links & Info */}
-      <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 md:pt-14 pb-10 sm:pb-12">
+      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 md:pt-14 pb-10 sm:pb-12">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-[1.5fr_repeat(4,1fr)] lg:gap-8">
           {/* Brand Column */}
           <div className="sm:col-span-2 md:col-span-3 lg:col-span-1">
