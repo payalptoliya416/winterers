@@ -13,7 +13,7 @@ export default function HostBanner() {
       <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/95 md:via-navy/85 to-navy/50 md:to-transparent" />
 
       {/* Content Container */}
-      <div className="relative z-10 mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-24">
+      <div className="relative z-10 mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-24">
         <div className="max-w-xl">
           <h2 className="font-head text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-tight leading-tight">
             Own a Property Made for Winter?

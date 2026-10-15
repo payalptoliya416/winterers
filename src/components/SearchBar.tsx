@@ -36,29 +36,31 @@ export default function SearchBar({
   };
 
   /* shared field wrapper */
-  const fieldCls = 'flex flex-col justify-center px-4 py-[13px] rounded-[18px] bg-[#F4F5F5] transition cursor-text';
+  const fieldCls =
+    'flex flex-col justify-center px-4 py-2.5 rounded-[18px] bg-[#F4F5F7] transition cursor-text h-[68px]';
 
   return (
     <div
-      className={`rounded-2xl sm:rounded-[26px] bg-white p-5 text-navy border border-[#D0DCE8] ${className}`}
+      className={`rounded-2xl sm:rounded-[28px] bg-white p-4 sm:p-5 lg:p-6 text-navy shadow-[0_12px_45px_rgba(0,0,0,0.08)] border border-slate-100 ${className}`}
     >
-      <div className="flex flex-col gap-2 lg:flex-row lg:items-stretch lg:gap-[25px]">
-
-        {/* Where — takes remaining space */}
-        <label className={`${fieldCls} flex-1`}>
-          <span className="block text-sm font-bold text-navy mb-0.5">Where</span>
+      <div className="flex flex-col gap-2.5 lg:flex-row lg:items-center lg:gap-3">
+        {/* Where — takes wide space */}
+        <label className={`${fieldCls} flex-1 min-w-[200px]`}>
+          <span className="block text-[13px] font-bold text-[#15293E] mb-1 leading-none">Where</span>
           <input
             type="text"
             placeholder="Where do you want to go?"
             value={v.where}
             onChange={(e) => d(setField({ name: 'where', value: e.target.value }))}
-            className="w-full bg-transparent text-sm text-navy placeholder:text-navy/40 outline-none font-normal"
+            className="w-full bg-transparent text-sm text-[#15293E] placeholder:text-[#9AA8B8] outline-none font-normal leading-tight"
           />
         </label>
 
         {/* Check-in */}
-        <div className={`${fieldCls} [&_.react-datepicker-wrapper]:w-full [&_.react-datepicker__input-container_input]:w-full`}>
-          <span className="block text-sm font-bold text-navy mb-0.5">Check-in</span>
+        <div
+          className={`${fieldCls} w-full lg:w-[130px] lg:flex-none cursor-pointer [&_.react-datepicker-wrapper]:w-full [&_.react-datepicker__input-container]:w-full [&_.react-datepicker__input-container_input]:w-full`}
+        >
+          <span className="block text-[13px] font-bold text-[#15293E] mb-1 leading-none">Check-in</span>
           <DatePicker
             selected={checkIn}
             onChange={handleCheckIn}
@@ -68,14 +70,16 @@ export default function SearchBar({
             minDate={new Date()}
             placeholderText="Add date"
             dateFormat="dd MMM yyyy"
-            className="bg-transparent text-base text-navy placeholder:text-navy/40 outline-none font-normal cursor-pointer"
+            className="w-full bg-transparent text-sm text-[#15293E] placeholder:text-[#9AA8B8] outline-none font-normal cursor-pointer leading-tight"
             popperPlacement="bottom-start"
           />
         </div>
 
         {/* Check-out */}
-        <div className={`${fieldCls} [&_.react-datepicker-wrapper]:w-full [&_.react-datepicker__input-container_input]:w-full`}>
-          <span className="block text-sm font-bold text-navy mb-0.5">Check-out</span>
+        <div
+          className={`${fieldCls} w-full lg:w-[130px] lg:flex-none cursor-pointer [&_.react-datepicker-wrapper]:w-full [&_.react-datepicker__input-container]:w-full [&_.react-datepicker__input-container_input]:w-full`}
+        >
+          <span className="block text-[13px] font-bold text-[#15293E] mb-1 leading-none">Check-out</span>
           <DatePicker
             selected={checkOut}
             onChange={handleCheckOut}
@@ -85,28 +89,28 @@ export default function SearchBar({
             minDate={checkIn ?? new Date()}
             placeholderText="Add date"
             dateFormat="dd MMM yyyy"
-            className="bg-transparent text-base text-navy placeholder:text-navy/40 outline-none font-normal cursor-pointer"
+            className="w-full bg-transparent text-sm text-[#15293E] placeholder:text-[#9AA8B8] outline-none font-normal cursor-pointer leading-tight"
             popperPlacement="bottom-start"
           />
         </div>
 
         {/* Guests */}
-        <label className={fieldCls}>
-          <span className="block text-sm font-bold text-navy mb-0.5">Guests</span>
+        <label className={`${fieldCls} w-full lg:w-[130px] lg:flex-none`}>
+          <span className="block text-[13px] font-bold text-[#15293E] mb-1 leading-none">Guests</span>
           <input
             type="text"
             placeholder="Add guests"
             value={v.guests}
             onChange={(e) => d(setField({ name: 'guests', value: e.target.value }))}
-            className="w-full bg-transparent text-sm text-navy placeholder:text-navy/40 outline-none font-normal"
+            className="w-full bg-transparent text-sm text-[#15293E] placeholder:text-[#9AA8B8] outline-none font-normal leading-tight"
           />
         </label>
 
         {/* Search Button */}
-        <div className="flex items-center">
+        <div className="w-full lg:w-auto lg:flex-none">
           <button
             type="button"
-            className="w-full lg:w-auto inline-flex items-center justify-center rounded-[18px] bg-navy hover:bg-[#0a355c] px-4 py-5 font-semibold text-white transition whitespace-nowrap text-sm"
+            className="w-full lg:w-auto h-[68px] inline-flex items-center justify-center rounded-[18px] bg-[#071D36] hover:bg-[#051527] px-8 font-medium text-white transition whitespace-nowrap text-sm tracking-wide shadow-sm"
           >
             {cta}
           </button>
@@ -115,13 +119,13 @@ export default function SearchBar({
 
       {/* Suggested Chips */}
       {chips && (
-        <div className="mt-3 flex flex-wrap items-center justify-center gap-2 border-t border-slate-100 pt-3">
+        <div className="mt-4 pt-4 border-t border-[#EDF1F5] flex flex-wrap items-center justify-center gap-2.5">
           {['The Alps', 'Norway', 'Finland', 'Iceland', 'Switzerland'].map((c) => (
             <button
               key={c}
               type="button"
               onClick={() => d(setField({ name: 'where', value: c }))}
-              className="rounded-full border border-slate-200/90 bg-white px-4 py-1 text-xs text-navy/70 hover:border-sky hover:text-sky hover:bg-[#F4F7FB] transition font-medium"
+              className="rounded-full border border-[#D5DEE7] bg-white px-4 py-1.5 text-xs text-[#4A5D73] hover:border-[#071D36] hover:text-[#071D36] hover:bg-[#F8FAFC] transition font-medium"
             >
               {c}
             </button>

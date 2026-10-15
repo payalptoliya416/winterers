@@ -29,7 +29,7 @@ export default function SectionHead({
         <h2 className="text-2xl font-medium md:text-4xl">{title}</h2>
         {sub && (
           <p
-            className={`mt-5 max-w-xl text-base ${dark ? "text-[#F0F4F8]" : "text-navy/50"}`}
+            className={`mt-5 text-base ${dark ? "text-[#F0F4F8]" : "text-navy/50"}`}
           >
             {sub}
           </p>

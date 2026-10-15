@@ -70,7 +70,7 @@ export default function Hero({
       </div>
 
       {search && (
-        <div className="absolute inset-x-0 bottom-0 translate-y-1/2 z-20">
+        <div className="absolute inset-x-0 bottom-0 translate-y-1/2 z-20 px-4 sm:px-6">
           <div className="mx-auto max-w-[1140px]">{search}</div>
         </div>
       )}
