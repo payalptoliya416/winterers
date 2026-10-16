@@ -21,8 +21,9 @@ export default function DestinationsPage() {
         }
         text="From snow-covered alpine villages to remote Arctic landscapes, discover destinations made for unforgettable winter escapes."
       >
-        <Button variant="light" to="/destinations" pill>Explore Destinations</Button>
-        <Button variant="ghost" to="/stays" pill>View Winter Stays</Button>
+        <Button variant="light" size="lg" to="/stays" pill>
+          View Winter Stays
+        </Button>
       </Hero>
 
       <Destinations />

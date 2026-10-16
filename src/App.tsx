@@ -18,6 +18,7 @@ export default function App() {
         <Route path="/experiences" element={<Experiences />} />
         <Route path="/offers" element={<Offers />} />
         <Route path="/list-property" element={<ListProperty />} />
+        <Route path="*" element={<Home />} />
       </Route>
     </Routes>
   );

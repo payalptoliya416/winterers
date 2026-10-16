@@ -71,7 +71,7 @@ export default function ListProperty() {
   return (
     <>
       <Hero
-        name="hero-list"
+        name="l-host.png"
         eyebrow="For property owners"
         title="Turn Your Property Into a"
         accent="Winter Escape"

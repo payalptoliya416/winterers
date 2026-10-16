@@ -2,6 +2,7 @@ import type { Stay } from "./types";
 // Put your images in /public/images and update names here. Fallback colour shows if missing.
 export const img = (n: string) => n.includes('.') ? `/images/${n}` : `/images/${n}.jpg`;
 export const nav: string[][] = [
+  ["Home", "/"],
   ["Destinations", "/destinations"],
   ["Winter Stays", "/stays"],
   ["Experiences", "/experiences"],

@@ -39,10 +39,7 @@ export default function Offers() {
           </>
         }
         text="Discover exclusive winter stays, seasonal savings and limited-time offers curated for your next snowy escape."
-      >
-        <Button variant="light" pill>Explore Winter Deals</Button>
-        <Button variant="ghost" to="/stays" pill>Browse Winter Stays</Button>
-      </Hero>
+      />
 
       <FeaturedStays />
       <Deals action="View All Winter Offers" />
