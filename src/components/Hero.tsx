@@ -40,7 +40,7 @@ export default function Hero({
           )}
 
           {typeof title === 'string' ? (
-            <h1 className="text-4xl font-semibold leading-[1.12] sm:text-5xl md:text-6xl lg:text-[64px] tracking-tight text-white">
+            <h1 className="text-4xl font-semibold leading-[1.12] sm:text-5xl md:text-6xl lg:text-[80px] text-white">
               {title}
               {accent && (
                 <>
@@ -50,13 +50,13 @@ export default function Hero({
               )}
             </h1>
           ) : (
-            <h1 className="text-4xl font-semibold leading-[1.12] sm:text-5xl md:text-6xl lg:text-[64px] tracking-tight text-white">
+            <h1 className="text-4xl font-semibold leading-[1.12] sm:text-5xl md:text-6xl lg:text-[80px] text-white">
               {title}
             </h1>
           )}
 
           {text && (
-            <p className="mx-auto mt-4 sm:mt-5 max-w-2xl text-xs sm:text-sm md:text-base leading-relaxed text-white/80">
+            <p className="mx-auto mt-4 sm:mt-5 max-w-2xl text-xs sm:text-sm md:text-lg leading-relaxed text-white/80">
               {text}
             </p>
           )}
