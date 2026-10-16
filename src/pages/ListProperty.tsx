@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { ChevronDown, Globe, Camera, SlidersHorizontal, Headphones, Check, MapPin, LayoutGrid, CircleCheck, Users, TrendingUp, Calendar, ChartColumnIncreasing, ShieldCheck, Lock } from 'lucide-react';
+import { ChevronDown, Globe, Camera, SlidersHorizontal, Headphones, Check, MapPin, LayoutGrid, CircleCheck, Users, TrendingUp, Calendar, ChartColumnIncreasing, ShieldCheck, Lock, Image, Target, Settings, Plus, Minus } from 'lucide-react';
 import Hero from '../components/Hero';
 import Button from '../components/Button';
 import Section from '../components/Section';
@@ -95,15 +95,44 @@ const why = [
 ];
 
 const faq = [
-  ['How much does it cost to list my property?', 'Listing is free. We take a small commission only when a booking is made.'],
-  ['What properties can I list?', 'Mountain cabins, luxury chalets, forest retreats, lakeside lodges and remote winter homes.'],
-  ['How does the approval process work?', 'Our team reviews within 2–3 business days.'],
-  ['How do bookings and payments work?', 'Secure payouts after each stay.'],
-  ['Can I manage my own availability?', 'Yes, from your dashboard.'],
+  [
+    'How much does it cost to list my property?',
+    'Listing your property on Winterers is free. We take a small commission only when a booking is made.',
+  ],
+  [
+    'What properties can I list?',
+    'We welcome mountain cabins, luxury chalets, forest retreats, lakeside lodges, ski-in/ski-out properties and remote winter homes.',
+  ],
+  [
+    'How does the approval process work?',
+    'After you submit your listing, our team reviews it within 2–3 business days to ensure it meets our quality standards.',
+  ],
+  [
+    'How do bookings and payments work?',
+    'Payments are processed securely via our platform with automatic payouts after each stay.',
+  ],
+  [
+    'Can I manage my own availability?',
+    'Yes, you have full control over your calendar, pricing, and availability through your host dashboard.',
+  ],
+  [
+    'Can I update my property after publishing?',
+    'Yes, you can edit photographs, amenities, pricing, and house rules at any time.',
+  ],
+  [
+    'How does Winterers help promote my property?',
+    'We feature curated listings across targeted winter travel marketing campaigns, social media, and seasonal collections.',
+  ],
 ];
 
 export default function ListProperty() {
-  const [open, setOpen] = useState(0);
+  const [openFaqs, setOpenFaqs] = useState<number[]>([0, 1, 2]);
+
+  const toggleFaq = (idx: number) => {
+    setOpenFaqs((prev) =>
+      prev.includes(idx) ? prev.filter((i) => i !== idx) : [...prev, idx]
+    );
+  };
   const [country, setCountry] = useState('');
   const [agreed, setAgreed] = useState(false);
   const [selectedCountryCode, setSelectedCountryCode] = useState('+00');
@@ -384,7 +413,7 @@ export default function ListProperty() {
         </div>
       </Section>
 
-      <Section tone="light" className="!py-16 md:!py-24 !bg-[#F9F9F9]">
+      <Section tone="light" className="!py-16 md:!py-[110px] !bg-[#F9F9F9]">
         <div className="text-center mb-12 sm:mb-16">
           <p className="section-eyebrow mb-2">
             WHY LIST WITH US
@@ -427,7 +456,7 @@ export default function ListProperty() {
       </Section>
 
       <Section tone="dark" className="!py-16 md:!py-24 !bg-[#03192E]">
-        <div className="text-center mb-12 sm:mb-16">
+        <div className="text-center mb-12 sm:mb-10">
           <p className="text-[#5CBDE5] text-xs sm:text-[13px] font-semibold tracking-[0.16em] uppercase mb-2 sm:mb-3">
             THE PROCESS
           </p>
@@ -449,17 +478,17 @@ export default function ListProperty() {
                 </div>
 
                 {/* Step Number */}
-                <span className="font-head text-xs sm:text-sm font-semibold text-[#5CBDE5] mt-4 sm:mt-5 tracking-wide">
+                <span className="font-body text-xs sm:text-sm font-semibold text-[#5CBDE5] mt-4 sm:mt-[15px] tracking-wide">
                   {num}
                 </span>
 
                 {/* Step Title */}
-                <h3 className="font-head text-sm sm:text-base font-semibold text-white mt-1.5 sm:mt-2">
+                <h3 className="font-head text-sm sm:text-base font-semibold text-white mt-1.5 sm:mt-[15px]">
                   {title}
                 </h3>
 
                 {/* Step Description */}
-                <p className="mt-1.5 sm:mt-2 text-xs sm:text-[13px] text-white/65 leading-relaxed max-w-[215px]">
+                <p className="mt-1.5 sm:mt-[15px] text-xs sm:text-sm text-white leading-relaxed max-w-[270px]">
                   {text}
                 </p>
               </div>
@@ -468,13 +497,80 @@ export default function ListProperty() {
         </div>
       </Section>
 
+      {/* Built For Winter Hosts: Your Property Deserves More Than a Listing */}
+      <Section tone="light" className="!py-12 md:!py-[110px] !bg-white">
+        <div className="overflow-hidden rounded-[24px] bg-[#EEF5FB] grid grid-cols-1 lg:grid-cols-12 shadow-sm border border-[#E2ECF5]">
+          {/* Left: Fireplace Image */}
+          <div className="lg:col-span-5 relative">
+            <img
+              src="/images/deserve.png"
+              alt="Cozy Winter Cabin Fireplace"
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          {/* Right: Content */}
+          <div className="lg:col-span-7 p-6 sm:p-10 md:p-12 lg:p-[50px] flex flex-col justify-center">
+            <p className="section-eyebrow">
+              BUILT FOR WINTER HOSTS
+            </p>
+            <h2 className="section-title">
+              Your Property Deserves More Than a Listing
+            </h2>
+            <p className="mt-3.5 sm:mt-5 text-xs sm:text-base text-[#7A8FA6] leading-relaxed max-w-xl">
+              Winterers is designed to help exceptional properties stand out. From the way your home is presented to the way guests discover and book it, every detail is designed around the winter travel experience.
+            </p>
+
+            {/* 3 Features / Points */}
+            <div className="mt-6 sm:mt-7 flex flex-col gap-[15px]">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                <div className="flex items-center gap-3 sm:gap-[10px]">
+                  <div className="w-[30px] h-[30px] rounded-[8px] bg-white flex items-center justify-center shrink-0 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+                    <Image className="w-[18px] h-[18px] text-[#0A1628]" strokeWidth={1.75} />
+                  </div>
+                  <span className="text-xs sm:text-sm text-[#0A1628]">
+                    Premium property presentation
+                  </span>
+                </div>
+                <div className="flex items-center gap-3 sm:gap-[10px]">
+                  <div className="w-[30px] h-[30px] rounded-[8px] bg-white flex items-center justify-center shrink-0 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+                    <Target className="w-[18px] h-[18px] text-[#0A1628]" strokeWidth={1.75} />
+                  </div>
+                  <span className="text-xs sm:text-sm text-[#0A1628]">
+                    Targeted winter travellers
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-center gap-3 sm:gap-[10px]">
+                <div className="w-[30px] h-[30px] rounded-[8px] bg-white flex items-center justify-center shrink-0 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+                  <Settings className="w-[14px] h-[14px] text-[#0A1628]" strokeWidth={1.75} />
+                </div>
+                <span className="text-xs sm:text-sm text-[#0A1628]">
+                  Simple host management
+                </span>
+              </div>
+            </div>
+
+            {/* Action Button */}
+            <div className="mt-5">
+              <button
+                type="button"
+                className="inline-flex items-center justify-center rounded-[12px] sm:rounded-[14px] bg-[#071D36] hover:bg-[#051527] px-7 py-3.5 text-xs sm:text-sm font-semibold text-white transition-all active:scale-95 shadow-sm"
+              >
+                Start Your Listing
+              </button>
+            </div>
+          </div>
+        </div>
+      </Section>
+
       {/* Platform Features: More Than Visibility */}
-      <Section tone="light" className="!py-16 md:!py-24 !bg-white">
+      <Section tone="light" className="!pb-16 md:!pb-[110px] !bg-white !pt-0">
         <div className="text-center mb-10 sm:mb-14">
-          <p className="text-[#5CBDE5] text-xs sm:text-[13px] font-semibold tracking-[0.16em] uppercase mb-2 sm:mb-2.5">
+          <p className="section-eyebrow">
             PLATFORM FEATURES
           </p>
-          <h2 className="text-2xl sm:text-3xl md:text-[36px] lg:text-[40px] font-semibold text-[#06243A] tracking-tight">
+          <h2 className="section-title">
             More Than Visibility
           </h2>
           <p className="mt-2 text-xs sm:text-sm text-[#7A8FA6]">
@@ -482,27 +578,26 @@ export default function ListProperty() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
           {/* Card 1: Premium Exposure (Left column, full height) */}
-          <div className="relative overflow-hidden rounded-[24px] lg:col-span-5 min-h-[460px] sm:min-h-[500px] lg:min-h-[520px] flex flex-col justify-end p-6 sm:p-8 group shadow-sm">
+          <div className="relative overflow-hidden rounded-[14px] lg:col-span-5 flex flex-col justify-end p-6 sm:p-[30px] group">
             <img
-              src="/images/deal1.png"
+              src="/images/visibility.png"
               alt="Premium Exposure - Winter Cabin"
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#041525]/95 via-[#041525]/40 to-transparent pointer-events-none" />
 
             <div className="relative z-10">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/15 w-fit mb-3">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[14px] bg-[#5AB4D433] w-fit mb-3">
                 <TrendingUp className="w-3.5 h-3.5 text-[#5CBDE5]" />
-                <span className="text-[10px] font-semibold text-[#5CBDE5] uppercase tracking-wider">
+                <span className="text-[11px] font-semibold text-[#5AB4D4] uppercase tracking-wider">
                   FEATURE 01
                 </span>
               </div>
-              <h3 className="text-2xl sm:text-[28px] font-bold text-white leading-tight">
+              <h3 className="text-2xl sm:text-[24px] font-bold text-white leading-tight">
                 Premium Exposure
               </h3>
-              <p className="mt-2 text-xs sm:text-sm text-white/80 leading-relaxed max-w-sm">
+              <p className="mt-[5px] text-xs sm:text-sm text-[#FFFFFFB2] leading-relaxed">
                 Get featured in curated winter collections and targeted search results.
               </p>
             </div>
@@ -511,27 +606,27 @@ export default function ListProperty() {
           {/* Right Bento Grid: 2 Rows of 2 Cards */}
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-12 gap-5 sm:gap-6">
             {/* Card 2: Booking Management */}
-            <div className="rounded-[24px] bg-[#071D33] border border-[#0D2B4A] p-6 sm:p-7 flex flex-col justify-between sm:col-span-7 shadow-sm">
+            <div className="rounded-[14px] bg-[#06243A] p-6 sm:p-[30px] flex flex-col justify-between sm:col-span-7 shadow-sm">
               <div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/10 w-fit mb-4">
-                  <Calendar className="w-3.5 h-3.5 text-[#7EC8E3]" />
-                  <span className="text-[10px] font-semibold text-[#94A3B8] uppercase tracking-wider">
+                <div className="inline-flex items-center gap-[11px] px-[11px] py-[10px] rounded-[10px] bg-[#FFFFFF1A] w-fit mb-[22px]">
+                  <Calendar className="w-3.5 h-3.5 text-[#FFFFFF]" />
+                  <span className="text-xs font-semibold text-[#FFFFFF99] uppercase tracking-wider">
                     FEATURE 02
                   </span>
                 </div>
-                <h3 className="text-lg sm:text-xl font-bold text-white mb-5">
+                <h3 className="text-sm sm:text-base font-bold text-white mb-[22px] font-body">
                   Booking Management
                 </h3>
               </div>
 
-              <div className="flex flex-col gap-2.5">
+              <div className="flex flex-col gap-2">
                 {/* Booking Item 1 */}
-                <div className="flex items-center justify-between p-3.5 rounded-2xl bg-[#0B2540] border border-white/5">
+                <div className="flex items-center justify-between py-2 px-5 rounded-[10px] bg-[#FFFFFF0D]">
                   <div>
-                    <p className="text-xs sm:text-sm font-semibold text-white">Erik & Anna</p>
-                    <p className="text-[11px] text-[#7A8FA6] mt-0.5">Jan 12 – Jan 17</p>
+                    <p className="text-xs font-semibold text-white">Erik & Anna</p>
+                    <p className="text-[11px] text-[#FFFFFF66] mt-0.5">Jan 12 – Jan 17</p>
                   </div>
-                  <span className="px-3 py-1 rounded-full text-[11px] font-medium bg-[#0E355A] text-[#5CBDE5] border border-[#5CBDE5]/20">
+                  <span className="px-3 py-[2px] rounded-full text-[11px] font-medium bg-[#5AB4D433] text-[#5AB4D4]">
                     Confirmed
                   </span>
                 </div>
@@ -550,15 +645,15 @@ export default function ListProperty() {
             </div>
 
             {/* Card 3: Availability Control */}
-            <div className="rounded-[24px] bg-[#EBF3FA] border border-[#D9E6F2] p-6 sm:p-7 flex flex-col justify-between sm:col-span-5 shadow-sm">
+            <div className="rounded-[14px] bg-[#E8F3F9] border border-[#D4DDE6] p-6 sm:p-[30px] flex flex-col justify-between sm:col-span-5">
               <div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#DCE8F3] border border-[#CBDDEB] w-fit mb-4">
+                <div className="inline-flex items-center gap-1.5 px-3 py-[10px] rounded-[10px] bg-[#06243A14] w-fit mb-4">
                   <Calendar className="w-3.5 h-3.5 text-[#637C95]" />
-                  <span className="text-[10px] font-semibold text-[#637C95] uppercase tracking-wider">
+                  <span className="text-xs font-semibold text-[#6B809099] uppercase tracking-wider">
                     FEATURE 02
                   </span>
                 </div>
-                <h3 className="text-lg sm:text-xl font-bold text-[#06243A] mb-4">
+                <h3 className="text-sm sm:text-base font-bold text-[#06243A] mb-[22px] font-body">
                   Availability Control
                 </h3>
               </div>
@@ -577,7 +672,7 @@ export default function ListProperty() {
                 <div className="grid grid-cols-7 text-center text-xs gap-y-2 items-center">
                   <span className="text-[#64748B]">1</span>
                   <span className="text-[#64748B]">2</span>
-                  <span className="w-7 h-7 mx-auto flex items-center justify-center rounded-[6px] bg-[#4CA8D8] text-white font-semibold text-xs shadow-sm">
+                  <span className="w-[40px] h-[23px] mx-auto flex items-center justify-center rounded-[6px] bg-[#5AB4D4] text-white font-semibold text-xs shadow-sm">
                     3
                   </span>
                   <span className="text-[#64748B]">4</span>
@@ -585,13 +680,13 @@ export default function ListProperty() {
                   <span className="text-[#64748B]">6</span>
                   <span className="text-[#64748B]">7</span>
 
-                  <span className="w-7 h-7 mx-auto flex items-center justify-center rounded-[6px] bg-[#D4E4F0] text-[#06243A] font-semibold text-xs">
+                  <span className="w-[40px] h-[23px] mx-auto flex items-center justify-center rounded-[6px] bg-[#D4E4F0] text-[#06243A] font-semibold text-xs">
                     8
                   </span>
                   <span className="text-[#64748B]">9</span>
                   <span className="text-[#64748B]">10</span>
                   <span className="text-[#64748B]">11</span>
-                  <span className="w-7 h-7 mx-auto flex items-center justify-center rounded-[6px] bg-[#4CA8D8] text-white font-semibold text-xs shadow-sm">
+                  <span className="w-[40px] h-[23px] mx-auto flex items-center justify-center rounded-[6px] bg-[#5AB4D4] text-white font-semibold text-xs shadow-sm">
                     12
                   </span>
                   <span className="text-[#64748B]">13</span>
@@ -609,56 +704,56 @@ export default function ListProperty() {
             </div>
 
             {/* Card 4: Host Insights */}
-            <div className="rounded-[24px] bg-[#EBF3FA] border border-[#D9E6F2] p-6 sm:p-7 flex flex-col justify-between sm:col-span-7 shadow-sm">
+            <div className="rounded-[14px] bg-[#E8F3F9] border border-[#D4DDE6] p-6 sm:p-[30px] flex flex-col justify-between sm:col-span-7">
               <div>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#DCE8F3] border border-[#CBDDEB] w-fit mb-4">
+                <div className="inline-flex items-center gap-1.5 px-3 py-[10px] rounded-[10px] bg-[#06243A14] w-fit mb-[14px]">
                   <ChartColumnIncreasing className="w-3.5 h-3.5 text-[#637C95]" />
                   <span className="text-[10px] font-semibold text-[#637C95] uppercase tracking-wider">
                     FEATURE 04
                   </span>
                 </div>
-                <h3 className="text-lg sm:text-xl font-bold text-[#06243A] mb-4">
+                <h3 className="text-sm sm:text-base font-medium text-[#06243A] mb-[14px]">
                   Host Insights
                 </h3>
               </div>
 
               {/* 3 Stats Side-by-Side */}
               <div className="grid grid-cols-3 gap-2 sm:gap-3">
-                <div className="bg-white rounded-2xl p-3 sm:p-4 text-center border border-[#E2ECF5] shadow-xs">
-                  <p className="font-head text-base sm:text-lg font-bold text-[#06243A]">1,248</p>
-                  <p className="text-[11px] text-[#7A8FA6] mt-0.5">Views</p>
-                  <p className="text-[11px] font-semibold text-[#3B9DD0] mt-1">+12%</p>
+                <div className="bg-white rounded-[14px] p-[13px] text-center border border-[#D4DDE6]">
+                  <p className="font-body text-base font-bold text-[#06243A]">1,248</p>
+                  <p className="text-[11px] text-[#6B8090] mt-1">Views</p>
+                  <p className="text-[11px] font-semibold text-[#5AB4D4] mt-1">+12%</p>
                 </div>
-                <div className="bg-white rounded-2xl p-3 sm:p-4 text-center border border-[#E2ECF5] shadow-xs">
-                  <p className="font-head text-base sm:text-lg font-bold text-[#06243A]">34</p>
-                  <p className="text-[11px] text-[#7A8FA6] mt-0.5">Bookings</p>
-                  <p className="text-[11px] font-semibold text-[#3B9DD0] mt-1">+8%</p>
+                <div className="bg-white rounded-[14px] p-[13px] text-center border border-[#D4DDE6]">
+                  <p className="font-body text-base font-bold text-[#06243A]">34</p>
+                  <p className="text-[11px] text-[#6B8090] mt-1">Bookings</p>
+                  <p className="text-[11px] font-semibold text-[#5AB4D4] mt-1">+8%</p>
                 </div>
-                <div className="bg-white rounded-2xl p-3 sm:p-4 text-center border border-[#E2ECF5] shadow-xs">
-                  <p className="font-head text-base sm:text-lg font-bold text-[#06243A]">€6.2k</p>
-                  <p className="text-[11px] text-[#7A8FA6] mt-0.5">Revenue</p>
-                  <p className="text-[11px] font-semibold text-[#3B9DD0] mt-1">+19%</p>
+                <div className="bg-white rounded-[14px] p-[13px] text-center border border-[#D4DDE6]">
+                  <p className="font-body text-base font-bold text-[#06243A]">€6.2k</p>
+                  <p className="text-[11px] text-[#6B8090] mt-1">Revenue</p>
+                  <p className="text-[11px] font-semibold text-[#5AB4D4] mt-1">+19%</p>
                 </div>
               </div>
             </div>
 
             {/* Card 5: Secure Payments */}
-            <div className="rounded-[24px] bg-[#071D33] border border-[#0D2B4A] p-6 sm:p-7 flex flex-col justify-between sm:col-span-5 shadow-sm">
+            <div className="rounded-[14px] bg-[#08283F] p-6 sm:p-[30px] flex flex-col justify-between sm:col-span-5 shadow-sm">
               <div>
-                <div className="w-10 h-10 rounded-full bg-[#0D2B47] border border-white/10 flex items-center justify-center text-[#5CBDE5] mb-4">
-                  <ShieldCheck className="w-5 h-5 text-[#5CBDE5]" />
+                <div className="w-10 h-10 rounded-full bg-[#5AB4D41A] border border-[#5AB4D41A] flex items-center justify-center text-[#5CBDE5] mb-[13px]">
+                  <ShieldCheck className="w-5 h-5 text-[#5AB4D4]" />
                 </div>
-                <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
+                <h3 className="text-sm sm:text-base font-medium text-white mb-2">
                   Secure Payments
                 </h3>
-                <p className="text-xs sm:text-[13px] text-[#7A8FA6] leading-relaxed">
+                <p className="text-xs text-[#FFFFFF80] leading-relaxed">
                   Protected transactions and automatic payouts after each stay.
                 </p>
               </div>
 
-              <div className="mt-5 flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#0B2540] border border-white/5">
-                <Lock className="w-3.5 h-3.5 text-[#5CBDE5] shrink-0" />
-                <span className="text-[11px] text-[#8EA3BA] font-medium truncate">
+              <div className="mt-[13px] flex items-center gap-2 px-3 py-2 rounded-[14px] bg-[#FFFFFF0D]">
+                <Lock className="w-3.5 h-3.5 text-[#5AB4D4] shrink-0" />
+                <span className="text-[11px] text-[#5AB4D4] font-medium truncate">
                   Bank-level encryption
                 </span>
               </div>
@@ -667,37 +762,120 @@ export default function ListProperty() {
         </div>
       </Section>
 
-      <Section tone="dark">
-        <Feature
-          tone="dark"
-          name="l-host"
-          eyebrow="Host success story"
-          title='"FROM HIDDEN CABIN TO WINTER FAVOURITE"'
-          text="Winterers helped us present our cabin in a completely different way."
-        >
-          <b className="mr-8 text-sky">
-            +42%{' '}
-            <span className="text-[10px] text-white/50">Booking enquiries</span>
-          </b>
-          <b>4.9/5</b>
-        </Feature>
+      {/* Host Success Story */}
+      <Section tone="dark" className="!py-16 md:!py-24 !bg-[#031B30]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          {/* Left Column: Glowing Cabin Image */}
+          <div className="lg:col-span-6 w-full">
+            <div className="overflow-hidden rounded-[24px] sm:rounded-[28px] shadow-2xl relative w-full h-[320px] sm:h-[400px] lg:h-[460px]">
+              <img
+                src="/images/deal1.png"
+                alt="From Hidden Cabin to Winter Favourite"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+
+          {/* Right Column: Story & Stats */}
+          <div className="lg:col-span-6 flex flex-col justify-center">
+            <p className="text-[#5CBDE5] text-xs sm:text-[13px] font-semibold tracking-[0.16em] uppercase mb-2.5">
+              HOST SUCCESS STORY
+            </p>
+
+            <h2 className="text-2xl sm:text-3xl md:text-[34px] lg:text-[36px] font-bold text-white tracking-tight uppercase leading-snug">
+              ”FROM HIDDEN CABIN TO WINTER FAVOURITE”
+            </h2>
+
+            {/* Quote with sky blue vertical accent border */}
+            <div className="border-l-2 border-[#5CBDE5] pl-4 sm:pl-5 my-6 sm:my-7">
+              <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+                “Winterers helped us present our cabin in a completely different way. Within weeks, we started attracting guests who were specifically looking for the kind of experience we offer.”
+              </p>
+            </div>
+
+            {/* Host Avatar & Info */}
+            <div className="flex items-center gap-3.5 mb-6 sm:mb-8">
+              <img
+                src="/images/host-anna.jpg"
+                alt="Anna & Erik"
+                className="w-12 h-12 rounded-full object-cover border border-white/20 shadow-sm shrink-0"
+              />
+              <div>
+                <h4 className="text-sm sm:text-base font-semibold text-white leading-tight">
+                  Anna &amp; Erik
+                </h4>
+                <p className="text-xs text-[#7A8FA6] mt-0.5">
+                  Cabin Host · Northern Norway
+                </p>
+              </div>
+            </div>
+
+            {/* Horizontal separator line */}
+            <div className="border-t border-white/10 pt-6 sm:pt-7">
+              <div className="flex items-center gap-10 sm:gap-14">
+                <div>
+                  <span className="font-head text-2xl sm:text-3xl font-bold text-[#5CBDE5] block leading-none">
+                    +42%
+                  </span>
+                  <span className="text-xs sm:text-[13px] text-white/60 mt-1.5 block">
+                    Booking enquiries
+                  </span>
+                </div>
+                <div>
+                  <span className="font-head text-2xl sm:text-3xl font-bold text-white block leading-none">
+                    4.9/5
+                  </span>
+                  <span className="text-xs sm:text-[13px] text-white/60 mt-1.5 block">
+                    Guest rating
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </Section>
 
-      <Section>
-        <SectionHead center title="Everything You Need to Host With Confidence" eyebrow="Why list with us" />
-        <div className="mx-auto max-w-2xl divide-y divide-navy/10">
-          {faq.map(([q, a], i) => (
-            <div key={q} className="py-4">
-              <button
-                onClick={() => setOpen(open === i ? -1 : i)}
-                className="flex w-full justify-between text-left text-xs font-medium"
-              >
-                <span>{q}</span>
-                <span>{open === i ? '−' : '+'}</span>
-              </button>
-              {open === i && <p className="mt-2 text-[10px] text-navy/50">{a}</p>}
-            </div>
-          ))}
+      {/* FAQ Section */}
+      <Section tone="light" className="!py-16 md:!py-24 !bg-white">
+        <div className="text-center mb-10 sm:mb-14">
+          <p className="text-[#5CBDE5] text-xs sm:text-[13px] font-semibold tracking-[0.16em] uppercase mb-2 sm:mb-2.5">
+            WHY LIST WITH US
+          </p>
+          <h2 className="text-2xl sm:text-3xl lg:text-[36px] font-semibold text-[#071E36] tracking-tight">
+            Everything You Need to Host With Confidence
+          </h2>
+        </div>
+
+        <div className="mx-auto max-w-4xl border-t border-[#E2E8F0] divide-y divide-[#E2E8F0]">
+          {faq.map(([q, a], i) => {
+            const isOpen = openFaqs.includes(i);
+            return (
+              <div key={q} className="transition-colors">
+                <button
+                  type="button"
+                  onClick={() => toggleFaq(i)}
+                  className="flex w-full items-center justify-between text-left py-5 sm:py-6 cursor-pointer group select-none"
+                  aria-expanded={isOpen}
+                >
+                  <span className="text-sm sm:text-base font-semibold text-[#071E36] group-hover:text-[#5CBDE5] transition-colors pr-4 leading-snug">
+                    {q}
+                  </span>
+                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-[#CBD5E1] flex items-center justify-center text-[#64748B] shrink-0 group-hover:border-[#94A3B8] transition-colors">
+                    {isOpen ? (
+                      <Minus className="w-3.5 h-3.5 text-[#64748B]" strokeWidth={2} />
+                    ) : (
+                      <Plus className="w-3.5 h-3.5 text-[#64748B]" strokeWidth={2} />
+                    )}
+                  </div>
+                </button>
+                {isOpen && (
+                  <p className="pb-5 sm:pb-6 text-xs sm:text-sm text-[#7A8FA6] leading-relaxed pr-8 sm:pr-14 animate-in fade-in duration-200">
+                    {a}
+                  </p>
+                )}
+              </div>
+            );
+          })}
         </div>
       </Section>
     </>
