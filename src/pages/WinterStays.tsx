@@ -485,7 +485,7 @@ export default function WinterStays() {
           <div className="relative z-10 w-full p-6 sm:p-10 md:p-14 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
             {/* Left side text */}
             <div className="max-w-xl text-white">
-              <p className="text-xs sm:text-[13px] font-semibold uppercase tracking-wider text-sky mb-2 sm:mb-2.5">
+              <p className="text-sm sm:text-base font-semibold uppercase tracking-wider text-sky mb-2 sm:mb-4">
                 FEATURED COLLECTION
               </p>
 
@@ -493,7 +493,7 @@ export default function WinterStays() {
                 Stay Somewhere Extraordinary
               </h2>
 
-              <p className="mt-3.5 sm:mt-4 text-xs sm:text-sm md:text-base leading-relaxed text-white/85 font-normal max-w-lg">
+              <p className="mt-3.5 sm:mt-[25px] text-xs sm:text-sm md:text-base leading-relaxed text-white font-normal max-w-lg">
                 Our hand-picked collection of the world's most remarkable winter properties — each one a destination in its own right.
               </p>
 

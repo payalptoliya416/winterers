@@ -24,7 +24,6 @@ export default function StayTypesGrid() {
             alt="Beach Houses"
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
           <div className="absolute inset-x-4 bottom-4 flex items-center justify-between">
             <span className="font-head text-base sm:text-lg font-semibold text-white drop-shadow-sm">
               Beach Houses
@@ -59,7 +58,6 @@ export default function StayTypesGrid() {
               alt={item.label}
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
             <div className="absolute inset-x-4 bottom-4 flex items-center justify-between">
               <span className="font-head text-sm sm:text-[15px] font-semibold text-white drop-shadow-sm">
                 {item.label}
