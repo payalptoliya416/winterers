@@ -325,10 +325,10 @@ export default function WinterStays() {
       <Section className="!pt-0">
         <div className="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-sky">
+            <p className="section-eyebrow">
               48 WINTER STAYS AVAILABLE · LAPLAND & SCANDINAVIA
             </p>
-            <h2 className="mt-1 font-head text-2xl sm:text-3xl font-semibold text-navy">
+            <h2 className="section-title">
               Winter stays for your next escape
             </h2>
           </div>
@@ -485,11 +485,11 @@ export default function WinterStays() {
           <div className="relative z-10 w-full p-6 sm:p-10 md:p-14 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
             {/* Left side text */}
             <div className="max-w-xl text-white">
-              <p className="text-sm sm:text-base font-semibold uppercase tracking-wider text-sky mb-2 sm:mb-4">
+              <p className="section-eyebrow mb-2 sm:mb-4">
                 FEATURED COLLECTION
               </p>
 
-              <h2 className="font-head text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-tight leading-tight">
+              <h2 className="section-title !text-white">
                 Stay Somewhere Extraordinary
               </h2>
 
@@ -568,10 +568,10 @@ export default function WinterStays() {
         <div className="site-container">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
-              <p className="text-xs sm:text-[13px] font-semibold uppercase tracking-wider text-sky mb-1">
+              <p className="section-eyebrow mb-1">
                 BROWSE BY TYPE
               </p>
-              <h2 className="font-head text-2xl sm:text-3xl font-semibold text-navy tracking-tight">
+              <h2 className="section-title">
                 Explore Every Kind of Winter Stay
               </h2>
             </div>
@@ -633,10 +633,10 @@ export default function WinterStays() {
           {/* Header with Title & View Mode Toggle & Location Filters */}
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-6">
             <div>
-              <p className="text-xs sm:text-[13px] font-semibold uppercase tracking-wider text-sky mb-1">
+              <p className="section-eyebrow mb-1">
                 EXPLORE THE MAP
               </p>
-              <h2 className="font-head text-2xl sm:text-3xl font-semibold text-navy tracking-tight">
+              <h2 className="section-title">
                 Find Stays by Location
               </h2>
             </div>
@@ -864,10 +864,10 @@ export default function WinterStays() {
       <section className="bg-[#031B33] py-16 md:py-20 lg:py-24">
         <div className="site-container">
           <div className="mb-6 sm:mb-8">
-            <p className="text-xs sm:text-[13px] font-semibold uppercase tracking-wider text-[#7EC8E3] mb-1.5">
+            <p className="section-eyebrow mb-1.5">
               STAFF PICK
             </p>
-            <h2 className="font-head text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-tight">
+            <h2 className="section-title !text-white">
               This Week’s Highlighted Stay
             </h2>
           </div>
@@ -988,10 +988,10 @@ export default function WinterStays() {
         <div className="site-container">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
             <div>
-              <p className="text-xs sm:text-[13px] font-semibold uppercase tracking-wider text-sky mb-1">
+              <p className="section-eyebrow mb-1">
                 PERSONALISED FOR YOU
               </p>
-              <h2 className="font-head text-2xl sm:text-3xl font-semibold text-navy tracking-tight">
+              <h2 className="section-title">
                 Stays You May Like
               </h2>
             </div>

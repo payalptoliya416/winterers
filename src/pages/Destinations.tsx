@@ -9,23 +9,21 @@ import { FeaturedStays, Destinations, Experiences, Deals } from '../components/B
 export default function DestinationsPage() {
   return (
     <>
-      <div className="pb-28 md:pb-24">
-        <Hero
-          search={<SearchBar />}
-          name="destination-bg.png"
-          eyebrow="EXPLORE WINTER DESTINATIONS"
-          title={
-            <>
-              Find Your <span className="text-[#7EC8E3]">Perfect Winter</span> <br />
-              Destination
-            </>
-          }
-          text="From snow-covered alpine villages to remote Arctic landscapes, discover destinations made for unforgettable winter escapes."
-        >
-          <Button variant="light" to="/destinations" pill>Explore Destinations</Button>
-          <Button variant="ghost" to="/stays" pill>View Winter Stays</Button>
-        </Hero>
-      </div>
+      <Hero
+        search={<SearchBar />}
+        name="destination-bg.png"
+        eyebrow="EXPLORE WINTER DESTINATIONS"
+        title={
+          <>
+            Find Your <span className="text-[#7EC8E3]">Perfect Winter</span> <br />
+            Destination
+          </>
+        }
+        text="From snow-covered alpine villages to remote Arctic landscapes, discover destinations made for unforgettable winter escapes."
+      >
+        <Button variant="light" to="/destinations" pill>Explore Destinations</Button>
+        <Button variant="ghost" to="/stays" pill>View Winter Stays</Button>
+      </Hero>
 
       <Destinations />
       <FeaturedStays />
@@ -41,7 +39,7 @@ export default function DestinationsPage() {
         {/* Content Container */}
         <div className="relative z-10 site-container py-16 sm:py-20 md:py-[111px]">
           <div className="max-w-[500px]">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-tight leading-tight">
+            <h2 className="section-title !text-white">
               Northern Norway
             </h2>
             <p className="mt-1.5 text-sm sm:text-base font-normal text-sky">
@@ -60,20 +58,12 @@ export default function DestinationsPage() {
                 'Coastal Landscapes',
               ].map((item) => (
                 <div key={item} className="flex items-center gap-2.5 text-xs sm:text-sm text-white/90">
-                  <svg
-                    className="h-4 w-4 shrink-0 text-sky"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <circle cx="12" cy="12" r="9" />
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M8.5 12.5l2.5 2.5 4.5-5"
-                    />
-                  </svg>
+                  <img
+                    src="/images/checkmark.svg"
+                    alt=""
+                    aria-hidden="true"
+                    className="w-[18px] h-[18px] shrink-0"
+                  />
                   <span>{item}</span>
                 </div>
               ))}
@@ -112,11 +102,11 @@ export default function DestinationsPage() {
           {/* Right side aligned to container */}
           <div className="flex flex-col justify-center py-12 px-6 sm:px-12 lg:py-16 lg:pl-[50px] xl:pr-[max(1.5rem,calc((100vw-var(--container-max-w))/2+1.5rem))]">
             <div className="max-w-xl">
-              <p className="text-xs sm:text-[13px] font-semibold uppercase tracking-wider text-sky">
+              <p className="section-eyebrow">
                 THE WINTERERS EDIT
               </p>
 
-              <h2 className="mt-3 font-head text-2xl sm:text-3xl md:text-[34px] font-semibold text-navy leading-tight tracking-tight">
+              <h2 className="section-title">
                 A Different Way to Experience Winter
               </h2>
 

@@ -28,23 +28,21 @@ const perks = [
 export default function Offers() {
   return (
     <>
-      <div className="pb-28 md:pb-24">
-        <Hero
-          search={<SearchBar />}
-          name="hero-offers.png"
-          eyebrow="WINTER OFFERS"
-          title={
-            <>
-              Winter Escapes, <br />
-              <span className="text-[#7EC8E3]">Better Prices</span>
-            </>
-          }
-          text="Discover exclusive winter stays, seasonal savings and limited-time offers curated for your next snowy escape."
-        >
-          <Button variant="light" pill>Explore Winter Deals</Button>
-          <Button variant="ghost" to="/stays" pill>Browse Winter Stays</Button>
-        </Hero>
-      </div>
+      <Hero
+        search={<SearchBar />}
+        name="hero-offers.png"
+        eyebrow="WINTER OFFERS"
+        title={
+          <>
+            Winter Escapes, <br />
+            <span className="text-[#7EC8E3]">Better Prices</span>
+          </>
+        }
+        text="Discover exclusive winter stays, seasonal savings and limited-time offers curated for your next snowy escape."
+      >
+        <Button variant="light" pill>Explore Winter Deals</Button>
+        <Button variant="ghost" to="/stays" pill>Browse Winter Stays</Button>
+      </Hero>
 
       <FeaturedStays />
       <Deals action="View All Winter Offers" />
@@ -55,10 +53,10 @@ export default function Offers() {
       <section className="bg-[#EEF4FA] py-14 sm:py-16 md:py-[110px]">
         <Container>
           <div className="text-center">
-            <p className="text-xs sm:text-[13px] font-semibold uppercase tracking-[0.16em] text-[#5CBDE5]">
+            <p className="section-eyebrow mb-1.5 sm:mb-2">
               FOR MEMBERS
             </p>
-            <h2 className="mt-2.5 font-head text-3xl sm:text-4xl font-semibold text-navy tracking-tight">
+            <h2 className="section-title">
               Unlock Exclusive Winter Savings
             </h2>
             <p className="mt-3 text-xs sm:text-sm text-navy/50 font-body max-w-xl mx-auto">

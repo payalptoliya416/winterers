@@ -44,7 +44,7 @@ export const Destinations = () => (
       action="Explore All Destinations"
       to="/destinations"
     />
-    <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 sm:gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 sm:gap-6">
       {/* Finland: Left tall card */}
       <div className="md:col-span-4 lg:col-span-4">
         <Link
@@ -56,47 +56,44 @@ export const Destinations = () => (
             alt="Finland"
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
-          <div className="absolute bottom-4 left-4">
-            <h3 className="text-sm sm:text-base font-semibold text-white">Finland</h3>
-            <p className="text-[11px] sm:text-xs text-white/70 mt-0.5">142 winter stays</p>
+          <div className="absolute bottom-6 left-6">
+            <h3 className="text-sm sm:text-lg font-semibold text-white">Finland</h3>
+            <p className="text-sm sm:text-sm text-[#B8DFF0] mt-2">142 winter stays</p>
           </div>
         </Link>
       </div>
 
       {/* Right 2x2 grid: Norway, Austria, Switzerland */}
-      <div className="md:col-span-8 lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
+      <div className="md:col-span-8 lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-6">
         {/* Norway */}
         <Link
           to="/destinations"
-          className="group relative h-[180px] sm:h-[190px] w-full rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow block"
+          className="group relative h-[180px] sm:h-[197px] w-full rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow block"
         >
           <img
             src={img("finland01.png")}
             alt="Norway"
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
           <div className="absolute bottom-4 left-4">
             <h3 className="text-sm sm:text-base font-semibold text-white">Norway</h3>
-            <p className="text-[11px] sm:text-xs text-white/70 mt-0.5">118 winter stays</p>
+            <p className="text-sm sm:text-sm text-[#B8DFF0] mt-2">118 winter stays</p>
           </div>
         </Link>
 
         {/* Austria */}
         <Link
           to="/destinations"
-          className="group relative h-[180px] sm:h-[190px] w-full rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow block"
+          className="group relative h-[180px] sm:h-[197px] w-full rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow block"
         >
           <img
             src={img("finland02.png")}
             alt="Austria"
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
           <div className="absolute bottom-4 left-4">
             <h3 className="text-sm sm:text-base font-semibold text-white">Austria</h3>
-            <p className="text-[11px] sm:text-xs text-white/70 mt-0.5">156 winter stays</p>
+            <p className="text-sm sm:text-sm text-[#B8DFF0] mt-2">156 winter stays</p>
           </div>
         </Link>
 
@@ -104,17 +101,16 @@ export const Destinations = () => (
         <div className="sm:col-span-2">
           <Link
             to="/destinations"
-            className="group relative h-[180px] sm:h-[190px] w-full rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow block"
+            className="group relative h-[180px] sm:h-[197px] w-full rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow block"
           >
             <img
               src={img("finland03.png")}
               alt="Switzerland"
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
             <div className="absolute bottom-4 left-4">
               <h3 className="text-sm sm:text-base font-semibold text-white">Switzerland</h3>
-              <p className="text-[11px] sm:text-xs text-white/70 mt-0.5">203 winter stays</p>
+              <p className="text-sm sm:text-sm text-[#B8DFF0] mt-2">203 winter stays</p>
             </div>
           </Link>
         </div>
@@ -124,17 +120,16 @@ export const Destinations = () => (
       <div className="md:col-span-6">
         <Link
           to="/destinations"
-          className="group relative h-[170px] sm:h-[190px] w-full rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow block"
+          className="group relative h-[170px] sm:h-[197px] w-full rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow block"
         >
           <img
             src={img("finland04.png")}
             alt="Iceland"
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
           <div className="absolute bottom-4 left-4">
             <h3 className="text-sm sm:text-base font-semibold text-white">Iceland</h3>
-            <p className="text-[11px] sm:text-xs text-white/70 mt-0.5">97 winter stays</p>
+            <p className="text-sm sm:text-sm text-[#B8DFF0] mt-2">97 winter stays</p>
           </div>
         </Link>
       </div>
@@ -142,17 +137,16 @@ export const Destinations = () => (
       <div className="md:col-span-6">
         <Link
           to="/destinations"
-          className="group relative h-[170px] sm:h-[190px] w-full rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow block"
+          className="group relative h-[170px] sm:h-[197px] w-full rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow block"
         >
           <img
             src={img("finland05.png")}
             alt="Sweden"
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
           <div className="absolute bottom-4 left-4">
             <h3 className="text-sm sm:text-base font-semibold text-white">Sweden</h3>
-            <p className="text-[11px] sm:text-xs text-white/70 mt-0.5">88 winter stays</p>
+            <p className="text-sm sm:text-sm text-[#B8DFF0] mt-2">88 winter stays</p>
           </div>
         </Link>
       </div>
@@ -205,7 +199,7 @@ export const Experiences = ({
           eyebrow={eyebrow}
           title={title}
           sub={sub}
-        />
+        />  
       </Container>
 
       {/* Swiper Slider: starts at left container edge and bleeds out the right edge */}
@@ -218,7 +212,7 @@ export const Experiences = ({
         <Swiper
           modules={[FreeMode, Mousewheel]}
           slidesPerView="auto"
-          spaceBetween={14}
+          spaceBetween={20}
           freeMode={true}
           grabCursor={true}
           mousewheel={{ forceToAxis: true }}
@@ -226,7 +220,7 @@ export const Experiences = ({
         >
           {experienceColumns.map((col, idx) => (
             <SwiperSlide key={idx} className="!w-auto">
-              <div className="flex flex-col gap-3.5 shrink-0">
+              <div className="flex flex-col gap-5 shrink-0">
                 {col.map((item, i) => (
                   <Link
                     key={i}
@@ -238,7 +232,7 @@ export const Experiences = ({
                       alt={item.label}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 pointer-events-none"
                     />
-                    <span className="absolute bottom-[19px] left-[19px] text-xs sm:text-base font-medium text-white drop-shadow-sm pointer-events-none">
+                    <span className="absolute bottom-5 left-5 text-xs sm:text-lg font-medium text-white drop-shadow-sm pointer-events-none">
                       {item.label}
                     </span>
                   </Link>

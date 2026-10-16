@@ -13,10 +13,10 @@ export default function CuratedExperiencesSlider({ stays }: { stays: Stay[] }) {
       <div className="site-container">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
           <div>
-            <p className="text-xs sm:text-[13px] font-semibold uppercase tracking-wider text-sky mb-1">
+            <p className="section-eyebrow mb-1.5 sm:mb-2">
               CURATED PICKS
             </p>
-            <h2 className="font-head text-2xl sm:text-3xl font-semibold text-navy tracking-tight">
+            <h2 className="section-title">
               Experiences Worth Travelling For
             </h2>
           </div>

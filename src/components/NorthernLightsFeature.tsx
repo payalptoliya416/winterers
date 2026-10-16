@@ -54,11 +54,11 @@ export default function NorthernLightsFeature() {
 
           {/* Right Column: Information & Specs */}
           <div className="flex flex-col justify-center">
-            <p className="text-sm sm:text-base font-semibold uppercase tracking-[0.18em] text-[#5CBDE5]">
+            <p className="section-eyebrow">
               FEATURED EXPERIENCE
             </p>
 
-            <h2 className="mt-[15px] font-head text-3xl sm:text-4xl lg:text-[36px] font-semibold text-white tracking-tight leading-tight">
+            <h2 className="section-title !text-white">
               Chase the Northern Lights
             </h2>
 

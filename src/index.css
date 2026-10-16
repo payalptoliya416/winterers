@@ -34,6 +34,17 @@ h1,h2,h3,h4,h5,h6{@apply font-head}
       padding-right: 1.5rem;
     }
   }
+
+  /* Common top title / eyebrow across all sections */
+  .section-eyebrow {
+    @apply font-head text-[11px] sm:text-sm font-semibold uppercase text-[#7EC8E3];
+    font-family: "DM Sans", sans-serif;
+  }
+
+  /* Common main title across all sections */
+  .section-title {
+    @apply mt-[15px] font-head text-2xl sm:text-3xl lg:text-[36px] font-medium text-[#0D1F35] tracking-tight leading-tight;
+  }
 }
 /* react-datepicker theme overrides */
 .react-datepicker{font-family:"DM Sans",sans-serif;border:1px solid #e2e8f0;border-radius:1rem;box-shadow:0 10px 40px -8px rgba(6,37,65,0.18);overflow:hidden}

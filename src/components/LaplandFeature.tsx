@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export default function LaplandFeature() {
   return (
-    <section className="relative overflow-hidden bg-white">
+    <section className="relative overflow-hidden bg-[#F9F9F9]">
       <div className="grid grid-cols-1 lg:grid-cols-2 items-stretch min-h-[540px] sm:min-h-[580px] lg:min-h-[640px]">
         {/* Left Column: Full-bleed image touching the left edge of the screen */}
         <div className="relative w-full min-h-[360px] sm:min-h-[440px] lg:min-h-full">
@@ -14,13 +14,13 @@ export default function LaplandFeature() {
         </div>
 
         {/* Right Column: Content aligned inside container on the right */}
-        <div className="flex flex-col justify-center py-12 sm:py-16 lg:py-20 px-6 sm:px-10 lg:pl-14 xl:pl-10 xl:pr-[max(1.5rem,calc((100vw-var(--container-max-w))/2+1.5rem))] bg-white">
+        <div className="flex flex-col justify-center py-12 sm:py-16 lg:py-20 px-6 sm:px-10 lg:pl-14 xl:pl-10 xl:pr-[max(1.5rem,calc((100vw-var(--container-max-w))/2+1.5rem))] bg-[#F9F9F9]">
           <div className="w-full max-w-[500px]">
-            <p className="font-head text-[11px] sm:text-xs font-semibold uppercase tracking-[0.2em] text-[#5CBDE5]">
+            <p className="section-eyebrow">
               WINTER WONDERLAND
             </p>
 
-            <h2 className="mt-2.5 font-head text-3xl sm:text-4xl lg:text-[36px] font-medium text-[#0D1F35] tracking-tight leading-tight">
+            <h2 className="section-title">
               Lapland After Dark
             </h2>
 

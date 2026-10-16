@@ -24,7 +24,7 @@ export default function Hero({
   overlay = 'bg-gradient-to-b from-[#062541]/50 via-[#062541]/30 to-[#062541]/65',
   children,
   search,
-  searchPosition = 'overlap',
+  searchPosition = 'inner',
 }: HeroProps) {
   const bgUrl = img(name);
 
@@ -36,11 +36,17 @@ export default function Hero({
       {/* Dark overlay for contrast */}
       <div className={`absolute inset-0 ${overlay}`} />
 
-      {/* Center content container - takes full 800px height, centered */}
-      <div className="relative z-10 flex h-full flex-col items-center justify-center text-center text-white pt-24 pb-24 px-4 sm:px-6">
+      {/* Center content container - takes full 800px height */}
+      <div
+        className={`relative z-10 flex h-full flex-col items-center ${
+          search && searchPosition === 'inner'
+            ? 'justify-between pt-36 sm:pt-[236px] pb-7 sm:pb-9'
+            : 'justify-center pt-24 pb-24'
+        } text-center text-white px-4 sm:px-6`}
+      >
         <Container className="!max-w-[1000px]">
           {eyebrow && (
-            <p className="mb-3.5 font-head text-xs sm:text-[13px] md:text-sm font-semibold uppercase tracking-[0.18em] text-[#7EC8E3]">
+            <p className="section-eyebrow mb-3.5">
               {eyebrow}
             </p>
           )}
@@ -74,9 +80,9 @@ export default function Hero({
           )}
         </Container>
 
-        {/* Inner Search Bar - Placed comfortably inside hero banner */}
+        {/* Inner Search Bar - Placed comfortably inside hero banner at bottom */}
         {search && searchPosition === 'inner' && (
-          <div className="w-full max-w-[var(--container-max-w)] mt-7 sm:mt-9">
+          <div className="w-full max-w-[var(--container-max-w)]">
             {search}
           </div>
         )}

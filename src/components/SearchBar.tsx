@@ -12,7 +12,7 @@ interface SearchBarProps {
 
 export default function SearchBar({
   cta = 'Find Winter Stays',
-  chips = true,
+  chips = false,
   className = '',
 }: SearchBarProps) {
   const d = useDispatch();

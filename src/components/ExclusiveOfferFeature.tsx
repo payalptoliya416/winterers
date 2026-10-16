@@ -18,11 +18,11 @@ export default function ExclusiveOfferFeature() {
 
           {/* Right Column: Offer Details */}
           <div className="flex flex-col justify-center p-8 sm:p-10 md:p-12 lg:p-[50px]">
-            <p className="text-xs sm:text-[13px] font-semibold uppercase tracking-[0.16em] text-[#5CBDE5]">
+            <p className="section-eyebrow">
               EXCLUSIVE OFFER
             </p>
 
-            <h2 className="mt-2.5 font-head text-2xl sm:text-3xl lg:text-[36px] font-semibold text-navy tracking-tight leading-tight">
+            <h2 className="section-title">
               Stay More, Save More
             </h2>
 

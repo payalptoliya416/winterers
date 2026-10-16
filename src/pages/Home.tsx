@@ -23,28 +23,25 @@ const why = [
 export default function Home() {
   return (
     <>
-      <div className="pb-28 md:pb-24">
-        <Hero
-          search={<SearchBar />}
-          name="hero-cabin.png"
-          eyebrow="THE WINTER TRAVEL PLATFORM"
-          title={
-            <>
-              Find Your Perfect <br />
-              <span className="text-[#7EC8E3]">Winter Escape</span>
-            </>
-          }
-          text="Discover handpicked winter stays, from cosy mountain cabins and ski chalets to unforgettable escapes surrounded by snow."
-        />
-      </div>
+      <Hero
+        search={<SearchBar />}
+        name="hero-cabin.png"
+        eyebrow="THE WINTER TRAVEL PLATFORM"
+        title={
+          <>
+            Find Your Perfect <br />
+            <span className="text-[#7EC8E3]">Winter Escape</span>
+          </>
+        }
+        text="Discover handpicked winter stays, from cosy mountain cabins and ski chalets to unforgettable escapes surrounded by snow."
+      />
 
       <Section>
         <SectionHead
+          center
           eyebrow="Discover your stay"
           title="Find Your Perfect Kind of Stay"
           sub="From coastal escapes to secluded mountain hideaways, discover a stay that fits your way of travelling."
-          action="Explore All Stays"
-          to="/stays"
         />
         <StayTypesGrid />
       </Section>

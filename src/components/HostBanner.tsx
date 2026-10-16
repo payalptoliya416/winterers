@@ -12,7 +12,7 @@ export default function HostBanner() {
       {/* Content Container */}
       <div className="relative z-10 site-container py-16 sm:py-20 md:py-[110px]">
         <div className="max-w-xl">
-          <h2 className="font-head text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-tight leading-tight">
+          <h2 className="section-title !text-white">
             Own a Property Made for Winter?
           </h2>
 
@@ -28,20 +28,12 @@ export default function HostBanner() {
               'More direct booking opportunities',
             ].map((item) => (
               <li key={item} className="flex items-center gap-3 text-sm sm:text-base text-[#F0F4F8]">
-                <svg
-                  className="h-4 w-4 shrink-0 text-sky"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <circle cx="12" cy="12" r="9" />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M8.5 12.5l2.5 2.5 4.5-5"
-                  />
-                </svg>
+                <img
+                  src="/images/checkmark.svg"
+                  alt=""
+                  aria-hidden="true"
+                  className="w-[18px] h-[18px] shrink-0"
+                />
                 <span>{item}</span>
               </li>
             ))}

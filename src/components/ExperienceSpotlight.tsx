@@ -25,11 +25,11 @@ export default function ExperienceSpotlight() {
 
           {/* Right Column: Content */}
           <div className="flex flex-col justify-center p-8 sm:p-10 md:p-12 lg:p-[50px]">
-            <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.16em] text-[#7EC8E3]">
+            <p className="section-eyebrow">
               EXPERIENCE SPOTLIGHT
             </p>
 
-            <h2 className="mt-[10px] font-head text-2xl sm:text-3xl lg:text-[36px] font-semibold text-navy tracking-tight leading-tight">
+            <h2 className="section-title">
               Life Under the Northern Lights
             </h2>
 

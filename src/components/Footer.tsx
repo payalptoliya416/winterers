@@ -79,10 +79,10 @@ export default function Footer() {
             />
             {/* Newsletter Card Content */}
             <div className="relative z-10 px-6 py-12 sm:px-10 sm:py-16 md:py-20 text-center text-white">
-              <p className="font-head text-xs sm:text-sm font-semibold uppercase tracking-[0.22em] text-[#7EC8E3]">
+              <p className="section-eyebrow">
                 STAY INSPIRED
               </p>
-              <h2 className="mt-2.5 sm:mt-[15px] font-head text-2xl sm:text-3xl md:text-[36px] font-medium text-white tracking-tight leading-tight">
+              <h2 className="section-title !text-white">
                 Stay Inspired This Winter
               </h2>
               <p className="mx-auto mt-2.5 sm:mt-[20px] max-w-xl text-xs sm:text-sm md:text-base text-white/80 leading-relaxed font-body px-2">
