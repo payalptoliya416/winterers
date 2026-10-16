@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChevronDown, Globe, Camera, SlidersHorizontal, Headphones } from 'lucide-react';
+import { ChevronDown, Globe, Camera, SlidersHorizontal, Headphones, Check } from 'lucide-react';
 import Hero from '../components/Hero';
 import Button from '../components/Button';
 import Section from '../components/Section';
@@ -51,6 +51,8 @@ const faq = [
 
 export default function ListProperty() {
   const [open, setOpen] = useState(0);
+  const [country, setCountry] = useState('');
+  const [agreed, setAgreed] = useState(false);
 
   return (
     <>
@@ -125,17 +127,17 @@ export default function ListProperty() {
                   <label className="block text-xs sm:text-base text-[#1A1A1A] mb-[10px]">
                     Phone Number<span className="text-[#DB0505] ml-0.5">*</span>
                   </label>
-                  <div className="flex items-center w-full rounded-[14px] bg-white border border-slate-200/90 px-3.5 py-2.5 text-xs sm:text-sm text-[#071D36] shadow-sm focus-within:ring-2 focus-within:ring-[#7EC8E3]/50 focus-within:border-[#7EC8E3] transition">
-                    <div className="flex items-center gap-1 text-[#071D36] font-medium shrink-0 cursor-pointer select-none">
+                  <div className="flex items-center w-full rounded-full bg-white border border-[#EBEBEB] px-6 py-3 text-sm sm:text-base text-[#0F172A] transition focus-within:border-[#7EC8E3]">
+                    <div className="flex items-center gap-1.5 text-[#0F172A] font-medium shrink-0 cursor-pointer select-none">
                       <span>+00</span>
-                      <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+                      <ChevronDown className="w-3.5 h-3.5 text-[#888888]" />
                     </div>
-                    <span className="h-4 w-px bg-slate-200 mx-2.5 shrink-0" />
+                    <span className="h-4 w-px bg-[#EBEBEB] mx-3 shrink-0" />
                     <input
                       type="tel"
                       required
                       placeholder="123 456 7890"
-                      className="w-full bg-transparent border-0 p-0 text-xs sm:text-sm text-[#071D36] placeholder:text-[#94A3B8] focus:outline-none focus:ring-0"
+                      className="w-full bg-transparent border-0 p-0 text-sm sm:text-base text-[#0F172A] placeholder:text-[#888888] focus:outline-none focus:ring-0"
                     />
                   </div>
                 </div>
@@ -152,44 +154,49 @@ export default function ListProperty() {
                 </div>
               </div>
 
-              {/* Row 3: City, Country, Listing URL */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div>
-                  <label className="block text-xs sm:text-base text-[#1A1A1A] mb-[10px]">
-                    City<span className="text-[#DB0505] ml-0.5">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="e.g. Santorini"
-                    className="w-full rounded-full bg-white border border-[#EBEBEB] px-6 py-3 text-sm sm:text-base text-[#0F172A] placeholder:text-[#888888] transition focus:outline-none"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs sm:text-base text-[#1A1A1A] mb-[10px]">
-                    Country<span className="text-[#DB0505] ml-0.5">*</span>
-                  </label>
-                  <div className="relative">
-                    <select
-                      defaultValue=""
+              {/* Row 3: City & Country (left col) | Listing URL (right col) */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                  <div>
+                    <label className="block text-xs sm:text-base text-[#1A1A1A] mb-[10px]">
+                      City<span className="text-[#DB0505] ml-0.5">*</span>
+                    </label>
+                    <input
+                      type="text"
                       required
-                      className="w-full rounded-full bg-white border border-[#EBEBEB] px-6 py-3 text-sm sm:text-base text-[#0F172A] placeholder:text-[#888888] transition focus:outline-none"
-                    >
-                      <option value="" disabled className="text-slate-400">
-                        Select country
-                      </option>
-                      <option value="Finland">Finland</option>
-                      <option value="Norway">Norway</option>
-                      <option value="Sweden">Sweden</option>
-                      <option value="Switzerland">Switzerland</option>
-                      <option value="France">France</option>
-                      <option value="Austria">Austria</option>
-                      <option value="Iceland">Iceland</option>
-                      <option value="Canada">Canada</option>
-                      <option value="Other">Other</option>
-                    </select>
-                    <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                      placeholder="e.g. Santorini"
+                      className="w-full rounded-full bg-white border border-[#EBEBEB] px-5 sm:px-6 py-3 text-sm sm:text-base text-[#0F172A] placeholder:text-[#888888] transition focus:outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs sm:text-base text-[#1A1A1A] mb-[10px]">
+                      Country<span className="text-[#DB0505] ml-0.5">*</span>
+                    </label>
+                    <div className="relative">
+                      <select
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}
+                        required
+                        className={`w-full appearance-none rounded-full bg-white border border-[#EBEBEB] px-5 sm:px-6 pr-9 py-3 text-sm sm:text-base transition focus:outline-none cursor-pointer ${
+                          country ? 'text-[#0F172A]' : 'text-[#888888]'
+                        }`}
+                      >
+                        <option value="" disabled className="text-[#888888]">
+                          Select country
+                        </option>
+                        <option value="Finland">Finland</option>
+                        <option value="Norway">Norway</option>
+                        <option value="Sweden">Sweden</option>
+                        <option value="Switzerland">Switzerland</option>
+                        <option value="France">France</option>
+                        <option value="Austria">Austria</option>
+                        <option value="Iceland">Iceland</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Other">Other</option>
+                      </select>
+                      <ChevronDown className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#888888]" />
+                    </div>
                   </div>
                 </div>
 
@@ -219,13 +226,25 @@ export default function ListProperty() {
               </div>
 
               {/* Row 5: Agreement Checkbox */}
-              <label className="flex items-center gap-2.5 cursor-pointer select-none pt-1">
+              <label className="flex items-center gap-3 cursor-pointer select-none pt-1">
+                <div
+                  onClick={() => setAgreed(!agreed)}
+                  className={`w-5 h-5 rounded-[6px] border flex items-center justify-center transition-all shrink-0 cursor-pointer ${
+                    agreed
+                      ? 'bg-[#071D36] border-[#071D36] text-white shadow-sm'
+                      : 'bg-white border-[#CBD5E1] hover:border-slate-400'
+                  }`}
+                >
+                  {agreed && <Check className="w-3.5 h-3.5 stroke-[3]" />}
+                </div>
                 <input
                   type="checkbox"
+                  checked={agreed}
+                  onChange={(e) => setAgreed(e.target.checked)}
                   required
-                  className="h-4 w-4 rounded-[4px] border-slate-300 text-[#071D36] focus:ring-[#7EC8E3] accent-[#071D36]"
+                  className="sr-only"
                 />
-                <span className="text-xs sm:text-sm text-[#6B7FA3]">
+                <span className="text-xs sm:text-sm text-[#475569]">
                   I agree to be contacted regarding my property listing.
                 </span>
               </label>
