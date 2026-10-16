@@ -2,7 +2,7 @@ import Hero from '../components/Hero';
 import Button from '../components/Button';
 import { useAppDispatch as useDispatch, useAppSelector as useSelector } from '../store/hooks';
 import { selectSorted } from '../store/staysSlice';
-import { Experiences as Exp } from '../components/Blocks';
+import { Experiences as Exp, Destinations } from '../components/Blocks';
 import NorthernLightsFeature from '../components/NorthernLightsFeature';
 import CuratedExperiencesSlider from '../components/CuratedExperiencesSlider';
 import ExperienceSpotlight from '../components/ExperienceSpotlight';
@@ -38,7 +38,9 @@ export default function Experiences() {
 
       <CuratedExperiencesSlider stays={s} />
 
-      <ExperienceSpotlight />
+      <Destinations />
+
+      {/* <ExperienceSpotlight /> */}
     </>
   );
 }
