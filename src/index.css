@@ -1,6 +1,40 @@
 @tailwind base;@tailwind components;@tailwind utilities;
+
+:root {
+  --container-max-w: 1170px;
+}
+
+@media (min-width: 1441px) {
+  :root {
+    --container-max-w: 1440px;
+  }
+}
+
 body{@apply font-body text-navy antialiased overflow-x-hidden}
 h1,h2,h3,h4,h5,h6{@apply font-head}
+
+/* Common site container managed centrally:
+   - 1170px on screens up to 1440px
+   - 1440px on screens larger than 1440px
+   - Fully responsive with smart padding on mobile/tablet
+*/
+@layer components {
+  .site-container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: var(--container-max-w);
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .site-container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+}
 /* react-datepicker theme overrides */
 .react-datepicker{font-family:"DM Sans",sans-serif;border:1px solid #e2e8f0;border-radius:1rem;box-shadow:0 10px 40px -8px rgba(6,37,65,0.18);overflow:hidden}
 .react-datepicker__header{background:#062541;border-bottom:none;border-radius:0;padding:12px 0 8px}

@@ -70,7 +70,7 @@ export default function Footer() {
         <div className="absolute inset-x-0 top-0 h-1/2 bg-white pointer-events-none" />
 
         {/* Newsletter Floating / Overlapping Card */}
-        <div className="relative z-10 mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-8 pt-8 sm:pt-14 md:pt-16">
+        <div className="relative z-10 site-container pt-8 sm:pt-14 md:pt-16">
           <div className="relative overflow-hidden rounded-[26px] sm:rounded-[32px] bg-[#07192C]">
             {/* Background Image of Cozy Winter Cabin */}
             <div
@@ -118,7 +118,7 @@ export default function Footer() {
       </div>
 
       {/* Main Footer Content */}
-      <div className="mx-auto max-w-[1360px] px-4 sm:px-6 lg:px-8 pt-4 sm:pt-8 md:pt-[60px] pb-10 sm:pb-12">
+      <div className="site-container pt-4 sm:pt-8 md:pt-[60px] pb-10 sm:pb-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1.2fr_1.5fr] gap-10 lg:gap-12">
           {/* Column 1: Brand Info & Socials */}
           <div>

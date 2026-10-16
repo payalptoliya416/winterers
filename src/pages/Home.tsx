@@ -65,7 +65,7 @@ export default function Home() {
         />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {why.map(({ icon: Icon, title, text }) => (
-            <div key={title} className="rounded-2xl border border-[#F9F9F9] bg-[#F8FAFB] p-6 hover:border-[#D0DCE8] hover:shadow-sm transition">
+            <div key={title} className="rounded-[26px] border border-[#D0DCE8] bg-[#F9F9F9] p-[27px] hover:border-[#D0DCE8] hover:shadow-sm transition">
               <div className="mb-[21px] inline-flex h-[52px] w-[52px] items-center justify-center rounded-[17px] bg-white">
                 <Icon className="h-5 w-5 text-[#02213B]" strokeWidth={1.6} />
               </div>

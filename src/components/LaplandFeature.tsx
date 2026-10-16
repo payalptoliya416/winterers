@@ -2,9 +2,9 @@ import { Link } from 'react-router-dom';
 
 export default function LaplandFeature() {
   return (
-    <section className="pyt12 md:pt-16">
-      <div className="">
-        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-10 bg-[#F9F9F9]">
+    <section className="py-12 md:py-16">
+      <div className="site-container">
+        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-10 bg-[#F9F9F9] rounded-[24px] overflow-hidden">
           {/* Left Column: Image with Aurora and Cabin */}
           <div className="relative w-full overflow-hidden">
             <img

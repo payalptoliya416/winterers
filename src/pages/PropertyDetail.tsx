@@ -36,7 +36,7 @@ export default function PropertyDetail() {
   return (
     <>
       {/* Image Gallery */}
-      <Container className="!max-w-[1400px] pt-24 md:pt-28">
+      <Container className="pt-24 md:pt-28">
         <p className="mb-3 text-[10px] text-navy/50">
           <Link to="/stays">Winter Stays</Link> / Norway / Arktis Fjord Cabin
         </p>

@@ -39,7 +39,7 @@ export default function DestinationsPage() {
         />
 
         {/* Content Container */}
-        <div className="relative z-10 mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-[111px]">
+        <div className="relative z-10 site-container py-16 sm:py-20 md:py-[111px]">
           <div className="max-w-[500px]">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-white tracking-tight leading-tight">
               Northern Norway
@@ -110,7 +110,7 @@ export default function DestinationsPage() {
           </div>
 
           {/* Right side aligned to container */}
-          <div className="flex flex-col justify-center py-12 px-6 sm:px-12 lg:py-16 lg:pl-[50px] xl:pr-[max(1.5rem,calc((100vw-1440px)/2+1.5rem))]">
+          <div className="flex flex-col justify-center py-12 px-6 sm:px-12 lg:py-16 lg:pl-[50px] xl:pr-[max(1.5rem,calc((100vw-var(--container-max-w))/2+1.5rem))]">
             <div className="max-w-xl">
               <p className="text-xs sm:text-[13px] font-semibold uppercase tracking-wider text-sky">
                 THE WINTERERS EDIT

@@ -76,7 +76,7 @@ export default function Hero({
 
         {/* Inner Search Bar - Placed comfortably inside hero banner */}
         {search && searchPosition === 'inner' && (
-          <div className="w-full max-w-[1140px] mt-7 sm:mt-9">
+          <div className="w-full max-w-[var(--container-max-w)] mt-7 sm:mt-9">
             {search}
           </div>
         )}
@@ -85,7 +85,7 @@ export default function Hero({
       {/* Search Bar - Positioned at bottom edge overlapping */}
       {search && searchPosition === 'overlap' && (
         <div className="absolute inset-x-0 bottom-0 translate-y-1/2 z-20 px-4 sm:px-6">
-          <div className="mx-auto max-w-[1140px]">{search}</div>
+          <div className="mx-auto max-w-[var(--container-max-w)]">{search}</div>
         </div>
       )}
     </div>

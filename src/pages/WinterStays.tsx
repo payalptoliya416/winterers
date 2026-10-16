@@ -224,7 +224,7 @@ export default function WinterStays() {
       />
 
       {/* Filter Bar */}
-      <div ref={filterBarRef} className="mx-auto max-w-[1440px] px-4 sm:px-6 pt-6 sm:pt-8 pb-4">
+      <div ref={filterBarRef} className="site-container pt-6 sm:pt-8 pb-4">
         {/* Filter Buttons Row with Interactive Dropdowns */}
         <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
           {Object.entries(filterConfigs).map(([label, { icon: Icon, hasChevron, options }]) => {
@@ -318,7 +318,7 @@ export default function WinterStays() {
         )}
       </div>
 
-      <div className="mx-auto max-w-[1440px] px-4 sm:px-6">
+      <div className="site-container">
         <div className="border-t border-[#E4EAF2] my-4 sm:mb-[90px]" />
       </div>
 
@@ -476,7 +476,7 @@ export default function WinterStays() {
       </Section>
 
       {/* Featured Collection Showcase Banner */}
-      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 my-10 sm:my-14">
+      <div className="site-container my-10 sm:my-14">
         <div
           className="relative overflow-hidden rounded-[26px] sm:rounded-[32px] min-h-[420px] sm:min-h-[460px] flex items-center bg-cover bg-center"
           style={{ backgroundImage: `url('/images/stay-bg.png')` }}
@@ -565,7 +565,7 @@ export default function WinterStays() {
 
       {/* Browse by Type Swiper Slider Section */}
       <section className="bg-[#EEF6FC] py-12 md:py-[110px] overflow-hidden mt-12 sm:mt-[110px]">
-        <div className="mx-auto max-w-[1440px] px-4 sm:px-6">
+        <div className="site-container">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
               <p className="text-xs sm:text-[13px] font-semibold uppercase tracking-wider text-sky mb-1">
@@ -589,7 +589,7 @@ export default function WinterStays() {
         <div
           className="mt-6 sm:mt-8"
           style={{
-            paddingLeft: 'max(1rem, calc((100vw - 1440px) / 2 + 1.5rem))',
+            paddingLeft: 'max(1rem, calc((100vw - var(--container-max-w)) / 2 + 1.5rem))',
           }}
         >
           <Swiper
@@ -629,7 +629,7 @@ export default function WinterStays() {
 
       {/* Find Stays by Location Section */}
       <section className="py-12 md:py-16 bg-white">
-        <div className="mx-auto max-w-[1440px] px-4 sm:px-6">
+        <div className="site-container">
           {/* Header with Title & View Mode Toggle & Location Filters */}
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-6">
             <div>
@@ -862,7 +862,7 @@ export default function WinterStays() {
 
       {/* This Week’s Highlighted Stay Section */}
       <section className="bg-[#031B33] py-16 md:py-20 lg:py-24">
-        <div className="mx-auto max-w-[1440px] px-4 sm:px-6">
+        <div className="site-container">
           <div className="mb-6 sm:mb-8">
             <p className="text-xs sm:text-[13px] font-semibold uppercase tracking-wider text-[#7EC8E3] mb-1.5">
               STAFF PICK
@@ -985,7 +985,7 @@ export default function WinterStays() {
 
       {/* Stays You May Like Section with Swiper Slider */}
       <section className="py-12 md:py-16 bg-white overflow-hidden">
-        <div className="mx-auto max-w-[1440px] px-4 sm:px-6">
+        <div className="site-container">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
             <div>
               <p className="text-xs sm:text-[13px] font-semibold uppercase tracking-wider text-sky mb-1">
@@ -1008,7 +1008,7 @@ export default function WinterStays() {
         <div
           className="mt-6 sm:mt-8"
           style={{
-            paddingLeft: 'max(1rem, calc((100vw - 1440px) / 2 + 1.5rem))',
+            paddingLeft: 'max(1rem, calc((100vw - var(--container-max-w)) / 2 + 1.5rem))',
           }}
         >
           <Swiper
@@ -1025,7 +1025,7 @@ export default function WinterStays() {
                 <div
                   className="w-[280px] sm:w-[320px] md:w-[340px] lg:w-[380px]"
                   style={{
-                    width: 'clamp(280px, calc((min(100vw, 1440px) - 108px) / 3.5), 382px)',
+                    width: 'clamp(280px, calc((min(100vw, var(--container-max-w)) - 108px) / 3.5), 382px)',
                   }}
                 >
                   <div className="group rounded-[24px] border border-slate-200/80 bg-white p-3.5 hover:shadow-lg transition-all duration-300 flex flex-col justify-between h-full">

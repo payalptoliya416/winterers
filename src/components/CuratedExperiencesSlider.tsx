@@ -10,7 +10,7 @@ import type { Stay } from '../types';
 export default function CuratedExperiencesSlider({ stays }: { stays: Stay[] }) {
   return (
     <section className="py-12 md:py-16 bg-white overflow-hidden">
-      <div className="mx-auto max-w-[1440px] px-4 sm:px-6">
+      <div className="site-container">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
           <div>
             <p className="text-xs sm:text-[13px] font-semibold uppercase tracking-wider text-sky mb-1">
@@ -33,7 +33,7 @@ export default function CuratedExperiencesSlider({ stays }: { stays: Stay[] }) {
       <div
         className="mt-6 sm:mt-8"
         style={{
-          paddingLeft: 'max(1rem, calc((100vw - 1440px) / 2 + 1.5rem))',
+          paddingLeft: 'max(1rem, calc((100vw - var(--container-max-w)) / 2 + 1.5rem))',
         }}
       >
         <Swiper
