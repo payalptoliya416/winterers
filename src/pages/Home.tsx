@@ -36,7 +36,7 @@ export default function Home() {
         text="Discover handpicked winter stays, from cosy mountain cabins and ski chalets to unforgettable escapes surrounded by snow."
       />
 
-      <Section>
+      <Section className='!pb-0'>
         <SectionHead
           center
           eyebrow="Discover your stay"
