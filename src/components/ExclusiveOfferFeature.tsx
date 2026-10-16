@@ -7,8 +7,11 @@ export default function ExclusiveOfferFeature() {
     <section className="py-12 md:py-16 bg-white">
       <Container>
         <div className="overflow-hidden rounded-[28px] bg-[#EEF4FA] grid grid-cols-1 lg:grid-cols-2">
-          {/* Left Column: Image with baked-in Featured Winter Deal badge */}
+          {/* Left Column: Image with Featured Winter Deal badge */}
           <div className="relative min-h-[340px] sm:min-h-[420px] lg:min-h-[480px] w-full">
+            <span className="absolute top-5 left-5 z-10 inline-flex items-center rounded-[6px] bg-[#82C3DF] px-3.5 py-1.5 text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#071D36] shadow-sm pointer-events-none">
+              FEATURED WINTER DEAL
+            </span>
             <img
               src="/images/offer.png"
               alt="Stay More, Save More - Featured Winter Deal"

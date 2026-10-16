@@ -18,18 +18,33 @@ import ImgBg from "./ImgBg";
 import Button from "./Button";
 export const FeaturedStays = ({
   tone = "light",
+  eyebrow = "Handpicked for winter",
+  title = "Featured Winter Stays",
+  sub = "Discover unique cabins, chalets and unforgettable places made for your next winter escape.",
+  action = "View All Stays",
+  to = "/stays",
+  center = false,
+  showAction = true,
 }: {
   tone?: "light" | "dark" | "mist";
-}) => {
+  eyebrow?: string;
+  title?: string;
+  sub?: string;
+  action?: string;
+  to?: string;
+  center?: boolean;
+  showAction?: boolean;
+} = {}) => {
   const s = useSelector(selectSorted);
   return (
-    <Section tone={tone} className="!pt-0">
+    <Section tone={tone} className="">
       <SectionHead
-        eyebrow="Handpicked for winter"
-        title="Featured Winter Stays"
-        sub="Discover unique cabins, chalets and unforgettable places made for your next winter escape."
-        action="View All Stays"
-        to="/stays"
+        center={center}
+        eyebrow={eyebrow}
+        title={title}
+        sub={sub || undefined}
+        action={showAction ? action : undefined}
+        to={to}
       />
       <StayGrid items={s} />
     </Section>

@@ -41,7 +41,13 @@ export default function Offers() {
         text="Discover exclusive winter stays, seasonal savings and limited-time offers curated for your next snowy escape."
       />
 
-      <FeaturedStays />
+      <FeaturedStays
+        center
+        showAction={false}
+        eyebrow="48 WINTER STAYS AVAILABLE · LAPLAND & SCANDINAVIA"
+        title="Winter stays for your next escape"
+        sub=""
+      />
       <Deals action="View All Winter Offers" />
 
       <ExclusiveOfferFeature />
