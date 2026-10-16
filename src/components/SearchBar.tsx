@@ -41,7 +41,7 @@ export default function SearchBar({
 
   return (
     <div
-      className={`rounded-2xl sm:rounded-[28px] bg-white p-4 sm:p-5 lg:p-6 text-navy shadow-[0_12px_45px_rgba(0,0,0,0.08)] border border-slate-100 ${className}`}
+      className={`rounded-2xl sm:rounded-[26px] bg-white p-4 sm:p-5 lg:p-6 text-navy border border-[#D0DCE8] ${className}`}
     >
       <div className="flex flex-col gap-2.5 lg:flex-row lg:items-center lg:gap-3 text-left">
         {/* Where — takes wide space */}

@@ -30,16 +30,19 @@ export default function Offers() {
     <>
       <div className="pb-28 md:pb-24">
         <Hero
-          tall
           search={<SearchBar />}
           name="hero-offers.png"
-          eyebrow="Winter offers"
-          title="Winter Escapes,"
-          accent="Better Prices"
+          eyebrow="WINTER OFFERS"
+          title={
+            <>
+              Winter Escapes, <br />
+              <span className="text-[#7EC8E3]">Better Prices</span>
+            </>
+          }
           text="Discover exclusive winter stays, seasonal savings and limited-time offers curated for your next snowy escape."
         >
-          <Button variant="light">Explore Winter Deals</Button>
-          <Button variant="ghost" to="/stays">Browse Winter Stays</Button>
+          <Button variant="light" pill>Explore Winter Deals</Button>
+          <Button variant="ghost" to="/stays" pill>Browse Winter Stays</Button>
         </Hero>
       </div>
 

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import ImgBg from './ImgBg';
+import { img } from '../data';
 import Container from './Container';
 
 interface HeroProps {
@@ -12,6 +12,7 @@ interface HeroProps {
   overlay?: string;
   children?: ReactNode;
   search?: ReactNode;
+  searchPosition?: 'overlap' | 'inner';
 }
 
 export default function Hero({
@@ -20,60 +21,73 @@ export default function Hero({
   title,
   accent,
   text,
-  tall = false,
-  overlay = 'bg-gradient-to-b from-[#062541]/45 via-[#062541]/35 to-[#062541]/65',
+  overlay = 'bg-gradient-to-b from-[#062541]/50 via-[#062541]/30 to-[#062541]/65',
   children,
   search,
+  searchPosition = 'overlap',
 }: HeroProps) {
+  const bgUrl = img(name);
+
   return (
-    <ImgBg name={name} overlay={overlay} className="relative overflow-visible">
-      <div
-        className={`flex flex-col items-center text-center text-white ${
-          tall ? 'pb-32 sm:pb-36 md:pb-44' : 'pb-16 sm:pb-20 md:pb-28'
-        } pt-36 sm:pt-40 md:pt-44`}
-      >
+    <div
+      className="relative w-full h-[800px] min-h-[800px] bg-cover bg-center overflow-visible"
+      style={{ backgroundImage: `url(${bgUrl})` }}
+    >
+      {/* Dark overlay for contrast */}
+      <div className={`absolute inset-0 ${overlay}`} />
+
+      {/* Center content container - takes full 800px height, centered */}
+      <div className="relative z-10 flex h-full flex-col items-center justify-center text-center text-white pt-24 pb-24 px-4 sm:px-6">
         <Container className="!max-w-[1000px]">
           {eyebrow && (
-            <p className="mb-3.5 text-sm sm:text-lg font-semibold uppercase text-[#7EC8E3]">
+            <p className="mb-3.5 font-head text-xs sm:text-[13px] md:text-sm font-semibold uppercase tracking-[0.18em] text-[#7EC8E3]">
               {eyebrow}
             </p>
           )}
 
           {typeof title === 'string' ? (
-            <h1 className="text-4xl font-semibold leading-[1.12] sm:text-5xl md:text-6xl lg:text-[80px] text-white">
+            <h1 className="font-head text-4xl sm:text-5xl md:text-6xl lg:text-[68px] font-semibold leading-[1.12] tracking-tight text-white">
               {title}
               {accent && (
                 <>
                   <br className="hidden sm:block" />{' '}
-                  <span className="text-sky">{accent}</span>
+                  <span className="text-[#7EC8E3]">{accent}</span>
                 </>
               )}
             </h1>
           ) : (
-            <h1 className="text-4xl font-semibold leading-[1.12] sm:text-5xl md:text-6xl lg:text-[80px] text-white">
+            <h1 className="font-head text-4xl sm:text-5xl md:text-6xl lg:text-[68px] font-semibold leading-[1.12] tracking-tight text-white">
               {title}
             </h1>
           )}
 
           {text && (
-            <p className="mx-auto mt-4 sm:mt-5 max-w-2xl text-xs sm:text-sm md:text-lg leading-relaxed text-white/80">
+            <p className="mx-auto mt-4 sm:mt-5 max-w-2xl font-body text-xs sm:text-sm md:text-base leading-relaxed text-white/85 font-normal">
               {text}
             </p>
           )}
 
           {children && (
-            <div className="mt-7 sm:mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+            <div className="mt-6 sm:mt-7 flex flex-wrap items-center justify-center gap-3.5 sm:gap-4">
               {children}
             </div>
           )}
         </Container>
+
+        {/* Inner Search Bar - Placed comfortably inside hero banner */}
+        {search && searchPosition === 'inner' && (
+          <div className="w-full max-w-[1140px] mt-7 sm:mt-9">
+            {search}
+          </div>
+        )}
       </div>
 
-      {search && (
+      {/* Search Bar - Positioned at bottom edge overlapping */}
+      {search && searchPosition === 'overlap' && (
         <div className="absolute inset-x-0 bottom-0 translate-y-1/2 z-20 px-4 sm:px-6">
           <div className="mx-auto max-w-[1140px]">{search}</div>
         </div>
       )}
-    </ImgBg>
+    </div>
   );
 }

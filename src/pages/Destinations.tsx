@@ -11,16 +11,19 @@ export default function DestinationsPage() {
     <>
       <div className="pb-28 md:pb-24">
         <Hero
-          tall
           search={<SearchBar />}
           name="destination-bg.png"
-          eyebrow="Explore winter destinations"
-          title="Find Your Perfect Winter"
-          accent="Destination"
+          eyebrow="EXPLORE WINTER DESTINATIONS"
+          title={
+            <>
+              Find Your <span className="text-[#7EC8E3]">Perfect Winter</span> <br />
+              Destination
+            </>
+          }
           text="From snow-covered alpine villages to remote Arctic landscapes, discover destinations made for unforgettable winter escapes."
         >
-          <Button variant="light" to="/destinations">Explore Destinations</Button>
-          <Button variant="ghost" to="/stays">View Winter Stays</Button>
+          <Button variant="light" to="/destinations" pill>Explore Destinations</Button>
+          <Button variant="ghost" to="/stays" pill>View Winter Stays</Button>
         </Hero>
       </div>
 

@@ -14,13 +14,17 @@ export default function Experiences() {
     <>
       <Hero
         name="hero-exp.png"
-        eyebrow="Winter experiences"
-        title="Experience Winter"
-        accent="Like Never Before"
-        text="From northern lights and mountain adventures to cosy escapes and unforgettable snowy moments."
+        eyebrow="WINTER EXPERIENCES"
+        title={
+          <>
+            Experience Winter <br />
+            <span className="text-[#7EC8E3]">Like Never Before</span>
+          </>
+        }
+        text="From northern lights and mountain adventures to cozy escapes and unforgettable snowy moments, discover experiences made for people who truly love winter."
       >
-        <Button variant="light">Explore Experiences</Button>
-        <Button variant="ghost" to="/stays">Find Your Stay</Button>
+        <Button variant="light" pill>Explore Experiences</Button>
+        <Button variant="ghost" to="/stays" pill>Find Your Stay</Button>
       </Hero>
 
       <Exp

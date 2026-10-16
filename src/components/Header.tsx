@@ -26,12 +26,21 @@ export default function Header() {
                 key={path}
                 to={path}
                 className={({ isActive }) =>
-                  isActive
-                    ? 'text-sky font-semibold transition-colors'
-                    : 'text-navy/85 hover:text-sky transition-colors'
+                  `relative flex flex-col items-center py-1 transition-colors ${
+                    isActive
+                      ? 'text-sky font-semibold'
+                      : 'text-navy/85 hover:text-sky'
+                  }`
                 }
               >
-                {label}
+                {({ isActive }) => (
+                  <>
+                    <span>{label}</span>
+                    {isActive && (
+                      <span className="absolute -bottom-1 h-0.5 w-3.5 rounded-full bg-sky" />
+                    )}
+                  </>
+                )}
               </NavLink>
             ))}
           </nav>

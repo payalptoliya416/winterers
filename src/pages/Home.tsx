@@ -25,18 +25,17 @@ export default function Home() {
     <>
       <div className="pb-28 md:pb-24">
         <Hero
-          tall
           search={<SearchBar />}
           name="hero-cabin.png"
-          eyebrow="EXPLORE WINTER DESTINATIONS"
+          eyebrow="THE WINTER TRAVEL PLATFORM"
           title={
             <>
-              Find Your Perfect <br/> <span className="text-sky">Winter Escape</span>
+              Find Your Perfect <br />
+              <span className="text-[#7EC8E3]">Winter Escape</span>
             </>
           }
-          text="From snow-covered alpine villages to remote Arctic landscapes, discover destinations made for unforgettable winter escapes."
-        >
-        </Hero>
+          text="Discover handpicked winter stays, from cosy mountain cabins and ski chalets to unforgettable escapes surrounded by snow."
+        />
       </div>
 
       <Section>
@@ -64,14 +63,14 @@ export default function Home() {
           eyebrow="Why Winterers"
           title="Made for People Who Prefer Winter"
         />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {why.map(({ icon: Icon, title, text }) => (
-            <div key={title} className="rounded-2xl border border-navy/10 bg-[#F8FAFB] p-6 hover:border-navy/20 hover:shadow-sm transition">
-              <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white shadow-sm border border-navy/8">
-                <Icon className="h-5 w-5 text-navy/70" strokeWidth={1.6} />
+            <div key={title} className="rounded-2xl border border-[#F9F9F9] bg-[#F8FAFB] p-6 hover:border-[#D0DCE8] hover:shadow-sm transition">
+              <div className="mb-[21px] inline-flex h-[52px] w-[52px] items-center justify-center rounded-[17px] bg-white">
+                <Icon className="h-5 w-5 text-[#02213B]" strokeWidth={1.6} />
               </div>
-              <h3 className="text-[15px] font-semibold text-navy">{title}</h3>
-              <p className="mt-1.5 text-[13px] leading-relaxed text-navy/50">{text}</p>
+              <h3 className="text-lg font-semibold text-[#0D1F35]">{title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-[#98A1AC]">{text}</p>
             </div>
           ))}
         </div>

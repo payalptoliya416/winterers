@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch as useDispatch, useAppSelector as useSelector } from '../store/hooks';
 import { selectSorted, setSort } from '../store/staysSlice';
 import type { Sort } from '../store/staysSlice';
+import Hero from '../components/Hero';
 import SearchBar from '../components/SearchBar';
 import Section from '../components/Section';
 import SectionHead from '../components/SectionHead';
@@ -207,36 +208,20 @@ export default function WinterStays() {
 
   return (
     <>
-      {/* Hero Banner with SearchBar inside */}
-      <div
-        className="relative overflow-hidden bg-cover bg-center"
-        style={{ backgroundImage: `url('/images/hero-stays.png')` }}
-      >
-        {/* Subtle gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#062541]/45 via-[#062541]/30 to-[#062541]/55" />
-
-        <div className="relative z-10 flex flex-col items-center text-center text-white pt-32 sm:pt-36 md:pt-[220px] pb-12 sm:pb-16 px-4 sm:px-6">
-          <div className="mx-auto max-w-[1000px]">
-            <p className="mb-3.5 text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#7EC8E3]">
-              PREMIUM WINTER PROPERTIES
-            </p>
-
-            <h1 className="text-4xl font-semibold leading-[1.12] sm:text-5xl md:text-6xl tracking-tight text-white">
-              Find Your Perfect <br />
-              <span className="text-sky">Winter Stay</span>
-            </h1>
-
-            <p className="mx-auto mt-4 sm:mt-5 max-w-2xl text-xs sm:text-sm md:text-lg leading-relaxed text-white/80 font-normal">
-              Cabins, chalets, lodges and extraordinary winter properties across the world's most beautiful winter destinations.
-            </p>
-          </div>
-
-          {/* Search Bar - Placed comfortably inside hero banner */}
-          <div className="w-full max-w-[1440px] mt-8 sm:mt-10">
-            <SearchBar cta="Search" chips={false} />
-          </div>
-        </div>
-      </div>
+      {/* Hero Banner with 800px height and inner SearchBar */}
+      <Hero
+        searchPosition="inner"
+        search={<SearchBar cta="Search" chips={false} />}
+        name="hero-stays.png"
+        eyebrow="PREMIUM WINTER PROPERTIES"
+        title={
+          <>
+            Find Your Perfect <br />
+            <span className="text-[#7EC8E3]">Winter Stay</span>
+          </>
+        }
+        text="Cabins, chalets, lodges and extraordinary winter properties across the world's most beautiful winter destinations."
+      />
 
       {/* Filter Bar */}
       <div ref={filterBarRef} className="mx-auto max-w-[1440px] px-4 sm:px-6 pt-6 sm:pt-8 pb-4">
