@@ -19,7 +19,7 @@ export default function Offers() {
         <Hero
           tall
           search={<SearchBar />}
-          name="hero-offers"
+          name="hero-offers.png"
           eyebrow="Winter offers"
           title="Winter Escapes,"
           accent="Better Prices"

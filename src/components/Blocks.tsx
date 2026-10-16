@@ -273,15 +273,15 @@ export const Deals = ({
           className="h-[354px] rounded-2xl"
           overlay="bg-gradient-to-t from-black/75 via-black/20 to-transparent"
         >
-          <span className="absolute left-3 top-3 rounded-full bg-sky px-3 py-1 text-[11px] font-semibold text-navy tracking-wide">
+          <span className="absolute left-5 top-5 rounded-full bg-[#7EC8E3] px-[15px] py-2 text-sm font-medium text-[#0D1F35] tracking-wide">
             SAVE UP TO 20%
           </span>
           <div className="absolute inset-x-4 bottom-4 flex items-end justify-between text-white">
             <div>
-              <p className="text-xl font-semibold leading-tight">{l}</p>
-              <p className="mt-1 flex items-baseline gap-1">
-                <b className="text-lg font-bold">€289</b>
-                <span className="text-[12px] text-white/70">/night</span>
+              <p className="text-2xl font-semibold leading-tight">{l}</p>
+              <p className="mt-5 flex items-baseline gap-1">
+                <b className="text-xl font-bold">€289</b>
+                <span className="text-sm text-[#98A1AC]">/night</span>
               </p>
             </div>
             <Button variant="light" size="sm">

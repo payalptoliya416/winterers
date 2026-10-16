@@ -56,7 +56,7 @@ export default function Hero({
           )}
 
           {text && (
-            <p className="mx-auto mt-4 sm:mt-5 max-w-xl text-xs sm:text-sm md:text-base leading-relaxed text-white/80">
+            <p className="mx-auto mt-4 sm:mt-5 max-w-2xl text-xs sm:text-sm md:text-base leading-relaxed text-white/80">
               {text}
             </p>
           )}

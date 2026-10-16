@@ -226,7 +226,7 @@ export default function WinterStays() {
               <span className="text-sky">Winter Stay</span>
             </h1>
 
-            <p className="mx-auto mt-4 sm:mt-5 max-w-xl text-xs sm:text-sm md:text-base leading-relaxed text-white/80 font-normal">
+            <p className="mx-auto mt-4 sm:mt-5 max-w-2xl text-xs sm:text-sm md:text-base leading-relaxed text-white/80 font-normal">
               Cabins, chalets, lodges and extraordinary winter properties across the world's most beautiful winter destinations.
             </p>
           </div>

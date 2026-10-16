@@ -37,7 +37,7 @@ export default function SearchBar({
 
   /* shared field wrapper */
   const fieldCls =
-    'flex flex-col justify-center px-4 py-2.5 rounded-[18px] bg-[#F4F5F7] transition cursor-text h-[68px]';
+    'flex flex-col justify-center px-5 py-[18px] rounded-[18px] bg-[#F4F5F7] transition cursor-text h-[70px]';
 
   return (
     <div
@@ -110,7 +110,7 @@ export default function SearchBar({
         <div className="w-full lg:w-auto lg:flex-none">
           <button
             type="button"
-            className="w-full lg:w-[220px] h-[68px] inline-flex items-center justify-center rounded-[18px] bg-[#071D36] hover:bg-[#051527] px-8 font-medium text-white transition whitespace-nowrap text-sm tracking-wide shadow-sm"
+            className="w-full lg:w-[220px] h-[68px] inline-flex items-center justify-center rounded-[18px] bg-[#071D36] hover:bg-[#051527] px-8 font-medium text-white transition whitespace-nowrap text-base tracking-wide"
           >
             {cta}
           </button>

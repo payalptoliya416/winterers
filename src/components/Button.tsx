@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const variants: Record<string, string> = {
   primary: 'bg-navy text-white hover:bg-navy/90 shadow-sm',
-  light: 'bg-white text-navy hover:bg-slate-100 shadow-md',
+  light: 'bg-white text-navy hover:bg-slate-100',
   sky: 'bg-sky text-navy hover:bg-sky/90 shadow-sm',
   outline: 'border border-sky/60 text-sky hover:bg-sky/10',
   ghost: 'border border-white/60 bg-white/15 text-white hover:bg-white/30 backdrop-blur-sm',
@@ -11,7 +11,7 @@ const variants: Record<string, string> = {
 };
 
 const sizes: Record<string, string> = {
-  sm: 'px-5 py-3 text-base',
+  sm: 'px-5 py-3 text-sm',
   md: 'px-5 py-2.5 text-sm',
   lg: 'px-7 py-3 text-sm font-semibold',
 };
@@ -34,7 +34,7 @@ export default function Button({
   onClick?: () => void;
 }) {
   const isPill = pill || className.includes('rounded-full');
-  const roundedClass = isPill ? 'rounded-full' : 'rounded-xl';
+  const roundedClass = isPill ? 'rounded-full' : 'rounded-[12px]';
 
   const classes = `inline-flex items-center justify-center font-medium transition whitespace-nowrap ${roundedClass} ${
     sizes[size] || sizes.md
