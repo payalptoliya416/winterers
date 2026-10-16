@@ -45,7 +45,7 @@ export default function Footer() {
         {/* Upper 50% split background in white to match page above */}
         <div className="absolute inset-x-0 top-0 h-1/2 bg-white pointer-events-none" />
 
-        <div className="relative z-10 mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        <div className="relative z-10 mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8 py-8 sm:py-[110px]">
           <div className="relative overflow-hidden rounded-[24px] sm:rounded-[32px] bg-slate-900 shadow-2xl">
             {/* Background Image of Cozy Winter Cabin */}
             <div
