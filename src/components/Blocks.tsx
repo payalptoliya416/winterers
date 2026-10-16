@@ -23,7 +23,7 @@ export const FeaturedStays = ({
 }) => {
   const s = useSelector(selectSorted);
   return (
-    <Section tone={tone}>
+    <Section tone={tone} className="!pt-0">
       <SectionHead
         eyebrow="Handpicked for winter"
         title="Featured Winter Stays"
@@ -35,13 +35,22 @@ export const FeaturedStays = ({
     </Section>
   );
 };
-export const Destinations = () => (
-  <Section tone="dark">
+export const Destinations = ({
+  tone = "dark",
+  center = false,
+  showAction = true,
+}: {
+  tone?: "light" | "dark" | "mist";
+  center?: boolean;
+  showAction?: boolean;
+} = {}) => (
+  <Section tone={tone}>
     <SectionHead
-      dark
+      dark={tone === "dark"}
+      center={center}
       eyebrow="Explore the world"
       title="Popular Winter Destinations"
-      action="Explore All Destinations"
+      action={showAction ? "Explore All Destinations" : undefined}
       to="/destinations"
     />
     <div className="grid grid-cols-1 md:grid-cols-12 gap-3.5 sm:gap-6">
@@ -192,7 +201,7 @@ export const Experiences = ({
   sub?: string;
 } = {}) => {
   return (
-    <section className="bg-white py-12 md:py-16 overflow-hidden">
+    <section className="bg-white py-12 md:py-[110px] overflow-hidden">
       <Container>
         <SectionHead
           center

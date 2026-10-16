@@ -26,7 +26,7 @@ export default function DestinationsPage() {
         </Button>
       </Hero>
 
-      <Destinations />
+      <Destinations tone="light" center showAction={false} />
       <FeaturedStays />
 
       {/* Northern Norway Feature Banner */}
@@ -90,9 +90,9 @@ export default function DestinationsPage() {
 
       {/* The Winterers Edit - Half-bleed section */}
       <section className="relative overflow-hidden bg-[#F2F6FA] w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2">
-          {/* Left image bleeds outside container to screen left edge */}
-          <div className="relative min-h-[380px] sm:min-h-[460px] lg:min-h-[520px] w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-[58%_42%] xl:grid-cols-[880px_1fr] min-h-[538px] items-stretch">
+          {/* Left image bleeds outside container to screen left edge with 880px on desktop */}
+          <div className="relative w-full min-h-[360px] sm:min-h-[440px] lg:min-h-[538px] lg:h-full">
             <img
               src="/images/edit.jpg"
               alt="The Winterers Edit"
@@ -100,14 +100,14 @@ export default function DestinationsPage() {
             />
           </div>
 
-          {/* Right side aligned to container */}
-          <div className="flex flex-col justify-center py-12 px-6 sm:px-12 lg:py-16 lg:pl-[50px] xl:pr-[max(1.5rem,calc((100vw-var(--container-max-w))/2+1.5rem))]">
-            <div className="max-w-xl">
+          {/* Right side aligned */}
+          <div className="flex flex-col justify-center py-12 px-6 sm:px-10 lg:py-16 lg:pl-12 xl:pl-14 xl:pr-10">
+            <div className="w-full max-w-[640px]">
               <p className="section-eyebrow">
                 THE WINTERERS EDIT
               </p>
 
-              <h2 className="section-title">
+              <h2 className="mt-[15px] font-head text-2xl sm:text-3xl lg:text-[30px] xl:text-[32px] font-medium text-[#0D1F35] tracking-tight leading-tight lg:whitespace-nowrap">
                 A Different Way to Experience Winter
               </h2>
 
