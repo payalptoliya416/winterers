@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { ChevronDown, Globe, Camera, SlidersHorizontal, Headphones, Check } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import { ChevronDown, Globe, Camera, SlidersHorizontal, Headphones, Check, MapPin, LayoutGrid, CircleCheck, Users, TrendingUp, Calendar, ChartColumnIncreasing, ShieldCheck, Lock } from 'lucide-react';
 import Hero from '../components/Hero';
 import Button from '../components/Button';
 import Section from '../components/Section';
@@ -7,11 +7,64 @@ import SectionHead from '../components/SectionHead';
 import Feature from '../components/Feature';
 import ImgBg from '../components/ImgBg';
 
+const countryCodes = [
+  { code: '+1', name: 'United States', flag: '🇺🇸' },
+  { code: '+1', name: 'Canada', flag: '🇨🇦' },
+  { code: '+44', name: 'United Kingdom', flag: '🇬🇧' },
+  { code: '+358', name: 'Finland', flag: '🇫🇮' },
+  { code: '+47', name: 'Norway', flag: '🇳🇴' },
+  { code: '+46', name: 'Sweden', flag: '🇸🇪' },
+  { code: '+41', name: 'Switzerland', flag: '🇨🇭' },
+  { code: '+33', name: 'France', flag: '🇫🇷' },
+  { code: '+43', name: 'Austria', flag: '🇦🇹' },
+  { code: '+49', name: 'Germany', flag: '🇩🇪' },
+  { code: '+39', name: 'Italy', flag: '🇮🇹' },
+  { code: '+34', name: 'Spain', flag: '🇪🇸' },
+  { code: '+354', name: 'Iceland', flag: '🇮🇸' },
+  { code: '+31', name: 'Netherlands', flag: '🇳🇱' },
+  { code: '+32', name: 'Belgium', flag: '🇧🇪' },
+  { code: '+45', name: 'Denmark', flag: '🇩🇰' },
+  { code: '+351', name: 'Portugal', flag: '🇵🇹' },
+  { code: '+30', name: 'Greece', flag: '🇬🇷' },
+  { code: '+48', name: 'Poland', flag: '🇵🇱' },
+  { code: '+420', name: 'Czech Republic', flag: '🇨🇿' },
+  { code: '+91', name: 'India', flag: '🇮🇳' },
+  { code: '+61', name: 'Australia', flag: '🇦🇺' },
+  { code: '+64', name: 'New Zealand', flag: '🇳🇿' },
+  { code: '+81', name: 'Japan', flag: '🇯🇵' },
+  { code: '+971', name: 'UAE', flag: '🇦🇪' },
+  { code: '+65', name: 'Singapore', flag: '🇸🇬' },
+  { code: '+82', name: 'South Korea', flag: '🇰🇷' },
+  { code: '+55', name: 'Brazil', flag: '🇧🇷' },
+  { code: '+52', name: 'Mexico', flag: '🇲🇽' },
+  { code: '+27', name: 'South Africa', flag: '🇿🇦' },
+];
+
 const steps = [
-  ['Tell Us About Your Property', 'Share your location, property type and essential details.'],
-  ['Build Your Listing', 'Add photographs, amenities, pricing and availability.'],
-  ['Go Live', 'Our team reviews and helps prepare it for travellers.'],
-  ['Welcome Your Guests', 'Start receiving bookings from winter travellers.'],
+  {
+    num: '01',
+    icon: MapPin,
+    title: 'Tell Us About Your Property',
+    text: 'Share your location, property type and essential details.',
+  },
+  {
+    num: '02',
+    icon: LayoutGrid,
+    title: 'Build Your Listing',
+    text: 'Add photographs, amenities, pricing and availability.',
+  },
+  {
+    num: '03',
+    icon: CircleCheck,
+    title: 'Go Live',
+    text: 'Our team reviews your listing and helps prepare it for travellers.',
+  },
+  {
+    num: '04',
+    icon: Users,
+    title: 'Welcome Your Guests',
+    text: 'Start receiving bookings from winter travellers.',
+  },
 ];
 
 const why = [
@@ -53,6 +106,26 @@ export default function ListProperty() {
   const [open, setOpen] = useState(0);
   const [country, setCountry] = useState('');
   const [agreed, setAgreed] = useState(false);
+  const [selectedCountryCode, setSelectedCountryCode] = useState('+00');
+  const [codeDropdownOpen, setCodeDropdownOpen] = useState(false);
+  const [searchCode, setSearchCode] = useState('');
+  const codeRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (codeRef.current && !codeRef.current.contains(e.target as Node)) {
+        setCodeDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const filteredCountryCodes = countryCodes.filter(
+    (c) =>
+      c.name.toLowerCase().includes(searchCode.toLowerCase()) ||
+      c.code.includes(searchCode)
+  );
 
   return (
     <>
@@ -65,7 +138,7 @@ export default function ListProperty() {
       >
       </Hero>
 
-      <Section tone="light" className="!pt-8 sm:!pt-12">
+      <Section tone="light" className="!pt-12 sm:!pt-[110px]">
         <div className="overflow-hidden rounded-[20px] bg-[#EFF5FB] grid grid-cols-1 lg:grid-cols-12 shadow-sm">
           {/* Left Column: Image */}
           <div className="lg:col-span-5 relative w-full h-[300px] sm:h-[400px] lg:h-auto min-h-full">
@@ -123,15 +196,20 @@ export default function ListProperty() {
 
               {/* Row 2: Phone Number & Property Name */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
+                <div className="relative" ref={codeRef}>
                   <label className="block text-xs sm:text-base text-[#1A1A1A] mb-[10px]">
                     Phone Number<span className="text-[#DB0505] ml-0.5">*</span>
                   </label>
                   <div className="flex items-center w-full rounded-full bg-white border border-[#EBEBEB] px-6 py-3 text-sm sm:text-base text-[#0F172A] transition focus-within:border-[#7EC8E3]">
-                    <div className="flex items-center gap-1.5 text-[#0F172A] font-medium shrink-0 cursor-pointer select-none">
-                      <span>+00</span>
-                      <ChevronDown className="w-3.5 h-3.5 text-[#888888]" />
-                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setCodeDropdownOpen((prev) => !prev)}
+                      className="flex items-center gap-1.5 text-[#0F172A] font-medium shrink-0 cursor-pointer select-none hover:text-[#7EC8E3] transition"
+                      aria-label="Select Country Code"
+                    >
+                      <span>{selectedCountryCode}</span>
+                      <ChevronDown className={`w-3.5 h-3.5 text-[#888888] transition-transform duration-200 ${codeDropdownOpen ? 'rotate-180' : ''}`} />
+                    </button>
                     <span className="h-4 w-px bg-[#EBEBEB] mx-3 shrink-0" />
                     <input
                       type="tel"
@@ -140,6 +218,49 @@ export default function ListProperty() {
                       className="w-full bg-transparent border-0 p-0 text-sm sm:text-base text-[#0F172A] placeholder:text-[#888888] focus:outline-none focus:ring-0"
                     />
                   </div>
+
+                  {/* Dropdown Menu */}
+                  {codeDropdownOpen && (
+                    <div className="absolute left-0 top-full mt-2 w-72 max-h-64 overflow-hidden rounded-2xl bg-white border border-[#EBEBEB] shadow-2xl z-50 flex flex-col animate-in fade-in zoom-in-95 duration-150">
+                      <div className="p-2.5 border-b border-[#EBEBEB] bg-[#F8FAFC]">
+                        <input
+                          type="text"
+                          value={searchCode}
+                          onChange={(e) => setSearchCode(e.target.value)}
+                          placeholder="Search country or code..."
+                          className="w-full rounded-xl bg-white border border-[#E2E8F0] px-3 py-1.5 text-xs text-[#0F172A] placeholder:text-[#94A3B8] focus:outline-none focus:border-[#7EC8E3]"
+                          autoFocus
+                        />
+                      </div>
+                      <div className="overflow-y-auto max-h-52 p-1 divide-y divide-slate-50">
+                        {filteredCountryCodes.map((c) => (
+                          <button
+                            key={`${c.name}-${c.code}`}
+                            type="button"
+                            onClick={() => {
+                              setSelectedCountryCode(c.code);
+                              setCodeDropdownOpen(false);
+                              setSearchCode('');
+                            }}
+                            className={`w-full flex items-center justify-between px-3 py-2 text-xs rounded-lg transition text-left cursor-pointer ${
+                              selectedCountryCode === c.code
+                                ? 'bg-[#EEF4FA] text-[#071D36] font-semibold'
+                                : 'hover:bg-slate-50 text-[#334155]'
+                            }`}
+                          >
+                            <div className="flex items-center gap-2 truncate pr-2">
+                              <span className="text-base">{c.flag}</span>
+                              <span className="truncate">{c.name}</span>
+                            </div>
+                            <span className="font-mono font-medium text-slate-500 shrink-0">{c.code}</span>
+                          </button>
+                        ))}
+                        {filteredCountryCodes.length === 0 && (
+                          <p className="p-3 text-center text-xs text-slate-400">No countries found</p>
+                        )}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div>
@@ -263,7 +384,7 @@ export default function ListProperty() {
         </div>
       </Section>
 
-      <Section tone="light" className="!py-16 md:!py-24">
+      <Section tone="light" className="!py-16 md:!py-24 !bg-[#F9F9F9]">
         <div className="text-center mb-12 sm:mb-16">
           <p className="section-eyebrow mb-2">
             WHY LIST WITH US
@@ -283,21 +404,21 @@ export default function ListProperty() {
             >
               {/* Top row: Number & Icon */}
               <div className="flex items-center justify-between">
-                <span className="font-head text-4xl sm:text-5xl font-bold text-[#E2EAF2] tracking-tight">
+                <span className="font-body text-4xl sm:text-[80px] font-bold text-[#06243A1A] tracking-tight leading-none select-none" style={{ fontFamily: '"DM Sans", sans-serif' }}>
                   {num}
                 </span>
-                <div className="w-11 h-11 rounded-[12px] bg-white border border-slate-200/90 shadow-sm flex items-center justify-center text-[#071D36] shrink-0">
-                  <Icon className="w-5 h-5 text-[#071D36]" strokeWidth={1.75} />
+                <div className="w-[52px] h-[52px] rounded-[12px] bg-white border border-[#D4DDE6] flex items-center justify-center text-[#06243A] shrink-0">
+                  <Icon className="w-5 h-5 text-[#06243A]" strokeWidth={1.75} />
                 </div>
               </div>
 
               {/* Title */}
-              <h3 className="font-head text-base sm:text-lg font-bold text-[#071D36] mt-5 sm:mt-6">
+              <h3 className="font-head text-base sm:text-lg font-bold text-[#06243A] mt-5 sm:mt-5">
                 {title}
               </h3>
 
               {/* Description */}
-              <p className="mt-2 text-xs sm:text-sm text-[#7A8FA6] leading-relaxed">
+              <p className="mt-5 text-xs sm:text-base text-[#6B8090] leading-relaxed">
                 {text}
               </p>
             </div>
@@ -305,34 +426,245 @@ export default function ListProperty() {
         </div>
       </Section>
 
-      <Section tone="dark">
-        <SectionHead center title="From Your Property to Your First Booking" eyebrow="The process" />
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {steps.map(([t, x], i) => (
-            <div key={t} className="text-center">
-              <span className="mx-auto mb-3 flex h-9 w-9 items-center justify-center rounded-full bg-white text-xs text-navy">
-                {i + 1}
-              </span>
-              <h3 className="text-xs font-medium">{t}</h3>
-              <p className="mt-1 text-[10px] text-white/60">{x}</p>
-            </div>
-          ))}
+      <Section tone="dark" className="!py-16 md:!py-24 !bg-[#03192E]">
+        <div className="text-center mb-12 sm:mb-16">
+          <p className="text-[#5CBDE5] text-xs sm:text-[13px] font-semibold tracking-[0.16em] uppercase mb-2 sm:mb-3">
+            THE PROCESS
+          </p>
+          <h2 className="text-2xl sm:text-3xl md:text-[34px] lg:text-[36px] font-semibold text-white tracking-tight">
+            From Your Property to Your First Booking
+          </h2>
         </div>
-        <div className="mt-8 text-center">
-          <Button variant="light">Start Your Listing</Button>
+
+        <div className="relative">
+          {/* Subtle horizontal connecting line behind circles on desktop */}
+          <div className="hidden lg:block absolute top-7 sm:top-8 left-[12.5%] right-[12.5%] h-px bg-white/20 z-0" />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-10 sm:gap-y-12 lg:gap-y-0 gap-x-6 relative z-10">
+            {steps.map(({ num, icon: Icon, title, text }) => (
+              <div key={num} className="flex flex-col items-center text-center px-2">
+                {/* White Circular Icon Badge */}
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white flex items-center justify-center text-[#062541] shadow-lg shrink-0">
+                  <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-[#062541]" strokeWidth={1.8} />
+                </div>
+
+                {/* Step Number */}
+                <span className="font-head text-xs sm:text-sm font-semibold text-[#5CBDE5] mt-4 sm:mt-5 tracking-wide">
+                  {num}
+                </span>
+
+                {/* Step Title */}
+                <h3 className="font-head text-sm sm:text-base font-semibold text-white mt-1.5 sm:mt-2">
+                  {title}
+                </h3>
+
+                {/* Step Description */}
+                <p className="mt-1.5 sm:mt-2 text-xs sm:text-[13px] text-white/65 leading-relaxed max-w-[215px]">
+                  {text}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </Section>
 
-      <Section>
-        <Feature
-          reverse={false}
-          name="l-cozy"
-          eyebrow="Built for winter hosts"
-          title="Your Property Deserves More Than a Listing"
-          text="Winterers is designed to help exceptional properties stand out."
-        >
-          <Button>Start Your Listing</Button>
-        </Feature>
+      {/* Platform Features: More Than Visibility */}
+      <Section tone="light" className="!py-16 md:!py-24 !bg-white">
+        <div className="text-center mb-10 sm:mb-14">
+          <p className="text-[#5CBDE5] text-xs sm:text-[13px] font-semibold tracking-[0.16em] uppercase mb-2 sm:mb-2.5">
+            PLATFORM FEATURES
+          </p>
+          <h2 className="text-2xl sm:text-3xl md:text-[36px] lg:text-[40px] font-semibold text-[#06243A] tracking-tight">
+            More Than Visibility
+          </h2>
+          <p className="mt-2 text-xs sm:text-sm text-[#7A8FA6]">
+            Tools designed to make hosting simpler.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
+          {/* Card 1: Premium Exposure (Left column, full height) */}
+          <div className="relative overflow-hidden rounded-[24px] lg:col-span-5 min-h-[460px] sm:min-h-[500px] lg:min-h-[520px] flex flex-col justify-end p-6 sm:p-8 group shadow-sm">
+            <img
+              src="/images/deal1.png"
+              alt="Premium Exposure - Winter Cabin"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#041525]/95 via-[#041525]/40 to-transparent pointer-events-none" />
+
+            <div className="relative z-10">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/15 w-fit mb-3">
+                <TrendingUp className="w-3.5 h-3.5 text-[#5CBDE5]" />
+                <span className="text-[10px] font-semibold text-[#5CBDE5] uppercase tracking-wider">
+                  FEATURE 01
+                </span>
+              </div>
+              <h3 className="text-2xl sm:text-[28px] font-bold text-white leading-tight">
+                Premium Exposure
+              </h3>
+              <p className="mt-2 text-xs sm:text-sm text-white/80 leading-relaxed max-w-sm">
+                Get featured in curated winter collections and targeted search results.
+              </p>
+            </div>
+          </div>
+
+          {/* Right Bento Grid: 2 Rows of 2 Cards */}
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-12 gap-5 sm:gap-6">
+            {/* Card 2: Booking Management */}
+            <div className="rounded-[24px] bg-[#071D33] border border-[#0D2B4A] p-6 sm:p-7 flex flex-col justify-between sm:col-span-7 shadow-sm">
+              <div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 border border-white/10 w-fit mb-4">
+                  <Calendar className="w-3.5 h-3.5 text-[#7EC8E3]" />
+                  <span className="text-[10px] font-semibold text-[#94A3B8] uppercase tracking-wider">
+                    FEATURE 02
+                  </span>
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-white mb-5">
+                  Booking Management
+                </h3>
+              </div>
+
+              <div className="flex flex-col gap-2.5">
+                {/* Booking Item 1 */}
+                <div className="flex items-center justify-between p-3.5 rounded-2xl bg-[#0B2540] border border-white/5">
+                  <div>
+                    <p className="text-xs sm:text-sm font-semibold text-white">Erik & Anna</p>
+                    <p className="text-[11px] text-[#7A8FA6] mt-0.5">Jan 12 – Jan 17</p>
+                  </div>
+                  <span className="px-3 py-1 rounded-full text-[11px] font-medium bg-[#0E355A] text-[#5CBDE5] border border-[#5CBDE5]/20">
+                    Confirmed
+                  </span>
+                </div>
+
+                {/* Booking Item 2 */}
+                <div className="flex items-center justify-between p-3.5 rounded-2xl bg-[#0B2540] border border-white/5">
+                  <div>
+                    <p className="text-xs sm:text-sm font-semibold text-white">James L.</p>
+                    <p className="text-[11px] text-[#7A8FA6] mt-0.5">Jan 20 – Jan 26</p>
+                  </div>
+                  <span className="px-3 py-1 rounded-full text-[11px] font-medium bg-[#142C44] text-[#8EA3BA] border border-white/10">
+                    Pending
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 3: Availability Control */}
+            <div className="rounded-[24px] bg-[#EBF3FA] border border-[#D9E6F2] p-6 sm:p-7 flex flex-col justify-between sm:col-span-5 shadow-sm">
+              <div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#DCE8F3] border border-[#CBDDEB] w-fit mb-4">
+                  <Calendar className="w-3.5 h-3.5 text-[#637C95]" />
+                  <span className="text-[10px] font-semibold text-[#637C95] uppercase tracking-wider">
+                    FEATURE 02
+                  </span>
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-[#06243A] mb-4">
+                  Availability Control
+                </h3>
+              </div>
+
+              {/* Mini Calendar UI */}
+              <div className="w-full">
+                <div className="grid grid-cols-7 text-center text-[11px] font-medium text-[#7A8FA6] mb-2.5">
+                  <span>M</span>
+                  <span>T</span>
+                  <span>W</span>
+                  <span>T</span>
+                  <span>F</span>
+                  <span>S</span>
+                  <span>S</span>
+                </div>
+                <div className="grid grid-cols-7 text-center text-xs gap-y-2 items-center">
+                  <span className="text-[#64748B]">1</span>
+                  <span className="text-[#64748B]">2</span>
+                  <span className="w-7 h-7 mx-auto flex items-center justify-center rounded-[6px] bg-[#4CA8D8] text-white font-semibold text-xs shadow-sm">
+                    3
+                  </span>
+                  <span className="text-[#64748B]">4</span>
+                  <span className="text-[#64748B]">5</span>
+                  <span className="text-[#64748B]">6</span>
+                  <span className="text-[#64748B]">7</span>
+
+                  <span className="w-7 h-7 mx-auto flex items-center justify-center rounded-[6px] bg-[#D4E4F0] text-[#06243A] font-semibold text-xs">
+                    8
+                  </span>
+                  <span className="text-[#64748B]">9</span>
+                  <span className="text-[#64748B]">10</span>
+                  <span className="text-[#64748B]">11</span>
+                  <span className="w-7 h-7 mx-auto flex items-center justify-center rounded-[6px] bg-[#4CA8D8] text-white font-semibold text-xs shadow-sm">
+                    12
+                  </span>
+                  <span className="text-[#64748B]">13</span>
+                  <span className="text-[#64748B]">14</span>
+
+                  <span className="text-[#7A8FA6]">15</span>
+                  <span className="text-[#7A8FA6]">16</span>
+                  <span className="text-[#7A8FA6]">17</span>
+                  <span className="text-[#7A8FA6]">18</span>
+                  <span className="text-[#7A8FA6]">19</span>
+                  <span className="text-[#7A8FA6]">20</span>
+                  <span className="text-[#7A8FA6]">21</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 4: Host Insights */}
+            <div className="rounded-[24px] bg-[#EBF3FA] border border-[#D9E6F2] p-6 sm:p-7 flex flex-col justify-between sm:col-span-7 shadow-sm">
+              <div>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#DCE8F3] border border-[#CBDDEB] w-fit mb-4">
+                  <ChartColumnIncreasing className="w-3.5 h-3.5 text-[#637C95]" />
+                  <span className="text-[10px] font-semibold text-[#637C95] uppercase tracking-wider">
+                    FEATURE 04
+                  </span>
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-[#06243A] mb-4">
+                  Host Insights
+                </h3>
+              </div>
+
+              {/* 3 Stats Side-by-Side */}
+              <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                <div className="bg-white rounded-2xl p-3 sm:p-4 text-center border border-[#E2ECF5] shadow-xs">
+                  <p className="font-head text-base sm:text-lg font-bold text-[#06243A]">1,248</p>
+                  <p className="text-[11px] text-[#7A8FA6] mt-0.5">Views</p>
+                  <p className="text-[11px] font-semibold text-[#3B9DD0] mt-1">+12%</p>
+                </div>
+                <div className="bg-white rounded-2xl p-3 sm:p-4 text-center border border-[#E2ECF5] shadow-xs">
+                  <p className="font-head text-base sm:text-lg font-bold text-[#06243A]">34</p>
+                  <p className="text-[11px] text-[#7A8FA6] mt-0.5">Bookings</p>
+                  <p className="text-[11px] font-semibold text-[#3B9DD0] mt-1">+8%</p>
+                </div>
+                <div className="bg-white rounded-2xl p-3 sm:p-4 text-center border border-[#E2ECF5] shadow-xs">
+                  <p className="font-head text-base sm:text-lg font-bold text-[#06243A]">€6.2k</p>
+                  <p className="text-[11px] text-[#7A8FA6] mt-0.5">Revenue</p>
+                  <p className="text-[11px] font-semibold text-[#3B9DD0] mt-1">+19%</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 5: Secure Payments */}
+            <div className="rounded-[24px] bg-[#071D33] border border-[#0D2B4A] p-6 sm:p-7 flex flex-col justify-between sm:col-span-5 shadow-sm">
+              <div>
+                <div className="w-10 h-10 rounded-full bg-[#0D2B47] border border-white/10 flex items-center justify-center text-[#5CBDE5] mb-4">
+                  <ShieldCheck className="w-5 h-5 text-[#5CBDE5]" />
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
+                  Secure Payments
+                </h3>
+                <p className="text-xs sm:text-[13px] text-[#7A8FA6] leading-relaxed">
+                  Protected transactions and automatic payouts after each stay.
+                </p>
+              </div>
+
+              <div className="mt-5 flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#0B2540] border border-white/5">
+                <Lock className="w-3.5 h-3.5 text-[#5CBDE5] shrink-0" />
+                <span className="text-[11px] text-[#8EA3BA] font-medium truncate">
+                  Bank-level encryption
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
       </Section>
 
       <Section tone="dark">
