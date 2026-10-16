@@ -44,11 +44,15 @@ export default function StayCard({
               {s.beds} bedrooms
             </span>
           </div>
+           {/* Tags */}
+          <p className="mt-[15px] text-sm text-[#98A1AC] truncate">
+            {s.tags}
+          </p>
         </div>
       </div>
 
       {/* Bottom Row: Price & View Stay Button */}
-      <div className="pt-5 flex items-center justify-between">
+        <div className="mt-5 pt-5 border-t border-[#D1D7DD] flex items-center justify-between">
         <div>
           <div className="flex items-baseline gap-1">
             <span className="font-head text-lg sm:text-xl font-bold text-[#02213B]">
@@ -56,6 +60,9 @@ export default function StayCard({
             </span>
             <span className="text-xs text-[#98A1AC]">/night</span>
           </div>
+          <p className="text-sm text-[#98A1AC] mt-[5px]">
+            €{s.price * 7} total · 7 nights
+          </p>
         </div>
 
         <Link
