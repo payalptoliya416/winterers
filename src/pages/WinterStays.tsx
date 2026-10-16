@@ -642,7 +642,7 @@ export default function WinterStays() {
       </section>
 
       {/* Stays You May Like Section with Swiper Slider */}
-      <section className="py-12 md:py-16 bg-white overflow-hidden">
+      <section className="py-12 md:py-[110px] bg-white overflow-hidden">
         <div className="site-container">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
             <div>

@@ -9,7 +9,7 @@ import type { Stay } from '../types';
 
 export default function CuratedExperiencesSlider({ stays }: { stays: Stay[] }) {
   return (
-    <section className="py-12 md:py-16 bg-white overflow-hidden">
+    <section className="py-12 md:py-[110px] bg-white overflow-hidden">
       <div className="site-container">
         <div className="flex flex-col sm:flex-row sm:items-end justify-center gap-4 mb-6 text-center">
           <div>
@@ -60,10 +60,6 @@ export default function CuratedExperiencesSlider({ stays }: { stays: Stay[] }) {
                         alt={item.name}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
-                      <span className="absolute right-[10px] top-[10px] rounded-full bg-white/95 px-[10px] py-[7px] text-xs font-semibold text-[#02213B] flex items-center gap-[5px]">
-                        <Star className="w-3 h-3 text-[#02213B]" />
-                        {item.rating}
-                      </span>
                     </div>
 
                     {/* Location & Title */}
