@@ -48,7 +48,7 @@ export default function Offers() {
         title="Winter stays for your next escape"
         sub=""
       />
-      <Deals action="View All Winter Offers" />
+      <Deals center showAction={false} />
 
       <ExclusiveOfferFeature />
 

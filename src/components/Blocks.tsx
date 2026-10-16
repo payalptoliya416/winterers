@@ -276,17 +276,22 @@ export const Experiences = ({
   );
 };
 export const Deals = ({
-  action = "View All Winter Offers",
+  action,
+  center = false,
+  showAction = true,
 }: {
   action?: string;
-}) => (
+  center?: boolean;
+  showAction?: boolean;
+} = {}) => (
   <Section tone="dark">
     <SectionHead
       dark
+      center={center}
       eyebrow="Limited winter offers"
       title="Winter Deals You Don't Want to Miss"
       sub="Discover limited-time offers on unforgettable winter stays."
-      action={action}
+      action={showAction ? (action || "View All Winter Offers") : undefined}
       to="/offers"
     />
     <div className="grid gap-5 md:grid-cols-3">

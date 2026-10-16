@@ -77,8 +77,6 @@ export default function ListProperty() {
         accent="Winter Escape"
         text="Share your property with travellers looking for unforgettable winter stays."
       >
-        <Button variant="light">Start Listing</Button>
-        <Button variant="ghost">See How It Works</Button>
       </Hero>
 
       <Section>
