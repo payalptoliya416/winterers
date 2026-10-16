@@ -1,30 +1,11 @@
 import Hero from '../components/Hero';
 import Button from '../components/Button';
-import Section from '../components/Section';
-import SectionHead from '../components/SectionHead';
-import Feature from '../components/Feature';
-import ImgTile from '../components/ImgTile';
-import StayGrid from '../components/StayGrid';
 import { useAppDispatch as useDispatch, useAppSelector as useSelector } from '../store/hooks';
 import { selectSorted } from '../store/staysSlice';
 import { Experiences as Exp } from '../components/Blocks';
-
-const cats: [string, string, string, string][] = [
-  ['Ski & Snowboarding', 'Thrilling slopes for every level', 'x-ski', 'col-span-2 row-span-2 md:col-span-2'],
-  ['Northern Lights', 'Chase the aurora', 'x-north', 'col-span-2'],
-  ['Cozy Cabin Escapes', 'Rustic warmth', 'x-cozy', ''],
-  ['Winter Wellness', 'Sauna & hot tubs', 'x-well', ''],
-  ['Mountain Adventures', '', 'x-mtn', ''],
-  ['Snowy Getaways', '', 'x-snow', ''],
-  ['Family Trips', 'Magical for all ages', 'x-fam', ''],
-];
-
-const moods: [string, string, string, string][] = [
-  ['Adventure', 'Push your limits on pristine slopes.', 'm-adv', 'md:row-span-2'],
-  ['Relaxation', 'Surrender to warmth and silence.', 'm-relax', ''],
-  ['Romance', 'Candlelit evenings for two.', 'm-rom', 'md:row-span-2'],
-  ['Family', 'Create unforgettable memories.', 'm-fam', ''],
-];
+import NorthernLightsFeature from '../components/NorthernLightsFeature';
+import CuratedExperiencesSlider from '../components/CuratedExperiencesSlider';
+import ExperienceSpotlight from '../components/ExperienceSpotlight';
 
 export default function Experiences() {
   const s = useSelector(selectSorted);
@@ -32,85 +13,27 @@ export default function Experiences() {
   return (
     <>
       <Hero
-        name="hero-exp"
+        name="hero-exp.png"
         eyebrow="Winter experiences"
         title="Experience Winter"
         accent="Like Never Before"
         text="From northern lights and mountain adventures to cosy escapes and unforgettable snowy moments."
       >
         <Button variant="light">Explore Experiences</Button>
-        <Button variant="ghost" to="/stays">Find Your Winter Stay</Button>
+        <Button variant="ghost" to="/stays">Find Your Stay</Button>
       </Hero>
 
-      <Section>
-        <SectionHead
-          eyebrow="Explore experiences"
-          title="Choose Your Winter Experience"
-          sub="Find the kind of winter adventure that matches the way you want to travel."
-          action="Browse All Categories"
-        />
-        <div className="grid auto-rows-[120px] grid-cols-2 gap-3 md:grid-cols-4 md:auto-rows-[130px]">
-          {cats.map(([l, x, n, c]) => (
-            <ImgTile key={l} label={l} sub={x} name={n} className={`h-full ${c}`} />
-          ))}
-        </div>
-      </Section>
+      <Exp
+        eyebrow="Explore experiences"
+        title="Choose Your Winter Experience"
+        sub="Find the kind of winter adventure that matches the way you want to travel."
+      />
 
-      <Section tone="dark">
-        <Feature
-          tone="dark"
-          name="lapland"
-          eyebrow="Featured experience"
-          title="Chase the Northern Lights"
-          text="Few sights on earth compare to the aurora borealis dancing across the Arctic sky."
-        >
-          <div className="flex flex-wrap gap-3">
-            <Button variant="light">Explore Northern Lights</Button>
-            <Button variant="outline">View all aurora experiences</Button>
-          </div>
-        </Feature>
-      </Section>
+      <NorthernLightsFeature />
 
-      <Section>
-        <SectionHead center eyebrow="Travel mood" title="Winter, Your Way" />
-        <div className="grid auto-rows-[160px] gap-3 md:grid-cols-4 md:grid-rows-2">
-          <div className="hidden" />
-          {moods.map(([l, x, n, c], i) => (
-            <ImgTile
-              key={l}
-              label={l}
-              sub={x}
-              name={n}
-              className={`h-full ${c} ${i === 0 ? 'md:col-span-2' : ''}`}
-            />
-          ))}
-        </div>
-      </Section>
+      <CuratedExperiencesSlider stays={s} />
 
-      <Section tone="mist">
-        <SectionHead
-          eyebrow="Curated picks"
-          title="Experiences Worth Travelling For"
-          action="View all experiences"
-          to="/stays"
-        />
-        <StayGrid items={s.slice(0, 3)} detailed />
-      </Section>
-
-      <Section>
-        <Feature
-          reverse
-          tone="mist"
-          name="hero-exp"
-          eyebrow="Experience spotlight"
-          title="Life Under the Northern Lights"
-          text="Drift into the remote wilderness of Finnish Lapland, where the sky comes alive with ribbons of emerald and violet light."
-        >
-          <Button>Discover the Experience</Button>
-        </Feature>
-      </Section>
-
-      <Exp />
+      <ExperienceSpotlight />
     </>
   );
 }

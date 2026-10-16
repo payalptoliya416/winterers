@@ -39,7 +39,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-navy text-white">
+    <footer className="relative bg-[#0D1F35] text-white">
       {/* Newsletter Section with Top Background Split */}
       <div className="relative">
         {/* Upper 50% split background in white to match page above */}
@@ -85,7 +85,7 @@ export default function Footer() {
                 </button>
               </form>
 
-              <p className="mt-3 text-[11px] sm:text-xs text-white/50 font-body">
+              <p className="mt-4 text-xs sm:text-sm text-white/50 font-body">
                 No spam. Just winter inspiration.
               </p>
             </div>
@@ -105,12 +105,12 @@ export default function Footer() {
                 className="h-10 sm:h-11 w-auto object-contain brightness-0 invert opacity-95 hover:opacity-100 transition-opacity"
               />
             </Link>
-            <p className="mt-4 max-w-[280px] text-xs leading-relaxed text-white/60 font-body">
+            <p className="mt-4 text-sm leading-relaxed text-white/60 font-body">
               A platform for people who prefer winter. Discover unique stays, unforgettable destinations and experiences made for the coldest season.
             </p>
 
             {/* Social Icons */}
-            <div className="mt-6 flex items-center gap-2.5">
+            <div className="mt-6 flex items-center gap-4">
               {/* Instagram */}
               <a
                 href="https://instagram.com"
@@ -170,7 +170,7 @@ export default function Footer() {
           {/* 4 Navigation Columns */}
           {footer.map(([title, links]) => (
             <div key={title}>
-              <h4 className="mb-3.5 sm:mb-4 font-head text-[11px] sm:text-xs font-semibold uppercase tracking-[0.14em] text-white/50">
+              <h4 className="mb-3.5 sm:mb-4 font-head text-[11px] sm:text-sm font-semibold uppercase tracking-[0.14em] text-white/50">
                 {title}
               </h4>
               <ul className="space-y-2.5 sm:space-y-3 font-body">
@@ -182,14 +182,14 @@ export default function Footer() {
                       {isInternal ? (
                         <Link
                           to={to}
-                          className="text-xs sm:text-[13px] text-white/70 hover:text-sky transition-colors duration-150 inline-block"
+                          className="text-xs sm:text-sm text-white/70 hover:text-sky transition-colors duration-150 inline-block"
                         >
                           {link}
                         </Link>
                       ) : (
                         <a
                           href={to}
-                          className="text-xs sm:text-[13px] text-white/70 hover:text-sky transition-colors duration-150 inline-block"
+                          className="text-xs sm:text-sm text-white/70 hover:text-sky transition-colors duration-150 inline-block"
                         >
                           {link}
                         </a>

@@ -188,15 +188,23 @@ const experienceColumns = [
   ...baseColumns,
 ];
 
-export const Experiences = () => {
+export const Experiences = ({
+  eyebrow = "Choose your adventure",
+  title = "Choose Your Winter Experience",
+  sub = "Find the perfect winter stay for the experience you came for.",
+}: {
+  eyebrow?: string;
+  title?: string;
+  sub?: string;
+} = {}) => {
   return (
     <section className="bg-white py-12 md:py-16 overflow-hidden">
       <Container>
         <SectionHead
           center
-          eyebrow="Choose your adventure"
-          title="Choose Your Winter Experience"
-          sub="Find the perfect winter stay for the experience you came for."
+          eyebrow={eyebrow}
+          title={title}
+          sub={sub}
         />
       </Container>
 
