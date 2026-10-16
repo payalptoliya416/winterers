@@ -195,25 +195,31 @@ export const Experiences = ({
   eyebrow = "Choose your adventure",
   title = "Choose Your Winter Experience",
   sub = "Find the perfect winter stay for the experience you came for.",
+  bg = "bg-white",
+  className = "",
+  linkTo = "/experiences",
 }: {
   eyebrow?: string;
   title?: string;
   sub?: string;
+  bg?: string;
+  className?: string;
+  linkTo?: string;
 } = {}) => {
   return (
-    <section className="bg-white py-12 md:py-[110px] overflow-hidden">
+    <section className={`${bg} py-12 md:py-[110px] overflow-hidden ${className}`}>
       <Container>
         <SectionHead
           center
           eyebrow={eyebrow}
           title={title}
-          sub={sub}
+          sub={sub || undefined}
         />  
       </Container>
 
       {/* Swiper Slider: starts at left container edge and bleeds out the right edge */}
       <div
-        className="mt-8"
+        className={sub ? "mt-8" : "mt-2 sm:mt-4"}
         style={{
           paddingLeft: "max(1rem, calc((100vw - var(--container-max-w)) / 2 + 1.5rem))",
         }}
@@ -233,7 +239,7 @@ export const Experiences = ({
                 {col.map((item, i) => (
                   <Link
                     key={i}
-                    to="/experiences"
+                    to={linkTo}
                     className="group relative w-[240px] sm:w-[270px] md:w-[346px] h-[145px] sm:h-[175px] rounded-2xl overflow-hidden hover:shadow-md transition-shadow shrink-0 block"
                   >
                     <img

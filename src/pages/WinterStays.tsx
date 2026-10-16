@@ -11,6 +11,7 @@ import StayGrid from '../components/StayGrid';
 import Feature from '../components/Feature';
 import Button from '../components/Button';
 import ImgTile from '../components/ImgTile';
+import { Experiences } from '../components/Blocks';
 import { img } from '../data';
 import {
   ArrowUpDown,
@@ -79,15 +80,6 @@ const locationStays = [
   },
 ];
 
-const browseTypes = [
-  { label: 'Cabins', sub: '124 stays', img: 'browse01.png' },
-  { label: 'Chalets', sub: '89 stays', img: 'browse02.png' },
-  { label: 'Lodges', sub: '47 stays', img: 'browse03.png' },
-  { label: 'Glass Houses', sub: '31 stays', img: 'browse04.png' },
-  { label: 'Mountain Retreats', sub: '62 stays', img: 'browse05.png' },
-  { label: 'Luxury Villas', sub: '28 stays', img: 'browse06.png' },
-  { label: 'Remote Hideaways', sub: '53 stays', img: 'browse07.png' },
-];
 
 const sortOptions: { value: Sort; label: string }[] = [
   { value: 'top', label: 'Top rated' },
@@ -164,9 +156,7 @@ export default function WinterStays() {
   const [openFilter, setOpenFilter] = useState<string | null>(null);
   const [sortOpen, setSortOpen] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [mapMode, setMapMode] = useState<'map' | 'list'>('map');
   const [selectedStayId, setSelectedStayId] = useState<number>(2);
-  const [locationFilter, setLocationFilter] = useState<string>('All');
   const sortRef = useRef<HTMLDivElement>(null);
   const filterBarRef = useRef<HTMLDivElement>(null);
 
@@ -323,160 +313,21 @@ export default function WinterStays() {
       </div>
 
       <Section className="!pt-0">
-        <div className="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-          <div>
-            <p className="section-eyebrow">
-              48 WINTER STAYS AVAILABLE · LAPLAND & SCANDINAVIA
-            </p>
-            <h2 className="section-title">
-              Winter stays for your next escape
-            </h2>
-          </div>
-
-          <div className="flex items-center gap-2.5 sm:gap-3 self-end sm:self-auto">
-            {/* Sort Dropdown */}
-            <div className="relative" ref={sortRef}>
-              <button
-                type="button"
-                onClick={() => setSortOpen((prev) => !prev)}
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs sm:text-[13px] font-medium text-slate-700 shadow-sm hover:border-slate-300 hover:bg-slate-50 transition cursor-pointer whitespace-nowrap"
-              >
-                <span className="text-slate-400 font-normal">Sort:</span>
-                <span className="font-semibold text-navy">{currentSortLabel}</span>
-                <ChevronDown
-                  className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${
-                    sortOpen ? 'rotate-180' : ''
-                  }`}
-                />
-              </button>
-
-              {sortOpen && (
-                <div className="absolute right-0 top-full mt-1.5 w-48 rounded-xl border border-slate-100 bg-white p-1.5 shadow-xl z-30">
-                  {sortOptions.map((opt) => (
-                    <button
-                      key={opt.value}
-                      type="button"
-                      onClick={() => {
-                        d(setSort(opt.value));
-                        setSortOpen(false);
-                      }}
-                      className={`w-full text-left px-3 py-2 text-xs sm:text-[13px] rounded-lg transition ${
-                        sort === opt.value
-                          ? 'bg-slate-100 font-semibold text-navy'
-                          : 'text-slate-600 hover:bg-slate-50'
-                      }`}
-                    >
-                      {opt.label}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* View Mode Toggle: Grid vs List */}
-            <div className="flex items-center rounded-xl border border-slate-200 bg-white p-1 shadow-sm">
-              <button
-                type="button"
-                onClick={() => setViewMode('grid')}
-                className={`p-1.5 sm:p-2 rounded-lg transition cursor-pointer ${
-                  viewMode === 'grid'
-                    ? 'bg-[#0B1E36] text-white shadow-sm'
-                    : 'text-slate-400 hover:text-navy hover:bg-slate-50'
-                }`}
-                title="Grid view"
-              >
-                <LayoutGrid className="w-4 h-4" />
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewMode('list')}
-                className={`p-1.5 sm:p-2 rounded-lg transition cursor-pointer ${
-                  viewMode === 'list'
-                    ? 'bg-[#0B1E36] text-white shadow-sm'
-                    : 'text-slate-400 hover:text-navy hover:bg-slate-50'
-                }`}
-                title="List view"
-              >
-                <List className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
+        <div className="mb-8 sm:mb-10 text-center">
+          <p className="section-eyebrow">
+            48 WINTER STAYS AVAILABLE · LAPLAND & SCANDINAVIA
+          </p>
+          <h2 className="section-title">
+            Winter stays for your next escape
+          </h2>
         </div>
 
-        {/* Stays List / Grid View */}
-        {viewMode === 'grid' ? (
-          <StayGrid items={s} detailed />
-        ) : (
-          <div className="flex flex-col gap-4">
-            {s.map((item) => (
-              <div
-                key={item.id}
-                className="group rounded-2xl border border-slate-200/80 bg-white p-3 hover:shadow-md transition-all duration-300 flex flex-col md:flex-row gap-4 items-stretch"
-              >
-                <div className="relative h-48 md:h-auto md:w-72 shrink-0 overflow-hidden rounded-xl bg-slate-100">
-                  <img
-                    src={img(item.img)}
-                    alt={item.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <span className="absolute right-2.5 top-2.5 rounded-full bg-white/95 px-2.5 py-0.5 text-[11px] font-semibold text-navy flex items-center gap-1 shadow-sm backdrop-blur-sm">
-                    <Star className="w-3 h-3 text-navy/70" />
-                    {item.rating}
-                  </span>
-                </div>
-
-                <div className="flex-1 flex flex-col justify-between py-1">
-                  <div>
-                    <div className="flex items-center gap-1 text-[11px] text-navy/50">
-                      <MapPin className="w-3 h-3 text-navy/40 shrink-0" />
-                      <span>{item.country}</span>
-                    </div>
-
-                    <h3 className="font-head text-base sm:text-lg font-semibold text-navy mt-1">
-                      {item.name}
-                    </h3>
-
-                    <div className="flex items-center gap-4 text-xs text-navy/50 mt-1.5 font-body">
-                      <span className="flex items-center gap-1">
-                        <Users className="w-3.5 h-3.5 text-navy/40 shrink-0" />
-                        {item.guests} guests
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Bed className="w-3.5 h-3.5 text-navy/40 shrink-0" />
-                        {item.beds} bedrooms
-                      </span>
-                    </div>
-
-                    <p className="mt-2 text-xs text-navy/60">{item.tags}</p>
-                  </div>
-
-                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
-                    <div>
-                      <span className="font-head text-lg sm:text-xl font-bold text-navy">
-                        €{item.price}
-                      </span>{' '}
-                      <span className="text-xs text-navy/50">/night</span>
-                      <p className="text-[11px] text-navy/50">
-                        €{item.price * 7} total · 7 nights
-                      </p>
-                    </div>
-
-                    <Link
-                      to={`/stays/${item.id}`}
-                      className="inline-flex items-center justify-center rounded-full bg-navy px-5 py-2 text-xs sm:text-sm font-medium text-white transition-all hover:bg-navy/90 active:scale-95 shadow-sm"
-                    >
-                      View Stay
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+        {/* Stays Grid */}
+        <StayGrid items={s} detailed />
       </Section>
 
       {/* Featured Collection Showcase Banner */}
-      <div className="site-container my-10 sm:my-14">
+      <div className="site-container mb-10 sm:mb-14">
         <div
           className="relative overflow-hidden rounded-[26px] sm:rounded-[32px] min-h-[420px] sm:min-h-[460px] flex items-center bg-cover bg-center"
           style={{ backgroundImage: `url('/images/stay-bg.png')` }}
@@ -521,29 +372,8 @@ export default function WinterStays() {
                 Glacier views · Private spa · 5 bedrooms
               </p>
 
-              {/* Rating */}
-              <div className="mt-2.5 flex items-center gap-1.5 text-xs text-navy/60">
-                <div className="flex items-center gap-0.5 text-[#02213B]">
-                  {[...Array(5)].map((_, i) => (
-                    <svg
-                      key={i}
-                      className="w-3.5 h-3.5"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth={1.5}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                    </svg>
-                  ))}
-                </div>
-                <span className="text-sm text-navy/50">(63 reviews)</span>
-              </div>
-
               {/* Bottom row: Price & View Property Button */}
-              <div className="mt-4 pt-4 flex items-center justify-between">
+              <div className="mt-[25px] flex items-center justify-between">
                 <div>
                   <span className="font-head text-lg sm:text-xl font-bold text-navy">
                     €899
@@ -563,159 +393,45 @@ export default function WinterStays() {
         </div>
       </div>
 
-      {/* Browse by Type Swiper Slider Section */}
-      <section className="bg-[#EEF6FC] py-12 md:py-[110px] overflow-hidden mt-12 sm:mt-[110px]">
-        <div className="site-container">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-            <div>
-              <p className="section-eyebrow mb-1">
-                BROWSE BY TYPE
-              </p>
-              <h2 className="section-title">
-                Explore Every Kind of Winter Stay
-              </h2>
-            </div>
-
-            <Link
-              to="/stays"
-              className="inline-flex items-center justify-center rounded-full bg-[#071D36] hover:bg-[#051527] px-6 py-2.5 text-xs sm:text-sm font-semibold text-white transition-all active:scale-95 shadow-sm whitespace-nowrap self-start sm:self-auto"
-            >
-              View All Types
-            </Link>
-          </div>
-        </div>
-
-        {/* Swiper Slider: starts at left container edge and bleeds off to the right edge */}
-        <div
-          className="mt-6 sm:mt-8"
-          style={{
-            paddingLeft: 'max(1rem, calc((100vw - var(--container-max-w)) / 2 + 1.5rem))',
-          }}
-        >
-          <Swiper
-            modules={[FreeMode, Mousewheel]}
-            slidesPerView="auto"
-            spaceBetween={14}
-            freeMode={true}
-            grabCursor={true}
-            mousewheel={{ forceToAxis: true }}
-            className="!overflow-visible"
-          >
-            {[...browseTypes, ...browseTypes].map((item, idx) => (
-              <SwiperSlide key={idx} className="!w-auto">
-                <Link
-                  to="/stays"
-                  className="group relative block w-[190px] sm:w-[210px] md:w-[224px] h-[145px] sm:h-[155px] rounded-[22px] overflow-hidden bg-slate-200 hover:shadow-lg transition-all duration-300 shrink-0"
-                >
-                  <img
-                    src={`/images/${item.img}`}
-                    alt={item.label}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 pointer-events-none"
-                  />
-                  <div className="absolute bottom-4 left-4 text-white pointer-events-none">
-                    <p className="font-semibold text-sm sm:text-base leading-tight text-white drop-shadow-sm">
-                      {item.label}
-                    </p>
-                    <p className="text-[11px] sm:text-sm text-[#C8E6F5] mt-0.5">
-                      {item.sub}
-                    </p>
-                  </div>
-                </Link>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      </section>
+      {/* Browse by Type Section */}
+      <Experiences
+        eyebrow="BROWSE BY TYPE"
+        title="Explore Every Kind of Winter Stay"
+        sub=""
+        bg="bg-[#EEF6FC]"
+        className="mt-12 sm:mt-[110px]"
+        linkTo="/stays"
+      />
 
       {/* Find Stays by Location Section */}
       <section className="py-12 md:py-16 bg-white">
         <div className="site-container">
-          {/* Header with Title & View Mode Toggle & Location Filters */}
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-6">
-            <div>
-              <p className="section-eyebrow mb-1">
-                EXPLORE THE MAP
-              </p>
-              <h2 className="section-title">
-                Find Stays by Location
-              </h2>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3">
-              {/* Location Filter Pills */}
-              <div className="inline-flex items-center gap-1 p-1 bg-slate-100 rounded-xl">
-                {['All', 'France', 'Sweden', 'Switzerland', 'Finland'].map((loc) => (
-                  <button
-                    key={loc}
-                    type="button"
-                    onClick={() => {
-                      setLocationFilter(loc);
-                      const matching = loc === 'All' ? locationStays : locationStays.filter((st) => st.country === loc);
-                      if (matching.length > 0 && !matching.some((st) => st.id === selectedStayId)) {
-                        setSelectedStayId(matching[0].id);
-                      }
-                    }}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition cursor-pointer ${
-                      locationFilter === loc
-                        ? 'bg-white text-navy shadow-sm'
-                        : 'text-slate-500 hover:text-navy'
-                    }`}
-                  >
-                    {loc === 'All' ? 'All Locations' : loc}
-                  </button>
-                ))}
-              </div>
-
-              {/* Map view / List view Toggle */}
-              <div className="inline-flex items-center rounded-xl border border-slate-200 bg-white p-1 shadow-sm">
-                <button
-                  type="button"
-                  onClick={() => setMapMode('map')}
-                  className={`inline-flex items-center gap-1.5 rounded-lg px-3.5 py-1.5 text-xs sm:text-sm font-semibold transition cursor-pointer ${
-                    mapMode === 'map'
-                      ? 'bg-[#071D36] text-white shadow-sm'
-                      : 'text-slate-600 hover:text-navy'
-                  }`}
-                >
-                  <Map className="w-3.5 h-3.5" />
-                  <span>Map view</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setMapMode('list')}
-                  className={`inline-flex items-center gap-1.5 rounded-lg px-3.5 py-1.5 text-xs sm:text-sm font-semibold transition cursor-pointer ${
-                    mapMode === 'list'
-                      ? 'bg-[#071D36] text-white shadow-sm'
-                      : 'text-slate-600 hover:text-navy'
-                  }`}
-                >
-                  <List className="w-3.5 h-3.5" />
-                  <span>List view</span>
-                </button>
-              </div>
-            </div>
+          {/* Centered Header */}
+          <div className="text-center mb-8">
+            <p className="section-eyebrow mb-2 sm:mb-2.5">
+              EXPLORE THE MAP
+            </p>
+            <h2 className="section-title">
+              Find Stays by Location
+            </h2>
           </div>
 
+          {/* Map View: Left Stays List & Right Interactive Map */}
           {(() => {
-            const filtered = locationFilter === 'All'
-              ? locationStays
-              : locationStays.filter((item) => item.country === locationFilter);
             const currentStay =
-              filtered.find((item) => item.id === selectedStayId) ||
-              filtered[0] ||
+              locationStays.find((item) => item.id === selectedStayId) ||
               locationStays[0];
 
-            return mapMode === 'map' ? (
-              /* Map View: Left Stays List & Right Interactive Map */
+            return (
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
                 {/* Left Side: Stays List */}
                 <div className="lg:col-span-5 flex flex-col">
                   <p className="text-sm text-slate-400 font-normal mb-3.5">
-                    Showing {filtered.length} stays · Click stay to view on map
+                    Showing 4 of 48 stays
                   </p>
 
                   <div className="space-y-3.5">
-                    {filtered.map((item) => {
+                    {locationStays.map((item) => {
                       const isSelected = currentStay.id === item.id;
                       return (
                         <div
@@ -770,7 +486,7 @@ export default function WinterStays() {
                             <Link
                               to={`/stays/${item.id}`}
                               onClick={(e) => e.stopPropagation()}
-                              className="text-sm font-semibold text-[#1A5F9E] underline transition"
+                              className="text-sm font-semibold text-[#1A5F9E] hover:underline transition"
                             >
                               View
                             </Link>
@@ -783,7 +499,7 @@ export default function WinterStays() {
 
                 {/* Right Side: Map Container */}
                 <div className="lg:col-span-7">
-                  <div className="relative overflow-hidden rounded-[28px] sm:rounded-[32px] bg-slate-100 shadow-sm border border-slate-200/80 w-full h-[480px] sm:h-[520px] md:h-[703px]">
+                  <div className="relative overflow-hidden rounded-[24px] sm:rounded-[32px] bg-slate-100 shadow-sm border border-slate-200/80 w-full h-[480px] sm:h-[520px] md:h-[630px] lg:h-[660px]">
                     {/* Floating location badge */}
                     <div className="absolute top-4 left-4 z-10 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full shadow-md border border-slate-200/60 flex items-center gap-2 text-xs font-semibold text-navy">
                       <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -795,64 +511,11 @@ export default function WinterStays() {
                       key={currentStay.id}
                       title="Find Stays Map"
                       src={`https://maps.google.com/maps?q=${encodeURIComponent(currentStay.name + ', ' + currentStay.location)}&t=&z=12&ie=UTF8&iwloc=&output=embed`}
-                      className="w-full h-full border-0 rounded-[28px] sm:rounded-[32px]"
+                      className="w-full h-full border-0 rounded-[24px] sm:rounded-[32px]"
                       loading="lazy"
                       allowFullScreen
                     />
                   </div>
-                </div>
-              </div>
-            ) : (
-              /* List View: Full Width Stays Cards */
-              <div className="space-y-4">
-                <p className="text-sm text-slate-400 font-normal">
-                  Showing all {filtered.length} location stays
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                  {filtered.map((item) => (
-                    <div
-                      key={item.id}
-                      className="group rounded-[24px] border border-slate-200/80 bg-white p-4 hover:shadow-lg hover:border-slate-300 transition-all duration-300 flex flex-col justify-between"
-                    >
-                      <div>
-                        <div className="relative h-48 w-full overflow-hidden rounded-2xl bg-slate-100 mb-3.5">
-                          <img
-                            src={`/images/${item.img}`}
-                            alt={item.name}
-                            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                          />
-                          <span className="absolute top-2.5 left-2.5 rounded-full bg-[#071D36]/80 backdrop-blur-sm px-2.5 py-0.5 text-[11px] font-medium text-white">
-                            {item.type}
-                          </span>
-                          <span className="absolute top-2.5 right-2.5 rounded-full bg-white/95 px-2.5 py-0.5 text-xs font-semibold text-navy flex items-center gap-1 shadow-sm">
-                            <Star className="w-3 h-3 text-navy/70" />
-                            {item.rating}
-                          </span>
-                        </div>
-
-                        <h3 className="font-head text-base font-semibold text-navy">
-                          {item.name}
-                        </h3>
-                        <div className="mt-1 flex items-center gap-1 text-xs text-slate-400">
-                          <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                          <span>{item.location}</span>
-                        </div>
-                      </div>
-
-                      <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
-                        <div>
-                          <span className="font-head text-lg font-bold text-navy">€{item.price}</span>
-                          <span className="text-xs text-slate-400"> /night</span>
-                        </div>
-                        <Link
-                          to={`/stays/${item.id}`}
-                          className="rounded-full bg-[#071D36] text-white px-4 py-1.5 text-xs font-semibold hover:bg-sky transition"
-                        >
-                          View stay
-                        </Link>
-                      </div>
-                    </div>
-                  ))}
                 </div>
               </div>
             );
@@ -893,11 +556,6 @@ export default function WinterStays() {
                     <span className="rounded-full bg-[#EBF5FF] px-3.5 py-1 text-xs font-semibold text-[#0284C7]">
                       Glass Lodge
                     </span>
-                    <div className="flex items-center gap-1.5 text-xs font-semibold text-[#071D36]">
-                      <Star className="w-3.5 h-3.5 text-[#071D36] fill-[#071D36]" />
-                      <span>5.0</span>
-                      <span className="text-slate-400 font-normal">(94)</span>
-                    </div>
                   </div>
 
                   {/* Title & Location */}
@@ -1031,16 +689,12 @@ export default function WinterStays() {
                   <div className="group rounded-[24px] border border-slate-200/80 bg-white p-3.5 hover:shadow-lg transition-all duration-300 flex flex-col justify-between h-full">
                     <div>
                       {/* Card Image with Rating Badge */}
-                      <div className="relative h-48 sm:h-52 w-full overflow-hidden rounded-2xl bg-slate-100">
+                      <div className="relativ w-full overflow-hidden rounded-[14px]">
                         <img
                           src={img(item.img)}
                           alt={item.name}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         />
-                        <span className="absolute right-2.5 top-2.5 rounded-full bg-white/95 px-2.5 py-0.5 text-xs font-semibold text-navy flex items-center gap-1 shadow-sm backdrop-blur-sm">
-                          <Star className="w-3 h-3 text-navy/70 fill-navy/70" />
-                          {item.rating}
-                        </span>
                       </div>
 
                       {/* Location & Title */}

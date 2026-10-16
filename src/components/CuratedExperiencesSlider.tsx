@@ -11,7 +11,7 @@ export default function CuratedExperiencesSlider({ stays }: { stays: Stay[] }) {
   return (
     <section className="py-12 md:py-16 bg-white overflow-hidden">
       <div className="site-container">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-center gap-4 mb-6 text-center">
           <div>
             <p className="section-eyebrow mb-1.5 sm:mb-2">
               CURATED PICKS
@@ -20,12 +20,6 @@ export default function CuratedExperiencesSlider({ stays }: { stays: Stay[] }) {
               Experiences Worth Travelling For
             </h2>
           </div>
-          <Link
-            to="/stays"
-            className="inline-flex items-center justify-center rounded-[18px] bg-[#02213B] hover:bg-[#051527] px-6 py-2.5 text-sm sm:text-base font-semibold text-white transition-all active:scale-95 shadow-sm whitespace-nowrap self-start sm:self-auto"
-          >
-            View all experiences
-          </Link>
         </div>
       </div>
 
