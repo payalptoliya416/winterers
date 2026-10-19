@@ -847,7 +847,7 @@ export default function ListProperty() {
           </h2>
         </div>
 
-        <div className="mx-auto max-w-4xl border-t border-[#D4DDE6] divide-y divide-[#D4DDE6]">
+        <div className="mx-auto max-w-[954px] border-t border-[#D4DDE6] divide-y divide-[#D4DDE6]">
           {faq.map(([q, a], i) => {
             const isOpen = openFaqs.includes(i);
             return (

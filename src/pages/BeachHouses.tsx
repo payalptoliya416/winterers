@@ -581,16 +581,14 @@ export default function BeachHouses() {
         {/* Layout: Sidebar + Grid */}
         <div className="mt-8 sm:mt-10 grid grid-cols-1 lg:grid-cols-[290px_1fr] gap-8 xl:gap-10 items-start">
           {/* Left Sidebar Filters Card */}
-          <aside className="rounded-[22px] border border-slate-200 bg-white p-5 sm:p-6 shadow-sm sticky top-24">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-              <h3 className="font-head text-base sm:text-lg font-bold text-[#0D1F35]">
-                Filter Stays
-              </h3>
+          <aside className="rounded-[20px] bg-[#F0F5FC] p-5 sm:p-6 shadow-sm sticky top-10">
+            <div className="flex items-center justify-end border-b border-slate-100">
+            
               {hasActiveFilters && (
                 <button
                   type="button"
                   onClick={clearAllFilters}
-                  className="inline-flex items-center gap-1.5 text-xs text-[#0284C7] hover:underline font-semibold cursor-pointer"
+                  className="inline-flex items-center gap-1.5 pb-4 text-xs text-[#0284C7] hover:underline font-semibold cursor-pointer"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   Reset
@@ -601,8 +599,8 @@ export default function BeachHouses() {
             <div className="divide-y divide-slate-100 space-y-5">
               {/* Search input */}
               <div className="pt-4">
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">
-                  Destination or Name
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#082B45] mb-2">
+                Location
                 </label>
                 <div className="relative">
                   <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -757,7 +755,7 @@ export default function BeachHouses() {
 
             {/* 3x3 Cards Grid */}
             {paginatedStays.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-[30px]">
                 {paginatedStays.map((stay) => {
                   const isFav = favorites.includes(stay.id);
                   return (
@@ -767,94 +765,58 @@ export default function BeachHouses() {
                     >
                       <div>
                         {/* Image Container with Badge & Favorite Heart */}
-                        <div className="relative w-full aspect-[4/3] overflow-hidden rounded-[14px] bg-slate-100">
+                        <div className="relative w-full aspect-[4/3] overflow-hidden rounded-[8px]">
                           <img
                             src={img(stay.img)}
                             alt={stay.name}
                             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                           />
-                          {/* Heart Favorite button */}
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              toggleFavorite(stay.id);
-                            }}
-                            aria-label="Add to favorites"
-                            className="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-white/85 backdrop-blur-sm flex items-center justify-center text-slate-700 hover:text-red-500 transition-colors shadow-sm cursor-pointer z-10"
-                          >
-                            <Heart
-                              className={`w-4 h-4 transition ${
-                                isFav ? 'fill-red-500 text-red-500' : 'text-slate-600'
-                              }`}
-                            />
-                          </button>
-
-                          {/* Pill Tag */}
-                          <span className="absolute bottom-2.5 left-2.5 rounded-full bg-[#062541]/85 backdrop-blur-sm px-2.5 py-0.5 text-[11px] font-semibold text-white">
-                            {stay.type}
-                          </span>
+                         
                         </div>
 
                         {/* Property Details */}
                         <div className="pt-3.5">
                           <div className="flex items-center justify-between text-xs text-slate-400">
-                            <span className="flex items-center gap-1 text-slate-500 truncate">
-                              <MapPin className="w-3.5 h-3.5 text-[#0284C7] shrink-0" />
+                            <span className="flex items-center gap-1 text-[#98A1AC] truncate">
+                              <MapPin className="w-3.5 h-3.5 text-[#98A1AC] shrink-0" />
                               {stay.location}, {stay.country}
-                            </span>
-                            <span className="flex items-center gap-1 font-semibold text-[#0D1F35] shrink-0">
-                              <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-                              {stay.rating}
                             </span>
                           </div>
 
-                          <h4 className="font-head text-base font-semibold text-[#0D1F35] mt-1.5 line-clamp-1 group-hover:text-[#0284C7] transition-colors">
+                          <h4 className="font-head text-base font-semibold text-[#02213B] mt-[4px] line-clamp-1 group-hover:text-[#0284C7] transition-colors">
                             {stay.name}
                           </h4>
 
                           {/* Guests and Bedrooms */}
-                          <div className="flex items-center gap-3 text-xs text-slate-500 mt-2 font-body">
+                          <div className="flex items-center gap-3 text-xs text-[#98A1AC] mt-[7px font-body">
                             <span className="flex items-center gap-1">
-                              <Users className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                              <Users className="w-3.5 h-3.5 text-[#98A1AC] shrink-0" />
                               {stay.guests} guests
                             </span>
                             <span className="flex items-center gap-1">
-                              <Bed className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                              <Bed className="w-3.5 h-3.5 text-[#98A1AC] shrink-0" />
                               {stay.bedrooms} bedrooms
                             </span>
-                          </div>
-
-                          {/* Tags */}
-                          <div className="mt-2.5 flex flex-wrap gap-1">
-                            {stay.tags.slice(0, 2).map((tag) => (
-                              <span
-                                key={tag}
-                                className="inline-block rounded-md bg-[#F1F5F9] px-2 py-0.5 text-[10px] font-medium text-slate-600"
-                              >
-                                {tag}
-                              </span>
-                            ))}
                           </div>
                         </div>
                       </div>
 
                       {/* Card Footer: Price & Book Now */}
-                      <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between">
+                      <div className="mt-4 pt-3.5 flex items-center justify-between">
                         <div>
                           <div className="flex items-baseline gap-1">
-                            <span className="font-head text-lg font-bold text-[#0D1F35]">
+                            <span className="font-head text-base font-bold text-[#02213B]">
                               €{stay.price}
                             </span>
-                            <span className="text-xs text-slate-400">/night</span>
+                            <span className="text-xs text-[#98A1AC]">/night</span>
                           </div>
                         </div>
 
                         <Link
                           to={`/stays/${stay.id}`}
-                          className="inline-flex items-center justify-center rounded-xl bg-[#062541] hover:bg-[#0284C7] px-3.5 py-1.5 text-xs font-semibold text-white transition-all active:scale-95 shadow-sm whitespace-nowrap cursor-pointer"
+                          className="inline-flex items-center justify-center rounded-[9px] bg-[#02213B] hover:bg-[#0284C7] px-4 py-2 text-xs font-semibold text-white transition-all active:scale-95 shadow-sm whitespace-nowrap cursor-pointer"
                         >
-                          Book Now
+                          View Stay
                         </Link>
                       </div>
                     </div>
