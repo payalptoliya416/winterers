@@ -858,9 +858,16 @@ export default function ListProperty() {
                   className="flex w-full items-start justify-between text-left py-5 sm:py-[28px] cursor-pointer group select-none"
                   aria-expanded={isOpen}
                 >
-                  <span className="text-base sm:text-lg font-semibold text-[#06243A] group-hover:text-[#5CBDE5] transition-colors pr-4 leading-snug">
-                    {q}
-                  </span>
+                  <div className="pr-4">
+                    <span className="text-base sm:text-lg font-semibold text-[#06243A] group-hover:text-[#5CBDE5] transition-colors leading-snug block">
+                      {q}
+                    </span>
+                    {isOpen && (
+                      <p className="mt-3 text-sm sm:text-base text-[#6B8090] font-normal leading-relaxed pr-4 sm:pr-10 animate-in fade-in duration-200">
+                        {a}
+                      </p>
+                    )}
+                  </div>
                   <div className="w-7 h-7 sm:w-[30px] sm:h-[30px] rounded-full border border-[#D4DDE6] flex items-center justify-center text-[#64748B] shrink-0 group-hover:border-[#94A3B8] transition-colors">
                     {isOpen ? (
                       <Minus className="w-4 h-4 text-[#6B8090]" strokeWidth={2} />
@@ -869,11 +876,6 @@ export default function ListProperty() {
                     )}
                   </div>
                 </button>
-                {isOpen && (
-                  <p className="text-sm sm:text-base text-[#6B8090] leading-relaxed pr-8 sm:pr-14 animate-in fade-in duration-200">
-                    {a}
-                  </p>
-                )}
               </div>
             );
           })}
