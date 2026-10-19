@@ -672,7 +672,7 @@ export default function ListProperty() {
                 <div className="grid grid-cols-7 text-center text-xs gap-y-2 items-center">
                   <span className="text-[#64748B]">1</span>
                   <span className="text-[#64748B]">2</span>
-                  <span className="w-[40px] h-[23px] mx-auto flex items-center justify-center rounded-[6px] bg-[#5AB4D4] text-white font-semibold text-xs shadow-sm">
+                  <span className="w-[40px] h-[23px] mx-auto flex items-center justify-center rounded-[4px] bg-[#5AB4D4] text-white font-semibold text-xs shadow-sm">
                     3
                   </span>
                   <span className="text-[#64748B]">4</span>
@@ -686,7 +686,7 @@ export default function ListProperty() {
                   <span className="text-[#64748B]">9</span>
                   <span className="text-[#64748B]">10</span>
                   <span className="text-[#64748B]">11</span>
-                  <span className="w-[40px] h-[23px] mx-auto flex items-center justify-center rounded-[6px] bg-[#5AB4D4] text-white font-semibold text-xs shadow-sm">
+                  <span className="w-[40px] h-[23px] mx-auto flex items-center justify-center rounded-[4px] bg-[#5AB4D4] text-white font-semibold text-xs shadow-sm">
                     12
                   </span>
                   <span className="text-[#64748B]">13</span>
@@ -763,13 +763,13 @@ export default function ListProperty() {
       </Section>
 
       {/* Host Success Story */}
-      <Section tone="dark" className="!py-16 md:!py-24 !bg-[#031B30]">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+      <Section tone="dark" className=" !bg-[#031B30]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-[21px] items-start pt-2">
           {/* Left Column: Glowing Cabin Image */}
           <div className="lg:col-span-6 w-full">
-            <div className="overflow-hidden rounded-[24px] sm:rounded-[28px] shadow-2xl relative w-full h-[320px] sm:h-[400px] lg:h-[460px]">
+            <div className="overflow-hidden rounded-[21px] relative w-full">
               <img
-                src="/images/deal1.png"
+                src="/images/deal-img.png"
                 alt="From Hidden Cabin to Winter Favourite"
                 className="w-full h-full object-cover"
               />
@@ -778,54 +778,55 @@ export default function ListProperty() {
 
           {/* Right Column: Story & Stats */}
           <div className="lg:col-span-6 flex flex-col justify-center">
-            <p className="text-[#5CBDE5] text-xs sm:text-[13px] font-semibold tracking-[0.16em] uppercase mb-2.5">
+            <p className="section-eyebrow">
               HOST SUCCESS STORY
             </p>
 
-            <h2 className="text-2xl sm:text-3xl md:text-[34px] lg:text-[36px] font-bold text-white tracking-tight uppercase leading-snug">
+            <h2 className="section-title !text-white !mt-[30px]">
               ”FROM HIDDEN CABIN TO WINTER FAVOURITE”
             </h2>
 
             {/* Quote with sky blue vertical accent border */}
-            <div className="border-l-2 border-[#5CBDE5] pl-4 sm:pl-5 my-6 sm:my-7">
-              <p className="text-xs sm:text-sm text-white/75 leading-relaxed">
+            <div className="border-l-2 border-[#5CBDE5] pl-4 sm:pl-[22px] my-6 sm:my-[32px]">
+              <p className="text-sm sm:text-base text-[#FFFFFFBF] leading-relaxed">
                 “Winterers helped us present our cabin in a completely different way. Within weeks, we started attracting guests who were specifically looking for the kind of experience we offer.”
               </p>
             </div>
 
             {/* Host Avatar & Info */}
-            <div className="flex items-center gap-3.5 mb-6 sm:mb-8">
+            <div className="flex items-center gap-[10px] mb-6 sm:mb-8">
               <img
                 src="/images/host-anna.jpg"
                 alt="Anna & Erik"
-                className="w-12 h-12 rounded-full object-cover border border-white/20 shadow-sm shrink-0"
+                className="w-[75px] h-[75px] rounded-full object-cover shrink-0"
               />
               <div>
-                <h4 className="text-sm sm:text-base font-semibold text-white leading-tight">
+                <h4 className="text-sm sm:text-base font-bold text-white leading-tight">
                   Anna &amp; Erik
                 </h4>
-                <p className="text-xs text-[#7A8FA6] mt-0.5">
+                <p className="text-xs text-[#FFFFFF80] mt-2">
                   Cabin Host · Northern Norway
                 </p>
               </div>
             </div>
 
             {/* Horizontal separator line */}
-            <div className="border-t border-white/10 pt-6 sm:pt-7">
-              <div className="flex items-center gap-10 sm:gap-14">
-                <div>
-                  <span className="font-head text-2xl sm:text-3xl font-bold text-[#5CBDE5] block leading-none">
+            <div className="border-t border-white/10 pt-6">
+              <div className="flex items-center gap-6 sm:gap-[1px]">
+                <div className="relative pr-[15px] after:absolute after:right-0 after:top-1/2 after:-translate-y-1/2 after:h-[60px] after:w-px after:bg-white/10">
+                  <span className="font-head text-xl sm:text-2xl font-bold text-[#5AB4D4] block leading-none">
                     +42%
                   </span>
-                  <span className="text-xs sm:text-[13px] text-white/60 mt-1.5 block">
+                  <span className="text-xs sm:text-[13px] text-white/50 mt-3 block">
                     Booking enquiries
                   </span>
                 </div>
-                <div>
-                  <span className="font-head text-2xl sm:text-3xl font-bold text-white block leading-none">
+                
+                <div className='pl-[15px]'>
+                  <span className="font-head text-xl sm:text-2xl font-bold text-white block leading-none">
                     4.9/5
                   </span>
-                  <span className="text-xs sm:text-[13px] text-white/60 mt-1.5 block">
+                  <span className="text-xs sm:text-[13px] text-white/50 mt-3 block">
                     Guest rating
                   </span>
                 </div>
@@ -836,17 +837,17 @@ export default function ListProperty() {
       </Section>
 
       {/* FAQ Section */}
-      <Section tone="light" className="!py-16 md:!py-24 !bg-white">
-        <div className="text-center mb-10 sm:mb-14">
-          <p className="text-[#5CBDE5] text-xs sm:text-[13px] font-semibold tracking-[0.16em] uppercase mb-2 sm:mb-2.5">
+      <Section tone="light" className="!pb-0 !bg-white">
+        <div className="text-center mb-10">
+          <p className="section-eyebrow">
             WHY LIST WITH US
           </p>
-          <h2 className="text-2xl sm:text-3xl lg:text-[36px] font-semibold text-[#071E36] tracking-tight">
+          <h2 className="section-title">
             Everything You Need to Host With Confidence
           </h2>
         </div>
 
-        <div className="mx-auto max-w-4xl border-t border-[#E2E8F0] divide-y divide-[#E2E8F0]">
+        <div className="mx-auto max-w-4xl border-t border-[#D4DDE6] divide-y divide-[#D4DDE6]">
           {faq.map(([q, a], i) => {
             const isOpen = openFaqs.includes(i);
             return (
@@ -854,22 +855,22 @@ export default function ListProperty() {
                 <button
                   type="button"
                   onClick={() => toggleFaq(i)}
-                  className="flex w-full items-center justify-between text-left py-5 sm:py-6 cursor-pointer group select-none"
+                  className="flex w-full items-start justify-between text-left py-5 sm:py-[28px] cursor-pointer group select-none"
                   aria-expanded={isOpen}
                 >
-                  <span className="text-sm sm:text-base font-semibold text-[#071E36] group-hover:text-[#5CBDE5] transition-colors pr-4 leading-snug">
+                  <span className="text-base sm:text-lg font-semibold text-[#06243A] group-hover:text-[#5CBDE5] transition-colors pr-4 leading-snug">
                     {q}
                   </span>
-                  <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-[#CBD5E1] flex items-center justify-center text-[#64748B] shrink-0 group-hover:border-[#94A3B8] transition-colors">
+                  <div className="w-7 h-7 sm:w-[30px] sm:h-[30px] rounded-full border border-[#D4DDE6] flex items-center justify-center text-[#64748B] shrink-0 group-hover:border-[#94A3B8] transition-colors">
                     {isOpen ? (
-                      <Minus className="w-3.5 h-3.5 text-[#64748B]" strokeWidth={2} />
+                      <Minus className="w-4 h-4 text-[#6B8090]" strokeWidth={2} />
                     ) : (
-                      <Plus className="w-3.5 h-3.5 text-[#64748B]" strokeWidth={2} />
+                      <Plus className="w-4 h-4 text-[#6B8090]" strokeWidth={2} />
                     )}
                   </div>
                 </button>
                 {isOpen && (
-                  <p className="pb-5 sm:pb-6 text-xs sm:text-sm text-[#7A8FA6] leading-relaxed pr-8 sm:pr-14 animate-in fade-in duration-200">
+                  <p className="text-sm sm:text-base text-[#6B8090] leading-relaxed pr-8 sm:pr-14 animate-in fade-in duration-200">
                     {a}
                   </p>
                 )}
