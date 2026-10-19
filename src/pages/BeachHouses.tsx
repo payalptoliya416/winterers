@@ -579,7 +579,7 @@ export default function BeachHouses() {
         </div>
 
         {/* Layout: Sidebar + Grid */}
-        <div className="mt-8 sm:mt-10 grid grid-cols-1 lg:grid-cols-[290px_1fr] gap-8 xl:gap-10 items-start">
+        <div className="mt-8 sm:mt-10 grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-8 xl:gap-[30px] items-start">
           {/* Left Sidebar Filters Card */}
           <aside className="rounded-[20px] bg-[#F0F5FC] p-5 sm:p-6 shadow-sm sticky top-10">
             <div className="flex items-center justify-end border-b border-slate-100">
@@ -599,7 +599,7 @@ export default function BeachHouses() {
             <div className="divide-y divide-slate-100 space-y-5">
               {/* Search input */}
               <div className="pt-4">
-                <label className="block text-xs font-bold uppercase tracking-wider text-[#082B45] mb-2">
+                <label className="block text-base font-bold uppercase tracking-wider text-[#082B45] mb-3">
                 Location
                 </label>
                 <div className="relative">
@@ -742,7 +742,7 @@ export default function BeachHouses() {
           {/* Right Main Content (Stays Grid + Pagination) */}
           <div className="w-full">
             {/* Results count bar */}
-            <div className="flex items-center justify-between pb-4 text-xs sm:text-sm text-slate-500">
+            {/* <div className="flex items-center justify-between pb-4 text-xs sm:text-sm text-slate-500">
               <p>
                 Showing{' '}
                 <span className="font-semibold text-[#0D1F35]">
@@ -751,7 +751,7 @@ export default function BeachHouses() {
                 </span>{' '}
                 of <span className="font-semibold text-[#0D1F35]">{filteredStays.length}</span> coastal properties
               </p>
-            </div>
+            </div> */}
 
             {/* 3x3 Cards Grid */}
             {paginatedStays.length > 0 ? (
