@@ -599,7 +599,7 @@ export default function BeachHouses() {
             <div className="divide-y divide-slate-100 space-y-5">
               {/* Search input */}
               <div className="pt-4">
-                <label className="block text-base font-bold uppercase tracking-wider text-[#082B45] mb-3">
+                <label className="block text-base font-semibold text-[#082B45] mb-3">
                 Location
                 </label>
                 <div className="relative">
@@ -612,7 +612,7 @@ export default function BeachHouses() {
                       setCurrentPage(1);
                     }}
                     placeholder="e.g. Lofoten, Norway..."
-                    className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-[#F8FAFC] border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 outline-none focus:border-[#7EC8E3] focus:bg-white transition"
+                    className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-[#F8FAFC] border border-[#E5EDF5] rounded-[12px] text-[#6B7C93] placeholder-[#6B7C93] outline-none transition"
                   />
                 </div>
               </div>
@@ -620,7 +620,7 @@ export default function BeachHouses() {
               {/* Price Range Slider */}
               <div className="pt-5">
                 <div className="flex items-center justify-between mb-2">
-                  <label className="text-xs font-bold uppercase tracking-wider text-slate-600">
+                  <label className="block text-base font-semibold text-[#082B45] mb-3">
                     Price Range
                   </label>
                   <span className="text-xs font-bold text-[#0284C7]">
@@ -647,7 +647,7 @@ export default function BeachHouses() {
 
               {/* Bedrooms button pills */}
               <div className="pt-5">
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2.5">
+                <label className="block text-base font-semibold text-[#082B45] mb-3">
                   Bedrooms
                 </label>
                 <div className="grid grid-cols-5 gap-1.5">
@@ -676,7 +676,7 @@ export default function BeachHouses() {
 
               {/* Property Type Checkboxes */}
               <div className="pt-5">
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2.5">
+                <label className="block text-base font-semibold text-[#082B45] mb-3">
                   Property Type
                 </label>
                 <div className="space-y-2">
@@ -702,7 +702,7 @@ export default function BeachHouses() {
 
               {/* Amenities Checkboxes */}
               <div className="pt-5">
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2.5">
+                <label className="block text-base font-semibold text-[#082B45] mb-3">
                   Amenities
                 </label>
                 <div className="space-y-2">
@@ -965,7 +965,7 @@ export default function BeachHouses() {
       </section>
 
       {/* 5. "Beach Houses FAQ" Section */}
-      <section className="bg-[#FAFBFD] py-14 sm:py-18 md:py-24 border-t border-slate-100">
+      <section className="py-14 sm:py-18 md:py-24">
         <div className="site-container max-w-4xl">
           <div className="text-center mb-10 sm:mb-12">
             <span className="section-eyebrow !text-[#0284C7] tracking-wider">
