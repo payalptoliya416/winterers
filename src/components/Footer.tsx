@@ -219,7 +219,7 @@ export default function Footer() {
               {propertyCategories.map((cat) => (
                 <li key={cat}>
                   <Link
-                    to="/stays"
+                    to={cat === 'Beach Houses' ? '/beach-houses' : '/stays'}
                     className="text-xs sm:text-sm text-[#F0F4F8] hover:text-[#7EC8E3] transition inline-block"
                   >
                     {cat}

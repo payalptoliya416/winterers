@@ -7,6 +7,7 @@ import Experiences from "./pages/Experiences";
 import Offers from "./pages/Offers";
 import PropertyDetail from "./pages/PropertyDetail";
 import ListProperty from "./pages/ListProperty";
+import BeachHouses from "./pages/BeachHouses";
 export default function App() {
   return (
     <Routes>
@@ -15,6 +16,8 @@ export default function App() {
         <Route path="/destinations" element={<Destinations />} />
         <Route path="/stays" element={<WinterStays />} />
         <Route path="/stays/:id" element={<PropertyDetail />} />
+        <Route path="/beach-houses" element={<BeachHouses />} />
+        <Route path="/stays/beach-houses" element={<BeachHouses />} />
         <Route path="/experiences" element={<Experiences />} />
         <Route path="/offers" element={<Offers />} />
         <Route path="/list-property" element={<ListProperty />} />

@@ -16,7 +16,7 @@ export default function StayTypesGrid() {
       {/* Tall Left Card: Beach Houses */}
       <div className="lg:col-span-4">
         <Link
-          to="/stays"
+          to="/beach-houses"
           className="group relative block h-[280px] sm:h-[340px] lg:h-full min-h-[380px] w-full overflow-hidden rounded-2xl shadow-sm hover:shadow-md transition-shadow"
         >
           <img
