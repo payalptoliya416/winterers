@@ -760,13 +760,13 @@ export default function BeachHouses() {
                 <label className="block text-base sm:text-[17px] font-bold text-[#0A1F33] mb-3.5">
                   Property Type
                 </label>
-                <div className="space-y-3.5">
+                <div className="space-y-[11px]">
                   {propertyTypes.map((type) => {
                     const isChecked = selectedTypes.includes(type);
                     return (
                       <label
                         key={type}
-                        className="flex items-center gap-3.5 text-sm sm:text-[15px] font-normal text-[#0B2138] cursor-pointer select-none group"
+                        className="flex items-center gap-3.5 text-sm sm:text-base font-normal text-[#082B45] cursor-pointer select-none group"
                       >
                         <input
                           type="checkbox"
@@ -775,7 +775,7 @@ export default function BeachHouses() {
                           className="sr-only"
                         />
                         <div
-                          className={`w-[22px] h-[22px] rounded-[6px] flex items-center justify-center transition-all shrink-0 ${
+                          className={`w-[23px] h-[23px] rounded-[6px] flex items-center justify-center transition-all shrink-0 ${
                             isChecked
                               ? 'bg-[#42BAE4] border border-[#42BAE4]'
                               : 'bg-white border border-[#D5E0EB] group-hover:border-[#B7CCD9]'
@@ -797,13 +797,13 @@ export default function BeachHouses() {
                 <label className="block text-base sm:text-[17px] font-bold text-[#0A1F33] mb-3.5">
                   Amenities
                 </label>
-                <div className="space-y-3.5">
+                <div className="space-y-[11px]">
                   {amenityList.map((amenity) => {
                     const isChecked = selectedAmenities.includes(amenity);
                     return (
                       <label
                         key={amenity}
-                        className="flex items-center gap-3.5 text-sm sm:text-[15px] font-normal text-[#0B2138] cursor-pointer select-none group"
+                        className="flex items-center gap-3.5 text-sm sm:text-base font-normal text-[#082B45] cursor-pointer select-none group"
                       >
                         <input
                           type="checkbox"
@@ -812,7 +812,7 @@ export default function BeachHouses() {
                           className="sr-only"
                         />
                         <div
-                          className={`w-[22px] h-[22px] rounded-[6px] flex items-center justify-center transition-all shrink-0 ${
+                          className={`w-[23px] h-[23px] rounded-[6px] flex items-center justify-center transition-all shrink-0 ${
                             isChecked
                               ? 'bg-[#42BAE4] border border-[#42BAE4]'
                               : 'bg-white border border-[#D5E0EB] group-hover:border-[#B7CCD9]'
@@ -834,7 +834,7 @@ export default function BeachHouses() {
                 <button
                   type="button"
                   onClick={clearAllFilters}
-                  className="w-full py-3.5 text-sm sm:text-base font-semibold rounded-[14px] border border-[#DCE5EE] bg-white hover:bg-slate-50 text-[#0B2138] transition cursor-pointer shadow-sm active:scale-[0.99]"
+                  className="w-full py-3.5 text-sm sm:text-base font-semibold rounded-[14px] border border-[#DCE5EE] bg-white hover:bg-slate-50 text-[#082B45] transition cursor-pointer shadow-sm active:scale-[0.99]"
                 >
                   Clear Filters
                 </button>
