@@ -8,6 +8,7 @@ import Offers from "./pages/Offers";
 import PropertyDetail from "./pages/PropertyDetail";
 import ListProperty from "./pages/ListProperty";
 import BeachHouses from "./pages/BeachHouses";
+
 export default function App() {
   return (
     <Routes>
