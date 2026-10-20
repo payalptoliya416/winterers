@@ -336,29 +336,56 @@ export default function PropertyDetail() {
               </p>
             </div>
 
-            {/* Guest Favorite / Rating Badge Box */}
-            <div className="rounded-2xl border border-amber-200/80 bg-gradient-to-r from-amber-50/60 via-amber-50/30 to-amber-50/50 p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
-              <div className="flex items-center gap-3 text-center sm:text-left">
-                <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-700 shrink-0">
-                  <Award className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="font-head text-sm sm:text-base font-bold text-[#0D1F35]">
-                    Guest favorite
-                  </h4>
-                  <p className="text-xs text-slate-600">
-                    One of the most loved homes on Winterers, according to guests
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4 shrink-0 border-t sm:border-t-0 sm:border-l border-amber-200/60 pt-3 sm:pt-0 sm:pl-6 text-center sm:text-left">
-                <div>
-                  <div className="flex items-center gap-1 text-sm font-bold text-[#0D1F35]">
-                    <span>4.96</span>
-                    <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+            {/* Guest Favourite Rating Badge Card */}
+            <div className="w-full rounded-[17px] border border-[#DCDCDC] px-[38px] sm:px-8 py-5 sm:py-[35px">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
+                {/* Left: Laurel Wreath + Headline */}
+                <div className="flex flex-col sm:flex-row items-center gap-5 sm:gap-7 text-center sm:text-left">
+                  {/* Golden Laurel Wreath with Guest favourite */}
+                  <div className="flex items-center gap-2 sm:gap-2.5 shrink-0 select-none">
+                     <img
+                  src={img('fav.png')}
+                  alt="Guest"
+                  className="w-full h-full object-cover"
+                />
                   </div>
-                  <p className="text-[11px] text-slate-500">148 Reviews</p>
+
+                  {/* Headline */}
+                  <div className="text-base sm:text-xl font-medium text-[#0D1F3C] leading-snug">
+                    One of the most loved homes on
+                    <br className="hidden sm:inline" /> Winterers, according to guests
+                  </div>
+                </div>
+
+                {/* Right: Rating + Reviews */}
+                <div className="flex items-center gap-6 sm:gap-7 shrink-0">
+                  {/* 4.9 + 5 Stars */}
+                  <div className="flex flex-col items-center justify-center min-w-[54px]">
+                    <span className="font-medium text-2xl sm:text-[27px] !font-body text-[#0D1F3C] leading-none">
+                      4.9
+                    </span>
+                    <div className="flex items-center gap-[2.5px] mt-[5px]">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className="w-2.5 h-2.5 fill-[#0D1B2E] text-[#0D1B2E]"
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Vertical Divider */}
+                  <div className="h-10 w-[1px] bg-[#DCDCDC] shrink-0" />
+
+                  {/* 174 Reviews */}
+                  <div className="flex flex-col items-center justify-center min-w-[54px]">
+                    <span className="!font-body text-2xl sm:text-[27px] font-medium text-[#0D1F3C] leading-none tracking-tight">
+                      174
+                    </span>
+                    <span className="text-xs sm:text-sm text-[#6B7F96] font-medium leading-tight mt-[5px] cursor-pointer hover:text-[#0D1F3C] transition-colors">
+                      Reviews
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -381,16 +408,16 @@ export default function PropertyDetail() {
             </div>
 
             {/* Key Features Highlights */}
-            <div className="space-y-4">
+            <div className="space-y-4 mt-[48px]">
               <div className="flex items-start gap-4">
                 <div className="w-9 h-9 rounded-full bg-[#EBF5FF] flex items-center justify-center text-[#0284C7] shrink-0 mt-0.5">
                   <Award className="w-4 h-4" />
                 </div>
                 <div>
-                  <h5 className="font-head text-xs sm:text-sm font-bold text-[#0D1F35]">
+                  <h5 className="font-body text-base sm:text-lg font-semibold text-[#0D1F3C]">
                     Top 5% of homes
                   </h5>
-                  <p className="text-xs text-slate-500 mt-0.5">
+                  <p className="text-base text-[#7B8FA6] mt-1">
                     This home is highly ranked based on ratings, reviews, and reliability.
                   </p>
                 </div>
@@ -401,10 +428,10 @@ export default function PropertyDetail() {
                   <Waves className="w-4 h-4" />
                 </div>
                 <div>
-                  <h5 className="font-head text-xs sm:text-sm font-bold text-[#0D1F35]">
+                  <h5 className="font-body text-sm sm:text-base font-semibold text-[#0D1F3C]">
                     Unwind in the outdoor hot tub
                   </h5>
-                  <p className="text-xs text-slate-500 mt-0.5">
+                  <p className="text-base text-[#7B8FA6] mt-1">
                     One of the few properties in Tromsø with a heated geothermal jacuzzi.
                   </p>
                 </div>
@@ -415,10 +442,10 @@ export default function PropertyDetail() {
                   <Key className="w-4 h-4" />
                 </div>
                 <div>
-                  <h5 className="font-head text-xs sm:text-sm font-bold text-[#0D1F35]">
+                  <h5 className="font-body text-sm sm:text-base font-semibold text-[#0D1F3C]">
                     Self check-in
                   </h5>
-                  <p className="text-xs text-slate-500 mt-0.5">
+                  <p className="text-base text-[#7B8FA6] mt-1">
                     Check yourself in with the secure digital keypad lockbox.
                   </p>
                 </div>
