@@ -196,7 +196,7 @@ export default function Footer() {
             <h4 className="mb-4 sm:mb-[18px] font-head text-xs font-bold uppercase tracking-[0.16em] text-[#8AA8C8]">
               QUICK LINKS
             </h4>
-            <ul className="space-y-5 font-body">
+            <ul className="space-y-4 sm:space-y-5 font-body">
               {quickLinks.map((item) => (
                 <li key={item.label}>
                   <Link
@@ -215,7 +215,7 @@ export default function Footer() {
             <h4 className="mb-4 sm:mb-[18px] font-head text-xs font-bold uppercase tracking-[0.16em] text-[#8AA8C8]">
               PROPERTY CATEGORY
             </h4>
-            <ul className="space-y-5 font-body">
+            <ul className="space-y-4 sm:space-y-5 font-body">
               {propertyCategories.map((cat) => (
                 <li key={cat}>
                   <Link

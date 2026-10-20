@@ -10,7 +10,14 @@
   }
 }
 
-body{@apply font-body text-navy antialiased overflow-x-hidden}
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  @apply font-body text-navy antialiased;
+}
 h1,h2,h3,h4,h5,h6{@apply font-head}
 
 /* Common site container managed centrally:
@@ -23,7 +30,8 @@ h1,h2,h3,h4,h5,h6{@apply font-head}
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    max-width: var(--container-max-w);
+    max-width: min(var(--container-max-w), 100%);
+    box-sizing: border-box;
     padding-left: 1rem;
     padding-right: 1rem;
   }

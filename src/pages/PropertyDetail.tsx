@@ -248,7 +248,7 @@ export default function PropertyDetail() {
   };
 
   return (
-    <div className="w-full pt-24 sm:pt-36 pb-16">
+    <div className="w-full pt-36 pb-16">
       {/* 1. Breadcrumbs */}
       <div className="w-full px-3 sm:px-6 mb-3 sm:mb-3.5">
         <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-[13px] text-slate-500 font-body">
@@ -264,7 +264,7 @@ export default function PropertyDetail() {
 
       {/* 2. Hero Gallery Section - Full width outside container */}
       <div className="w-full px-3 sm:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-5 h-full min-h-[800px]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-5 h-full min-h-[380px] sm:min-h-[480px] lg:min-h-[580px] xl:min-h-[700px]">
           {/* Big Main Image (Left, spans 8 cols) */}
           <div
             onClick={() => openLightboxAt(0)}
@@ -365,14 +365,14 @@ export default function PropertyDetail() {
 
       {/* 3. Main Content + Sticky Booking Sidebar Layout */}
       <div className="w-full px-4 sm:px-6 lg:px-8 mt-8 sm:mt-[60px] site-container">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] xl:grid-cols-[1fr_495px] gap-8 lg:gap-[35px] items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_360px] xl:grid-cols-[minmax(0,1fr)_440px] 2xl:grid-cols-[minmax(0,1fr)_495px] gap-6 lg:gap-8 xl:gap-[35px] items-start">
           {/* Left Column: Details (Scrollable) */}
-          <div className="space-y-8 sm:space-y-10">
+          <div className="min-w-0 space-y-8 sm:space-y-10">
             {/* Title & Actions */}
             <div>
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-                <div>
-                  <h1 className="font-head text-2xl sm:text-3xl lg:text-[32px] font-medium text-[#0D1F3C] leading-tight">
+                <div className="min-w-0">
+                  <h1 className="font-head text-2xl sm:text-3xl lg:text-[32px] font-medium text-[#0D1F3C] leading-tight break-words">
                     Entire cabin in Tromsø, Northern Norway
                   </h1>
                   <p className="mt-4 text-xs sm:text-sm text-[#7B8FA6] font-body font-medium flex items-center gap-1.5">
@@ -392,7 +392,7 @@ export default function PropertyDetail() {
                         alert('Link copied to clipboard!');
                       }
                     }}
-                    className="inline-flex items-center gap-[11px] rounded-[8px] border border-[#E2E8F0] px-[15px] py-[10px] text-base font-medium text-[#0D1F3C] hover:bg-slate-50 transition cursor-pointer"
+                    className="inline-flex items-center gap-[11px] rounded-[8px] border border-[#E2E8F0] px-[15px] py-2 sm:py-[10px] text-sm sm:text-base font-medium text-[#0D1F3C] hover:bg-slate-50 transition cursor-pointer"
                   >
                     <Share2 className="w-4 h-4 text-[#0D1F3C]" />
                     <span>Share</span>
@@ -400,27 +400,27 @@ export default function PropertyDetail() {
                 </div>
               </div>
 
-              <p className="mt-[35px] text-xs sm:text-sm md:text-base leading-relaxed text-[#7B8FA6] font-body">
+              <p className="mt-5 sm:mt-[35px] text-sm md:text-base leading-relaxed text-[#7B8FA6] font-body">
                 Nestled along the edge of a pristine Arctic fjord, this handcrafted log cabin is a sanctuary of warmth, silence, and breathtaking natural beauty. Surrounded by snow-dusted pine forest with panoramic mountain views — and one of the best northern lights viewing locations in all of Norway.
               </p>
             </div>
 
             {/* Guest Favourite Rating Badge Card */}
-            <div className="w-full rounded-[17px] border border-[#DCDCDC] px-[38px] sm:px-8 py-5 sm:py-[35px]">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
+            <div className="w-full rounded-[17px] border border-[#DCDCDC] px-4 sm:px-8 py-5 sm:py-[35px]">
+              <div className="flex flex-col xl:flex-row items-center justify-between gap-6 xl:gap-8">
                 {/* Left: Laurel Wreath + Headline */}
-                <div className="flex flex-col sm:flex-row items-center gap-5 sm:gap-7 text-center sm:text-left">
+                <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-7 text-center sm:text-left">
                   {/* Golden Laurel Wreath with Guest favourite */}
                   <div className="flex items-center gap-2 sm:gap-2.5 shrink-0 select-none">
                      <img
                   src={img('fav.png')}
                   alt="Guest"
-                  className="w-full h-full object-cover"
+                  className="w-auto h-12 sm:h-14 object-contain"
                 />
                   </div>
 
                   {/* Headline */}
-                  <div className="text-base sm:text-xl font-medium text-[#0D1F3C] leading-snug">
+                  <div className="text-base sm:text-lg xl:text-xl font-medium text-[#0D1F3C] leading-snug">
                     One of the most loved homes on
                     <br className="hidden sm:inline" /> Winterers, according to guests
                   </div>
@@ -567,7 +567,7 @@ export default function PropertyDetail() {
 
             {/* Icon Feature Badges Row (Border Top & Bottom with Soft Blue Icon Box) */}
             <div className="border-y border-[#E2E8F0] py-6 sm:py-7 my-8 sm:my-10">
-              <div className="grid grid-cols-3 sm:grid-cols-6 gap-4 sm:gap-6">
+              <div className="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-3 xl:grid-cols-6 gap-3 sm:gap-4 lg:gap-5">
                 {[
                   { label: 'Sleeps 6', icon: Users },
                   { label: '3 Bedrooms', icon: BedDouble },
@@ -582,10 +582,10 @@ export default function PropertyDetail() {
                       key={badge.label}
                       className="flex flex-col items-center text-center group cursor-default"
                     >
-                      <div className="w-12 h-12 rounded-[12px] bg-[#E8F3FB] flex items-center justify-center text-[#000] transition-colors group-hover:bg-[#E0EFFF]">
-                        <Icon className="w-5 h-5  text-[#000000]" strokeWidth={2} />
+                      <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-[12px] bg-[#E8F3FB] flex items-center justify-center text-[#000] transition-colors group-hover:bg-[#E0EFFF]">
+                        <Icon className="w-5 h-5 text-[#000000]" strokeWidth={2} />
                       </div>
-                      <span className="mt-[15px] text-xs sm:text-base text-[#0D1F3C] leading-tight">
+                      <span className="mt-[12px] sm:mt-[15px] text-xs sm:text-sm xl:text-base text-[#0D1F3C] leading-tight">
                         {badge.label}
                       </span>
                     </div>
@@ -596,9 +596,9 @@ export default function PropertyDetail() {
 
             {/* Where You'll Stay */}
             <div className="py-2">
-              <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-8 xl:gap-12 items-center">
+              <div className="grid grid-cols-1 xl:grid-cols-[1.15fr_1fr] gap-8 xl:gap-12 items-center">
                 {/* Left: Text & Milestones List */}
-                <div>
+                <div className="min-w-0">
                   <span className="section-eyebrow">
                     LOCATION
                   </span>
@@ -621,17 +621,17 @@ export default function PropertyDetail() {
                       return (
                         <div
                           key={item.place}
-                          className="flex items-center justify-between py-0.5"
+                          className="flex items-center justify-between gap-3 py-0.5"
                         >
-                          <div className="flex items-center gap-3 sm:gap-[10px]">
+                          <div className="flex items-center gap-2.5 sm:gap-[10px] min-w-0">
                             <div className="w-[32px] h-[32px] rounded-[8px] bg-[#E8F3FB] flex items-center justify-center text-[#0D1F3C] shrink-0">
                               <Icon className="w-4 h-4 text-[#0D1F3C]" strokeWidth={2} />
                             </div>
-                            <span className="text-sm font-medium text-[#0D1F3C]">
+                            <span className="text-sm font-medium text-[#0D1F3C] truncate">
                               {item.place}
                             </span>
                           </div>
-                          <span className="text-sm text-[#7B8FA6]">
+                          <span className="text-sm text-[#7B8FA6] shrink-0">
                             {item.distance}
                           </span>
                         </div>
@@ -641,7 +641,7 @@ export default function PropertyDetail() {
                 </div>
 
                 {/* Right: Interactive Iframe Map Card */}
-                <div className="relative rounded-[20px] overflow-hidden border border-[#E2E8F0] h-full">
+                <div className="relative rounded-[20px] overflow-hidden border border-[#E2E8F0] h-[280px] sm:h-[340px] xl:h-full min-h-[260px]">
                   {/* Google Map iframe */}
                   <iframe
                     title="Tromsø Location Map"
@@ -675,7 +675,7 @@ export default function PropertyDetail() {
                 What This Place Offers
               </h3>
 
-              <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10">
+              <div className="mt-8 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 gap-6 sm:gap-8 xl:gap-10">
                 {placeAmenities.map((cat) => {
                   const CatIcon = cat.icon;
                   return (
@@ -709,7 +709,7 @@ export default function PropertyDetail() {
               <button
                 type="button"
                 onClick={() => setShowAllAmenities(true)}
-                className="mt-8 sm:mt-10 inline-flex items-center justify-center rounded-[18px] border border-[#E2E8F0] px-6 sm:px-7 py-3 text-base font-medium text-[#0D1F3C] hover:bg-slate-50 transition shadow-xs cursor-pointer"
+                className="mt-8 sm:mt-10 inline-flex items-center justify-center rounded-[18px] border border-[#E2E8F0] px-6 sm:px-7 py-3 text-sm sm:text-base font-medium text-[#0D1F3C] hover:bg-slate-50 transition shadow-xs cursor-pointer"
               >
                 Show all 22 amenities
               </button>
@@ -718,7 +718,7 @@ export default function PropertyDetail() {
             {/* Stay Somewhere Extraordinary (About This Property) */}
             <div className="pb-8 sm:pb-10 border-b">
               {/* Top Row: Title & Top Paragraphs (Left) + Large Image (Right) */}
-              <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-[25px] items-start">
+              <div className="grid grid-cols-1 xl:grid-cols-[1.1fr_1fr] gap-[25px] items-start">
                 <div>
                   <span className="section-eyebrow">
                     ABOUT THIS PROPERTY
@@ -768,7 +768,7 @@ export default function PropertyDetail() {
                 Your Host
               </h3>
 
-              <div className="flex flex-col md:flex-row lg:items-center justify-between gap-6 sm:gap-8 mt-5">
+              <div className="flex flex-col lg:flex-col xl:flex-row xl:items-center justify-between gap-6 sm:gap-8 mt-5">
                 {/* Left: Avatar + Host Info */}
                 <div className="flex items-center gap-3 sm:gap-[15px]">
                   <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden shrink-0">
@@ -793,7 +793,7 @@ export default function PropertyDetail() {
                 </div>
 
                 {/* Middle: 3 Stat Badges */}
-                <div className="flex items-center gap-6 sm:gap-8 xl:gap-10">
+                <div className="flex items-center justify-around sm:justify-start gap-4 sm:gap-8 xl:gap-10 flex-wrap">
                   {/* Stat 1: Response Rate */}
                   <div className="flex flex-col items-center text-center">
                     <div className="w-10 h-10 rounded-[14px] bg-[#E8F3FB] flex items-center justify-center text-[#0D1F3C]">
@@ -802,7 +802,7 @@ export default function PropertyDetail() {
                     <span className="font-semibold text-sm text-[#0D1F3C] mt-3 leading-none">
                       98%
                     </span>
-                    <span className="text-xs text-[#7B8FA6] font-normal mt-1 whitespace-nowrap">
+                    <span className="text-xs text-[#7B8FA6] font-normal mt-1">
                       Response Rate
                     </span>
                   </div>
@@ -815,7 +815,7 @@ export default function PropertyDetail() {
                     <span className="font-semibold text-sm text-[#0D1F3C] mt-3 leading-none">
                       Within 1 hour
                     </span>
-                    <span className="text-xs text-[#7B8FA6] font-normal mt-1 whitespace-nowrap">
+                    <span className="text-xs text-[#7B8FA6] font-normal mt-1">
                       Response Time
                     </span>
                   </div>
@@ -828,18 +828,18 @@ export default function PropertyDetail() {
                     <span className="font-semibold text-sm text-[#0D1F3C] mt-3 leading-none">
                       6 years
                     </span>
-                    <span className="text-xs text-[#7B8FA6] font-normal mt-1 whitespace-nowrap">
+                    <span className="text-xs text-[#7B8FA6] font-normal mt-1">
                       Years Hosting
                     </span>
                   </div>
                 </div>
 
                 {/* Right: Contact Host Button */}
-                <div className="flex flex-col items-center sm:items-start lg:items-center">
+                <div className="flex flex-col items-center sm:items-start xl:items-center">
                   <button
                     type="button"
                     onClick={() => alert('Message dialog opened for host Ingrid Larsen!')}
-                    className="inline-flex items-center justify-center rounded-[18px] bg-[#02213B] hover:bg-[#0D1F3C] text-white px-7 sm:px-8 py-3.5 text-sm font-semibold shadow-sm transition-all active:scale-95 cursor-pointer whitespace-nowrap"
+                    className="inline-flex items-center justify-center rounded-[18px] bg-[#02213B] hover:bg-[#0D1F3C] text-white px-7 sm:px-8 py-3 sm:py-3.5 text-sm font-semibold shadow-sm transition-all active:scale-95 cursor-pointer whitespace-nowrap"
                   >
                     Contact Host
                   </button>
@@ -852,8 +852,9 @@ export default function PropertyDetail() {
           </div>
 
           {/* Right Column: Sticky Booking Sidebar (Pinned on scroll!) */}
-          <aside className="w-full lg:sticky lg:top-16 z-20">
-            <div className="rounded-[20px] border border-[#E2E8F0] bg-white py-[35px] px-[30px] space-y-5">
+          {/* Right Column: Sticky Booking Sidebar (Pinned on scroll!) */}
+          <aside className="w-full lg:sticky lg:top-24 z-20 min-w-0">
+            <div className="rounded-[20px] border border-[#E2E8F0] bg-white py-6 sm:py-[35px] px-4 sm:px-6 xl:px-[30px] space-y-5 shadow-xs">
               {/* Price Header */}
               <div className="flex items-baseline justify-between">
                 <div>
@@ -866,39 +867,39 @@ export default function PropertyDetail() {
 
               {/* Dates & Guests Input Box */}
               <div className="rounded-[12px] border border-[#E2E8F0] overflow-hidden divide-y divide-[#E2E8F0] text-xs">
-                <div className="grid grid-cols-2 divide-x divide-[#E2E8F0]">
-                  <div className="p-[17px]">
-                    <label className="block text-sm font-bold uppercase tracking-wider text-[#0D1F3C]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-[#E2E8F0]">
+                  <div className="p-3 sm:p-3.5 xl:p-[17px] min-w-0">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-[#0D1F3C]">
                       CHECK-IN
                     </label>
                     <input
                       type="date"
                       value={checkIn}
                       onChange={(e) => setCheckIn(e.target.value)}
-                      className="w-full bg-transparent text-base text-[#7B8FA6] outline-none cursor-pointer mt-0.5"
+                      className="w-full bg-transparent text-sm sm:text-base text-[#7B8FA6] outline-none cursor-pointer mt-0.5 min-w-0"
                     />
                   </div>
-                  <div className="p-[17px]">
-                    <label className="block text-sm font-bold uppercase tracking-wider text-[#0D1F3C]">
+                  <div className="p-3 sm:p-3.5 xl:p-[17px] min-w-0">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-[#0D1F3C]">
                       CHECK-OUT
                     </label>
                     <input
                       type="date"
                       value={checkOut}
                       onChange={(e) => setCheckOut(e.target.value)}
-                      className="w-full bg-transparent text-base text-[#7B8FA6] outline-none cursor-pointer mt-0.5"
+                      className="w-full bg-transparent text-sm sm:text-base text-[#7B8FA6] outline-none cursor-pointer mt-0.5 min-w-0"
                     />
                   </div>
                 </div>
 
                 <div className="p-3 relative">
-                  <label className="block text-sm font-bold uppercase tracking-wider text-[#0D1F3C]">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-[#0D1F3C]">
                     GUESTS
                   </label>
                   <button
                     type="button"
                     onClick={() => setGuestDropdown(!guestDropdown)}
-                    className="w-full flex items-center justify-between text-base text-[#7B8FA6] mt-0.5 cursor-pointer"
+                    className="w-full flex items-center justify-between text-sm sm:text-base text-[#7B8FA6] mt-0.5 cursor-pointer"
                   >
                     <span>{guestCount} {guestCount === 1 ? 'guest' : 'guests'}</span>
                     <span className="text-slate-400 text-[10px]">▼</span>
@@ -930,14 +931,14 @@ export default function PropertyDetail() {
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-5 grid grid-cols-12 gap-[15px]">
+              <div className="pt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3 sm:gap-[15px]">
                 <button
                   type="button"
                   onClick={() => {
                     setBookingSuccess(true);
                     setTimeout(() => setBookingSuccess(false), 4000);
                   }}
-                  className="w-full py-3 px-[29px] rounded-[18px] bg-[#02213B] hover:bg-[#0284C7] text-white font-medium text-sm transition-all duration-200 active:scale-95 cursor-pointer flex items-center justify-center gap-2 col-span-12 md:col-span-6"
+                  className="w-full py-3 px-3 sm:px-4 xl:px-6 rounded-[18px] bg-[#02213B] hover:bg-[#0284C7] text-white font-medium text-sm transition-all duration-200 active:scale-95 cursor-pointer flex items-center justify-center gap-2"
                 >
                   <span>{bookingSuccess ? 'Booking Confirmed!' : 'Reserve Your Stay'}</span>
                 </button>
@@ -945,7 +946,7 @@ export default function PropertyDetail() {
                 <button
                   type="button"
                   onClick={() => alert('Message sent to host!')}
-                  className="w-full py-3 px-[29px] rounded-[18px] border border-[#E2E8F0] bg-white hover:bg-slate-50 text-[#02213B] font-medium text-sm transition cursor-pointer col-span-12 md:col-span-6"
+                  className="w-full py-3 px-3 sm:px-4 xl:px-6 rounded-[18px] border border-[#E2E8F0] bg-white hover:bg-slate-50 text-[#02213B] font-medium text-sm transition cursor-pointer flex items-center justify-center"
                 >
                   Contact Host
                 </button>
@@ -971,20 +972,20 @@ export default function PropertyDetail() {
                   <span className="font-body text-base">€{totalPrice}</span>
                 </div>
               </div>
-              <p className='text-[#7B8FA6] text-sm text-center'>Free cancellation before Dec 10 · No charge until booking</p>
+              <p className='text-[#7B8FA6] text-xs sm:text-sm text-center'>Free cancellation before Dec 10 · No charge until booking</p>
             </div>
 
             {/* Trust Guarantees */}
-            <div className="flex items-center justify-center md:justify-between gap-[15px] px-1 pt-4 text-sm text-[#7B8FA6] flex-wrap">
-              <div className="flex items-center gap-3">
+            <div className="flex items-center justify-center gap-3 sm:gap-4 xl:gap-[15px] px-1 pt-4 text-xs sm:text-sm text-[#7B8FA6] flex-wrap">
+              <div className="flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-[#000000] shrink-0" />
                 <span>Verified property</span>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 <Lock className="w-4 h-4 text-[#000000] shrink-0" />
                 <span>Secure payment</span>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 <BadgeCheck className="w-4 h-4 text-[#000000] shrink-0" />
                 <span>Superhost guarantee</span>
               </div>
@@ -1012,7 +1013,7 @@ export default function PropertyDetail() {
         <div
           className="mt-6 sm:mt-8"
           style={{
-            paddingLeft: 'max(1rem, calc((100vw - var(--container-max-w)) / 2 + 1.5rem))',
+            paddingLeft: 'max(1rem, calc((100% - var(--container-max-w)) / 2 + 1.5rem))',
           }}
         >
           <Swiper

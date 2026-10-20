@@ -563,10 +563,10 @@ export default function BeachHouses() {
       <Hero
         name="beach.png"
         searchPosition="inner"
-        search={<SearchBar cta="Find Retreats" chips={false} />}
+        search={<SearchBar cta="Find Winter Stays" chips={false} />}
         eyebrow="COASTAL WINTER RETREATS"
         title="Beach Houses"
-        text="Indulge in an extraordinary winter getaway by the coast. Discover serene waterfront retreats, snowy shores, and warm, cozy fireplaces."
+        text="Wake up to stunning ocean views. Discover beautiful beach houses perfect for relaxing, exploring and creating unforgettable memories."
       />
 
       {/* 2. Featured Beach Houses Main Section with Sidebar Filters & Grid */}
@@ -574,10 +574,10 @@ export default function BeachHouses() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 sm:pb-[35px]">
           <div>
-            <span className="section-eyebrow !text-[#0284C7] tracking-wider">
+            <span className="section-eyebrow">
               EXCLUSIVE STAYS
             </span>
-            <h2 className="section-title !mt-1.5 !text-2xl sm:!text-3xl lg:!text-4xl text-[#0D1F35]">
+            <h2 className="section-title">
               Featured Beach Houses
             </h2>
             <p className="mt-2 text-sm sm:text-base text-[#98A1AC] max-w-3xl font-body">

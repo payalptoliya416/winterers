@@ -30,9 +30,9 @@ export default function Header() {
       <header className="absolute inset-x-0 top-0 z-30 px-3 sm:px-6 py-5">
         <div className="">
           <div className="rounded-[18px] bg-white border border-[#D0DCE8] transition-all">
-            <div className="flex items-center justify-between lg:grid lg:grid-cols-[1fr_auto_1fr] px-4 sm:px-[25px] py-3 sm:py-3.5">
+            <div className="flex items-center justify-between lg:grid lg:grid-cols-[auto_1fr_auto] xl:grid-cols-[1fr_auto_1fr] px-4 sm:px-5 lg:px-6 py-3 sm:py-3.5">
               {/* Logo (Left) */}
-              <div className="flex items-center justify-start">
+              <div className="flex items-center justify-start shrink-0">
                 <Link
                   to="/"
                   className="shrink-0 transition-opacity hover:opacity-95"
@@ -43,14 +43,14 @@ export default function Header() {
               </div>
 
               {/* Navigation Links (Exact Center) */}
-              <nav className="hidden items-center justify-center gap-7 lg:gap-10 text-[13px] sm:text-base font-medium lg:flex">
+              <nav className="hidden items-center justify-center gap-4 lg:gap-6 xl:gap-9 text-xs sm:text-sm xl:text-base font-medium lg:flex min-w-0">
                 {nav.map(([label, path]) => (
                   <NavLink
                     key={path}
                     to={path}
                     end={path === '/'}
                     className={({ isActive }) =>
-                      `relative flex flex-col items-center py-1 transition-colors ${
+                      `relative flex flex-col items-center py-1 transition-colors whitespace-nowrap ${
                         isActive
                           ? 'text-[#7EC8E3] font-semibold'
                           : 'text-navy/80 hover:text-[#7EC8E3]'
@@ -70,16 +70,16 @@ export default function Header() {
               </nav>
 
               {/* Action Buttons (Right) */}
-              <div className="hidden items-center justify-end gap-[15px] lg:flex">
+              <div className="hidden items-center justify-end gap-2.5 xl:gap-[15px] lg:flex shrink-0">
                 <Link
                   to="#"
-                  className="inline-flex items-center justify-center rounded-[18px] border border-[#BDCDDE] px-5 sm:px-6 py-2 sm:py-2.5 text-base font-medium text-[#02213B] hover:border-slate-300 hover:bg-slate-50 transition"
+                  className="inline-flex items-center justify-center rounded-xl xl:rounded-[18px] border border-[#BDCDDE] px-3.5 sm:px-4 xl:px-6 py-2 sm:py-2.5 text-xs sm:text-sm xl:text-base font-medium text-[#02213B] hover:border-slate-300 hover:bg-slate-50 transition whitespace-nowrap"
                 >
                   Sign In
                 </Link>
                 <Link
                   to="/list-property"
-                  className="inline-flex items-center justify-center rounded-[18px] bg-[#02213B] px-5 sm:px-6 py-2 sm:py-2.5 text-base font-medium text-white hover:bg-navy/90 transition"
+                  className="inline-flex items-center justify-center rounded-xl xl:rounded-[18px] bg-[#02213B] px-3.5 sm:px-4 xl:px-6 py-2 sm:py-2.5 text-xs sm:text-sm xl:text-base font-medium text-white hover:bg-navy/90 transition whitespace-nowrap"
                 >
                   List Your Property
                 </Link>
