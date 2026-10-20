@@ -46,7 +46,7 @@ export default function Hero({
       >
         <Container className="!max-w-[1000px]">
           {eyebrow && (
-            <p className="section-eyebrow mb-3.5">
+            <p className="section-eyebrow">
               {eyebrow}
             </p>
           )}
@@ -68,7 +68,7 @@ export default function Hero({
           )}
 
           {text && (
-            <p className="mx-auto mt-4 sm:mt-[25px] max-w-2xl font-body text-xs sm:text-sm md:text-base leading-relaxed text-white/85 font-normal">
+            <p className="mx-auto mt-4 sm:mt-[25px] max-w-2xl font-body text-xs sm:text-sm md:text-base leading-relaxed text-[#F0F4F8] font-normal">
               {text}
             </p>
           )}

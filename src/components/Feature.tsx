@@ -26,7 +26,7 @@ export default function Feature({
         className={`min-h-[260px] ${reverse ? "md:order-2" : ""}`}
       />
       <div className="flex flex-col justify-center p-6 md:p-10">
-        <p className="section-eyebrow mb-2">
+        <p className="section-eyebrow">
           {eyebrow}
         </p>
         <h2 className={`section-title ${tone === "dark" ? "!text-white" : ""}`}>

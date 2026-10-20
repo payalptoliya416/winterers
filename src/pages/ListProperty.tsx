@@ -159,11 +159,11 @@ export default function ListProperty() {
   return (
     <>
       <Hero
-        name="l-host.png"
+        name="list-hero.png"
         eyebrow="For property owners"
         title="Turn Your Property Into a"
         accent="Winter Escape"
-        text="Share your property with travellers looking for unforgettable winter stays."
+        text="Share your property with travellers looking for unforgettable winter stays and reach guests who value exceptional places."
       >
       </Hero>
 
@@ -188,10 +188,10 @@ export default function ListProperty() {
               className="flex flex-col gap-5"
             >
               <div>
-                <h2 className="section-title">
+                <h2 className="section-title !mt-0">
                   Submit Your Property
                 </h2>
-                <p className="mt-1.5 text-xs sm:text-sm text-[#7A8FA6]">
+                <p className="mt-[10px] text-xs sm:text-sm text-[#6B7280]">
                   Complete the form below and our team will review your property.
                 </p>
               </div>
@@ -368,10 +368,10 @@ export default function ListProperty() {
                   Property Description<span className="text-[#DB0505] ml-0.5">*</span>
                 </label>
                 <textarea
-                  rows={3}
+                  rows={4}
                   required
                   placeholder="Tell us about your property: location, amenities, unique features, number of bedrooms/bathrooms..."
-                  className="w-full rounded-[18px] bg-white border border-[#EBEBEB] px-6 py-3 text-sm sm:text-base text-[#0F172A] placeholder:text-[#888888] transition focus:outline-none"
+                  className="w-full h-[120px] sm:h-[130px] max-h-[140px] resize-none overflow-y-auto rounded-[18px] bg-white border border-[#EBEBEB] px-5 sm:px-6 py-3 text-sm sm:text-base text-[#0F172A] placeholder:text-[#888888] transition focus:outline-none focus:border-[#42BAE4] leading-relaxed"
                 />
               </div>
 
@@ -415,7 +415,7 @@ export default function ListProperty() {
 
       <Section tone="light" className="!py-16 md:!py-[110px] !bg-[#F9F9F9]">
         <div className="text-center mb-12 sm:mb-16">
-          <p className="section-eyebrow mb-2">
+          <p className="section-eyebrow">
             WHY LIST WITH US
           </p>
           <h2 className="section-title">
@@ -447,7 +447,7 @@ export default function ListProperty() {
               </h3>
 
               {/* Description */}
-              <p className="mt-5 text-xs sm:text-base text-[#6B8090] leading-relaxed">
+              <p className="mt-4 text-xs sm:text-base text-[#6B8090] leading-relaxed">
                 {text}
               </p>
             </div>
@@ -455,12 +455,12 @@ export default function ListProperty() {
         </div>
       </Section>
 
-      <Section tone="dark" className="!py-16 md:!py-24 !bg-[#03192E]">
+      <Section tone="dark" className=" !bg-[#03192E]">
         <div className="text-center mb-12 sm:mb-10">
-          <p className="text-[#5CBDE5] text-xs sm:text-[13px] font-semibold tracking-[0.16em] uppercase mb-2 sm:mb-3">
+          <p className="section-eyebrow">
             THE PROCESS
           </p>
-          <h2 className="text-2xl sm:text-3xl md:text-[34px] lg:text-[36px] font-semibold text-white tracking-tight">
+          <h2 className="section-title !text-white">
             From Your Property to Your First Booking
           </h2>
         </div>
@@ -517,12 +517,12 @@ export default function ListProperty() {
             <h2 className="section-title">
               Your Property Deserves More Than a Listing
             </h2>
-            <p className="mt-3.5 sm:mt-5 text-xs sm:text-base text-[#7A8FA6] leading-relaxed max-w-xl">
+            <p className="mt-3.5 sm:mt-5 text-xs sm:text-base text-[#6B7FA3] leading-relaxed max-w-xl">
               Winterers is designed to help exceptional properties stand out. From the way your home is presented to the way guests discover and book it, every detail is designed around the winter travel experience.
             </p>
 
             {/* 3 Features / Points */}
-            <div className="mt-6 sm:mt-7 flex flex-col gap-[15px]">
+            <div className="mt-5 flex flex-col gap-[15px]">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div className="flex items-center gap-3 sm:gap-[10px]">
                   <div className="w-[30px] h-[30px] rounded-[8px] bg-white flex items-center justify-center shrink-0 shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
@@ -555,7 +555,7 @@ export default function ListProperty() {
             <div className="mt-5">
               <button
                 type="button"
-                className="inline-flex items-center justify-center rounded-[12px] sm:rounded-[14px] bg-[#071D36] hover:bg-[#051527] px-7 py-3.5 text-xs sm:text-sm font-semibold text-white transition-all active:scale-95 shadow-sm"
+                className="inline-flex items-center justify-center rounded-[12px] sm:rounded-[18px] bg-[#02213B] hover:bg-[#051527] px-7 py-3.5 text-xs sm:text-sm font-medium text-white transition-all active:scale-95 shadow-sm"
               >
                 Start Your Listing
               </button>
@@ -566,14 +566,14 @@ export default function ListProperty() {
 
       {/* Platform Features: More Than Visibility */}
       <Section tone="light" className="!pb-16 md:!pb-[110px] !bg-white !pt-0">
-        <div className="text-center mb-10 sm:mb-14">
+        <div className="text-center mb-10">
           <p className="section-eyebrow">
             PLATFORM FEATURES
           </p>
           <h2 className="section-title">
             More Than Visibility
           </h2>
-          <p className="mt-2 text-xs sm:text-sm text-[#7A8FA6]">
+          <p className="mt-[25px] text-sm sm:text-base text-[#98A1AC]">
             Tools designed to make hosting simpler.
           </p>
         </div>

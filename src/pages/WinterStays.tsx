@@ -336,7 +336,7 @@ export default function WinterStays() {
           <div className="relative z-10 w-full p-6 sm:p-10 md:p-14 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
             {/* Left side text */}
             <div className="max-w-xl text-white">
-              <p className="section-eyebrow mb-2 sm:mb-4">
+              <p className="section-eyebrow">
                 FEATURED COLLECTION
               </p>
 

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
 import SearchBar from '../components/SearchBar';
@@ -25,6 +25,8 @@ import {
   Eye,
   Waves,
   Home,
+  SlidersHorizontal,
+  X,
 } from 'lucide-react';
 import { img } from '../data';
 
@@ -427,6 +429,21 @@ export default function BeachHouses() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9;
 
+  // Mobile / Responsive Off-Canvas Drawer State
+  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+
+  // Lock body scroll when mobile filter drawer is open
+  useEffect(() => {
+    if (mobileFilterOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileFilterOpen]);
+
   // FAQ Accordion state (open items)
   const [openFaqs, setOpenFaqs] = useState<number[]>([0, 1]);
 
@@ -557,6 +574,228 @@ export default function BeachHouses() {
     selectedTypes.length > 0 ||
     selectedAmenities.length > 0;
 
+  // Reusable Filter Controls for both Desktop Sidebar and Mobile Drawer
+  const renderFilterControls = () => (
+    <div className="divide-y divide-slate-100 space-y-2">
+      {/* Search input */}
+      <div className="pt-4">
+        <label className="block text-base font-semibold text-[#082B45] mb-3">
+          Location
+        </label>
+        <div className="relative">
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              setCurrentPage(1);
+            }}
+            placeholder="Search destination"
+            className="w-full pl-9 pr-3 py-[15px] text-xs sm:text-sm bg-[#fff] border border-[#E5EDF5] rounded-[12px] text-[#6B7C93] placeholder-[#6B7C93] outline-none transition"
+          />
+        </div>
+      </div>
+
+      {/* Price Range Slider */}
+      <div className="pt-5">
+        <style>{`
+          .range-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 0;
+            outline: none;
+          }
+          .range-slider-thumb::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #42BAE4;
+            border: 3.5px solid #ffffff;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            pointer-events: auto;
+            transition: transform 0.15s ease;
+          }
+          .range-slider-thumb::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+          }
+          .range-slider-thumb::-moz-range-thumb {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #42BAE4;
+            border: 3.5px solid #ffffff;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            pointer-events: auto;
+            transition: transform 0.15s ease;
+          }
+          .range-slider-thumb::-moz-range-thumb:hover {
+            transform: scale(1.1);
+          }
+        `}</style>
+        <label className="block text-base font-semibold text-[#082B45] mb-3">
+          Price Range
+        </label>
+        <div className="relative w-full h-6 flex items-center select-none mt-2">
+          {/* Background track */}
+          <div className="absolute inset-x-0 h-[7px] rounded-full bg-[#D4EEF9]" />
+          {/* Highlighted active range */}
+          <div
+            className="absolute h-[7px] rounded-full bg-[#42BAE4]"
+            style={{
+              left: `${minPercent}%`,
+              width: `${Math.max(0, maxPercent - minPercent)}%`,
+            }}
+          />
+          {/* Min input */}
+          <input
+            type="range"
+            min={0}
+            max={5000}
+            step={50}
+            value={minPrice}
+            onChange={handleMinPriceChange}
+            className={`range-slider-thumb pointer-events-none absolute inset-x-0 w-full appearance-none bg-transparent ${
+              minPrice > 2500 ? 'z-[5]' : 'z-[3]'
+            }`}
+          />
+          {/* Max input */}
+          <input
+            type="range"
+            min={0}
+            max={5000}
+            step={50}
+            value={maxPrice}
+            onChange={handleMaxPriceChange}
+            className="range-slider-thumb pointer-events-none absolute inset-x-0 w-full appearance-none bg-transparent z-[4]"
+          />
+        </div>
+        <div className="flex justify-between text-sm text-[#6F8397] font-medium mt-2">
+          <span>€{minPrice.toLocaleString()}</span>
+          <span>€{maxPrice >= 5000 ? '5,000+' : maxPrice.toLocaleString()}</span>
+        </div>
+      </div>
+
+      {/* Bedrooms button pills */}
+      <div className="pt-5">
+        <label className="block text-base font-semibold text-[#082B45] mb-3">
+          Bedrooms
+        </label>
+        <div className="grid grid-cols-5 gap-1.5">
+          {['Any', '1', '2', '3', '4+'].map((num) => {
+            const isActive = selectedBedrooms === num;
+            return (
+              <button
+                key={num}
+                type="button"
+                onClick={() => {
+                  setSelectedBedrooms(num);
+                  setCurrentPage(1);
+                }}
+                className={`py-2 text-sm font-medium rounded-[8px] px-[15px] transition cursor-pointer text-center ${
+                  isActive
+                    ? 'bg-[#062541] text-white'
+                    : 'bg-[#fff] border border-[#E5EDF5] text-[#082B45] hover:bg-slate-100'
+                }`}
+              >
+                {num}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Property Type Checkboxes */}
+      <div className="pt-5">
+        <label className="block text-base sm:text-[17px] font-bold text-[#0A1F33] mb-3.5">
+          Property Type
+        </label>
+        <div className="space-y-[11px]">
+          {propertyTypes.map((type) => {
+            const isChecked = selectedTypes.includes(type);
+            return (
+              <label
+                key={type}
+                className="flex items-center gap-3.5 text-sm sm:text-base font-normal text-[#082B45] cursor-pointer select-none group"
+              >
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={() => toggleType(type)}
+                  className="sr-only"
+                />
+                <div
+                  className={`w-[23px] h-[23px] rounded-[6px] flex items-center justify-center transition-all shrink-0 ${
+                    isChecked
+                      ? 'bg-[#42BAE4] border border-[#42BAE4]'
+                      : 'bg-white border border-[#D5E0EB] group-hover:border-[#B7CCD9]'
+                  }`}
+                >
+                  {isChecked && (
+                    <Check className="w-3.5 h-3.5 text-white stroke-[2.8]" />
+                  )}
+                </div>
+                <span>{type}</span>
+              </label>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Amenities Checkboxes */}
+      <div className="pt-5">
+        <label className="block text-base sm:text-[17px] font-bold text-[#0A1F33] mb-3.5">
+          Amenities
+        </label>
+        <div className="space-y-[11px]">
+          {amenityList.map((amenity) => {
+            const isChecked = selectedAmenities.includes(amenity);
+            return (
+              <label
+                key={amenity}
+                className="flex items-center gap-3.5 text-sm sm:text-base font-normal text-[#082B45] cursor-pointer select-none group"
+              >
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={() => toggleAmenity(amenity)}
+                  className="sr-only"
+                />
+                <div
+                  className={`w-[23px] h-[23px] rounded-[6px] flex items-center justify-center transition-all shrink-0 ${
+                    isChecked
+                      ? 'bg-[#42BAE4] border border-[#42BAE4]'
+                      : 'bg-white border border-[#D5E0EB] group-hover:border-[#B7CCD9]'
+                  }`}
+                >
+                  {isChecked && (
+                    <Check className="w-3.5 h-3.5 text-white stroke-[2.8]" />
+                  )}
+                </div>
+                <span>{amenity}</span>
+              </label>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Clear button */}
+      <div className="pt-6">
+        <button
+          type="button"
+          onClick={clearAllFilters}
+          className="w-full py-3.5 text-sm sm:text-base font-semibold rounded-[14px] border border-[#DCE5EE] bg-white hover:bg-slate-50 text-[#082B45] transition cursor-pointer shadow-sm active:scale-[0.99]"
+        >
+          Clear Filters
+        </button>
+      </div>
+    </div>
+  );
+
   return (
     <div className="w-full bg-white">
       {/* 1. Hero Section with Inner SearchBar */}
@@ -585,31 +824,46 @@ export default function BeachHouses() {
             </p>
           </div>
 
-          {/* Sort By Dropdown */}
-          <div className="relative inline-block shrink-0 self-start md:self-end">
-            <select
-              value={sortBy}
-              onChange={(e) => {
-                setSortBy(e.target.value as any);
-                setCurrentPage(1);
-              }}
-              className="appearance-none bg-white border border-[#DCE5EE] hover:border-[#CAD7E2] text-[#0D2137] text-xs sm:text-sm font-medium rounded-[14px] pl-4 pr-8 py-2 sm:py-2.5 focus:outline-none focus:border-[#5CBDE5] cursor-pointer transition-colors"
+          {/* Controls: Responsive Filter Button + Sort By Dropdown */}
+          <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 self-start md:self-end">
+            {/* Filter Toggle Button (Shown on mobile & tablet, hidden on lg desktop) */}
+            <button
+              type="button"
+              onClick={() => setMobileFilterOpen(true)}
+              className="lg:hidden inline-flex items-center gap-2 bg-white border border-[#DCE5EE] hover:border-[#CAD7E2] text-[#0D2137] text-xs sm:text-sm font-semibold rounded-[14px] px-3.5 sm:px-4 py-2 sm:py-2.5 shadow-xs cursor-pointer transition-all active:scale-95"
             >
-              <option value="recommended">Sort by recommended</option>
-              <option value="price-low">Sort by price: low to high</option>
-              <option value="price-high">Sort by price: high to low</option>
-              <option value="rating">Sort by top rated</option>
-            </select>
-            <ChevronDown className="w-3.5 h-3.5 text-[#5F7387] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2]" />
+              <SlidersHorizontal className="w-4 h-4 text-[#42BAE4]" />
+              <span>Filters</span>
+              {hasActiveFilters && (
+                <span className="w-2 h-2 rounded-full bg-[#42BAE4]" />
+              )}
+            </button>
+
+            {/* Sort By Dropdown */}
+            <div className="relative inline-block shrink-0">
+              <select
+                value={sortBy}
+                onChange={(e) => {
+                  setSortBy(e.target.value as any);
+                  setCurrentPage(1);
+                }}
+                className="appearance-none bg-white border border-[#DCE5EE] hover:border-[#CAD7E2] text-[#0D2137] text-xs sm:text-sm font-medium rounded-[14px] pl-4 pr-8 py-2 sm:py-2.5 focus:outline-none focus:border-[#5CBDE5] cursor-pointer transition-colors"
+              >
+                <option value="recommended">Sort by recommended</option>
+                <option value="price-low">Sort by price: low to high</option>
+                <option value="price-high">Sort by price: high to low</option>
+                <option value="rating">Sort by top rated</option>
+              </select>
+              <ChevronDown className="w-3.5 h-3.5 text-[#5F7387] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2]" />
+            </div>
           </div>
         </div>
 
         {/* Layout: Sidebar + Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-8 xl:gap-[30px] items-start">
-          {/* Left Sidebar Filters Card */}
-          <aside className="rounded-[20px] bg-[#F0F5FC] p-5 sm:p-6 shadow-sm sticky top-10">
+          {/* Left Sidebar Filters Card (Desktop only: lg:block, hidden on mobile/tablet) */}
+          <aside className="hidden lg:block rounded-[20px] bg-[#F0F5FC] p-5 sm:p-6 shadow-sm sticky top-10">
             <div className="flex items-center justify-end border-b border-slate-100">
-            
               {hasActiveFilters && (
                 <button
                   type="button"
@@ -622,224 +876,7 @@ export default function BeachHouses() {
               )}
             </div>
 
-            <div className="divide-y divide-slate-100 space-y-2">
-              {/* Search input */}
-              <div className="pt-4">
-                <label className="block text-base font-semibold text-[#082B45] mb-3">
-                Location
-                </label>
-                <div className="relative">
-                  <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-                  <input
-                    type="text"
-                    value={searchTerm}
-                    onChange={(e) => {
-                      setSearchTerm(e.target.value);
-                      setCurrentPage(1);
-                    }}
-                    placeholder="Search destination"
-                    className="w-full pl-9 pr-3 py-[15px] text-xs sm:text-sm bg-[#fff] border border-[#E5EDF5] rounded-[12px] text-[#6B7C93] placeholder-[#6B7C93] outline-none transition"
-                  />
-                </div>
-              </div>
-
-              {/* Price Range Slider */}
-              <div className="pt-5">
-                <style>{`
-                  .range-slider-thumb {
-                    -webkit-appearance: none;
-                    appearance: none;
-                    height: 0;
-                    outline: none;
-                  }
-                  .range-slider-thumb::-webkit-slider-thumb {
-                    -webkit-appearance: none;
-                    appearance: none;
-                    width: 22px;
-                    height: 22px;
-                    border-radius: 50%;
-                    background: #42BAE4;
-                    border: 3.5px solid #ffffff;
-                    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
-                    cursor: pointer;
-                    pointer-events: auto;
-                    transition: transform 0.15s ease;
-                  }
-                  .range-slider-thumb::-webkit-slider-thumb:hover {
-                    transform: scale(1.1);
-                  }
-                  .range-slider-thumb::-moz-range-thumb {
-                    width: 22px;
-                    height: 22px;
-                    border-radius: 50%;
-                    background: #42BAE4;
-                    border: 3.5px solid #ffffff;
-                    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
-                    cursor: pointer;
-                    pointer-events: auto;
-                    transition: transform 0.15s ease;
-                  }
-                  .range-slider-thumb::-moz-range-thumb:hover {
-                    transform: scale(1.1);
-                  }
-                `}</style>
-                <label className="block text-base font-semibold text-[#082B45] mb-3">
-                  Price Range
-                </label>
-                <div className="relative w-full h-6 flex items-center select-none mt-2">
-                  {/* Background track */}
-                  <div className="absolute inset-x-0 h-[7px] rounded-full bg-[#D4EEF9]" />
-                  {/* Highlighted active range */}
-                  <div
-                    className="absolute h-[7px] rounded-full bg-[#42BAE4]"
-                    style={{
-                      left: `${minPercent}%`,
-                      width: `${Math.max(0, maxPercent - minPercent)}%`,
-                    }}
-                  />
-                  {/* Min input */}
-                  <input
-                    type="range"
-                    min={0}
-                    max={5000}
-                    step={50}
-                    value={minPrice}
-                    onChange={handleMinPriceChange}
-                    className={`range-slider-thumb pointer-events-none absolute inset-x-0 w-full appearance-none bg-transparent ${
-                      minPrice > 2500 ? 'z-[5]' : 'z-[3]'
-                    }`}
-                  />
-                  {/* Max input */}
-                  <input
-                    type="range"
-                    min={0}
-                    max={5000}
-                    step={50}
-                    value={maxPrice}
-                    onChange={handleMaxPriceChange}
-                    className="range-slider-thumb pointer-events-none absolute inset-x-0 w-full appearance-none bg-transparent z-[4]"
-                  />
-                </div>
-                <div className="flex justify-between text-sm text-[#6F8397] font-medium mt-2">
-                  <span>€{minPrice.toLocaleString()}</span>
-                  <span>€{maxPrice >= 5000 ? '5,000+' : maxPrice.toLocaleString()}</span>
-                </div>
-              </div>
-
-              {/* Bedrooms button pills */}
-              <div className="pt-5">
-                <label className="block text-base font-semibold text-[#082B45] mb-3">
-                  Bedrooms
-                </label>
-                <div className="grid grid-cols-5 gap-1.5">
-                  {['Any', '1', '2', '3', '4+'].map((num) => {
-                    const isActive = selectedBedrooms === num;
-                    return (
-                      <button
-                        key={num}
-                        type="button"
-                        onClick={() => {
-                          setSelectedBedrooms(num);
-                          setCurrentPage(1);
-                        }}
-                        className={`py-2 text-sm font-medium rounded-[8px] px-[15px] transition cursor-pointer text-center ${
-                          isActive
-                            ? 'bg-[#062541] text-white'
-                            : 'bg-[#fff] border border-[#E5EDF5] text-[#082B45] hover:bg-slate-100'
-                        }`}
-                      >
-                        {num}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Property Type Checkboxes */}
-              <div className="pt-5">
-                <label className="block text-base sm:text-[17px] font-bold text-[#0A1F33] mb-3.5">
-                  Property Type
-                </label>
-                <div className="space-y-[11px]">
-                  {propertyTypes.map((type) => {
-                    const isChecked = selectedTypes.includes(type);
-                    return (
-                      <label
-                        key={type}
-                        className="flex items-center gap-3.5 text-sm sm:text-base font-normal text-[#082B45] cursor-pointer select-none group"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          onChange={() => toggleType(type)}
-                          className="sr-only"
-                        />
-                        <div
-                          className={`w-[23px] h-[23px] rounded-[6px] flex items-center justify-center transition-all shrink-0 ${
-                            isChecked
-                              ? 'bg-[#42BAE4] border border-[#42BAE4]'
-                              : 'bg-white border border-[#D5E0EB] group-hover:border-[#B7CCD9]'
-                          }`}
-                        >
-                          {isChecked && (
-                            <Check className="w-3.5 h-3.5 text-white stroke-[2.8]" />
-                          )}
-                        </div>
-                        <span>{type}</span>
-                      </label>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Amenities Checkboxes */}
-              <div className="pt-5">
-                <label className="block text-base sm:text-[17px] font-bold text-[#0A1F33] mb-3.5">
-                  Amenities
-                </label>
-                <div className="space-y-[11px]">
-                  {amenityList.map((amenity) => {
-                    const isChecked = selectedAmenities.includes(amenity);
-                    return (
-                      <label
-                        key={amenity}
-                        className="flex items-center gap-3.5 text-sm sm:text-base font-normal text-[#082B45] cursor-pointer select-none group"
-                      >
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          onChange={() => toggleAmenity(amenity)}
-                          className="sr-only"
-                        />
-                        <div
-                          className={`w-[23px] h-[23px] rounded-[6px] flex items-center justify-center transition-all shrink-0 ${
-                            isChecked
-                              ? 'bg-[#42BAE4] border border-[#42BAE4]'
-                              : 'bg-white border border-[#D5E0EB] group-hover:border-[#B7CCD9]'
-                          }`}
-                        >
-                          {isChecked && (
-                            <Check className="w-3.5 h-3.5 text-white stroke-[2.8]" />
-                          )}
-                        </div>
-                        <span>{amenity}</span>
-                      </label>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Clear button */}
-              <div className="pt-6">
-                <button
-                  type="button"
-                  onClick={clearAllFilters}
-                  className="w-full py-3.5 text-sm sm:text-base font-semibold rounded-[14px] border border-[#DCE5EE] bg-white hover:bg-slate-50 text-[#082B45] transition cursor-pointer shadow-sm active:scale-[0.99]"
-                >
-                  Clear Filters
-                </button>
-              </div>
-            </div>
+            {renderFilterControls()}
           </aside>
 
           {/* Right Main Content (Stays Grid + Pagination) */}
@@ -1009,7 +1046,7 @@ export default function BeachHouses() {
                 key={title}
                 className="rounded-[28px] bg-white pt-9 pb-8 px-6 sm:px-7 border border-[#DDE8F0] text-center flex flex-col items-center hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
               >
-                <div className="w-[76px] h-[76px] rounded-[28px] bg-[#EAF3FA] flex items-center justify-center text-[#0D1F35] mb-6">
+                <div className="w-[58px] md:w-[76px] h-[58px] md:h-[76px] rounded-[28px] bg-[#EAF3FA] flex items-center justify-center text-[#0D1F35] mb-6">
                   <Icon className="w-6 h-6 stroke-[1.8]" />
                 </div>
                 <h3 className="font-head text-[17px] sm:text-lg font-semibold text-[#0A1628] mb-[15px]">
@@ -1078,6 +1115,68 @@ export default function BeachHouses() {
           })}
         </div>
       </Section>
+
+      {/* Mobile / Responsive Filter Sidebar Drawer (Opens from LEFT side) */}
+      {/* Backdrop Overlay */}
+      <div
+        className={`fixed inset-0 z-50 bg-black/50 backdrop-blur-xs transition-opacity duration-300 lg:hidden ${
+          mobileFilterOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={() => setMobileFilterOpen(false)}
+      />
+
+      {/* Drawer Container (Slides from left) */}
+      <aside
+        className={`fixed inset-y-0 left-0 z-50 w-[88%] max-w-[360px] bg-[#F0F5FC] shadow-2xl transition-transform duration-300 ease-in-out lg:hidden flex flex-col ${
+          mobileFilterOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        {/* Drawer Header */}
+        <div className="flex items-center justify-between px-5 py-4 bg-white border-b border-[#E5EDF5] shrink-0">
+          <div className="flex items-center gap-2.5">
+            <SlidersHorizontal className="w-5 h-5 text-[#42BAE4]" />
+            <h3 className="font-head text-base sm:text-lg font-bold text-[#082B45]">
+              Filter Beach Houses
+            </h3>
+          </div>
+          <div className="flex items-center gap-2">
+            {hasActiveFilters && (
+              <button
+                type="button"
+                onClick={clearAllFilters}
+                className="inline-flex items-center gap-1 text-xs text-[#0284C7] hover:underline font-semibold cursor-pointer px-1.5 py-1"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                Reset
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={() => setMobileFilterOpen(false)}
+              className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-[#082B45] transition cursor-pointer"
+              aria-label="Close filters"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
+        {/* Drawer Scrollable Content */}
+        <div className="flex-1 overflow-y-auto p-5">
+          {renderFilterControls()}
+        </div>
+
+        {/* Drawer Footer with Show Stays button */}
+        <div className="p-4 bg-white border-t border-[#E5EDF5] shrink-0">
+          <button
+            type="button"
+            onClick={() => setMobileFilterOpen(false)}
+            className="w-full py-3 rounded-[14px] bg-[#062541] hover:bg-[#42BAE4] text-white font-semibold text-sm transition-colors cursor-pointer shadow-md active:scale-[0.99]"
+          >
+            Show {filteredStays.length} {filteredStays.length === 1 ? 'Stay' : 'Stays'}
+          </button>
+        </div>
+      </aside>
 
     </div>
   );
