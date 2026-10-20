@@ -2,6 +2,10 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useAppDispatch as useDispatch, useAppSelector as useSelector } from '../store/hooks';
 import { toggleSave, selectSorted } from '../store/staysSlice';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { FreeMode, Mousewheel } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/free-mode';
 import {
   Star,
   MapPin,
@@ -126,42 +130,62 @@ const nearbyExperiences = [
   {
     id: 1,
     name: 'The Snowy Pine Cabin',
-    location: 'Lapland, Finland',
+    country: 'Finland',
     price: 289,
-    rating: 4.9,
     guests: 6,
     beds: 3,
+    tags: 'Hot tub · Mountain views · Fireplace',
     img: 'feature01.png',
   },
   {
     id: 2,
-    name: 'Alpine Ridge Chalet',
-    location: 'Chamonix, France',
+    name: 'The Snowy Pine Cabin',
+    country: 'Chamonix, France',
     price: 749,
-    rating: 4.8,
-    guests: 6,
-    beds: 3,
+    guests: 10,
+    beds: 5,
+    tags: 'Ski-in/ski-out · Private chef',
     img: 'feature02.png',
   },
   {
     id: 3,
     name: 'Aurora Glass Lodge',
-    location: 'Tromsø, Norway',
-    price: 450,
-    rating: 4.95,
-    guests: 4,
-    beds: 2,
+    country: 'Tromsø, Norway',
+    price: 459,
+    guests: 2,
+    beds: 1,
+    tags: 'Northern Lights view · Sauna',
     img: 'feature03.png',
   },
   {
     id: 4,
-    name: 'Glacier Edge Retreat',
-    location: 'Zermatt, Switzerland',
+    name: 'Nordic Forest Retreat',
+    country: 'Rovaniemi, Finland',
+    price: 319,
+    guests: 4,
+    beds: 2,
+    tags: 'Lakeside · Outdoor sauna · Ski',
+    img: 'feature04.png',
+  },
+  {
+    id: 5,
+    name: 'Alpine Ridge Chalet',
+    country: 'Zermatt, Switzerland',
     price: 610,
-    rating: 4.92,
     guests: 8,
     beds: 4,
-    img: 'feature04.png',
+    tags: 'Matterhorn view · Fireplace · Spa',
+    img: 'feature05.png',
+  },
+  {
+    id: 6,
+    name: 'Arctic Haven Lodge',
+    country: 'Lofoten, Norway',
+    price: 540,
+    guests: 6,
+    beds: 3,
+    tags: 'Arctic ocean deck · Sauna · Aurora',
+    img: 'feature06.png',
   },
 ];
 
@@ -228,11 +252,11 @@ export default function PropertyDetail() {
       <div className="w-full px-3 sm:px-6 mb-3 sm:mb-3.5">
         <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-[13px] text-slate-500 font-body">
           <Link to="/stays" className="hover:text-[#062541] transition-colors">Winter Stays</Link>
-          <span className="text-slate-300 font-normal px-0.5">/</span>
+          <span className="text-[#6B7F96] font-normal px-0.5">/</span>
           <Link to="/stays" className="hover:text-[#062541] transition-colors">Norway</Link>
-          <span className="text-slate-300 font-normal px-0.5">/</span>
+          <span className="text-[#6B7F96] font-normal px-0.5">/</span>
           <Link to="/stays" className="hover:text-[#062541] transition-colors">Northern Norway</Link>
-          <span className="text-slate-300 font-normal px-0.5">/</span>
+          <span className="text-[#6B7F96] font-normal px-0.5">/</span>
           <span className="text-[#0D1F35] font-semibold truncate">Arktis Fjord Cabin</span>
         </nav>
       </div>
@@ -952,72 +976,114 @@ export default function PropertyDetail() {
       </div>
 
       {/* 4. Bottom Section: "Winter Experiences Around You" */}
-      <section className="site-container w-full px-4 sm:px-6 lg:px-8 mt-[110px]">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
-          <div>
-            <span className="section-eyebrow !text-[#0284C7]">NEAR THIS PROPERTY</span>
-            <h2 className="section-title !mt-1 !text-2xl sm:!text-3xl text-[#0D1F35]">
-              Winter Experiences Around You
-            </h2>
+      <section className="pt-12 md:pt-[110px] !pb-0 overflow-hidden">
+        <div className="site-container">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-center gap-4 mb-6 text-center">
+            <div>
+              <p className="section-eyebrow mb-1.5 sm:mb-2">
+                NEAR THIS PROPERTY
+              </p>
+              <h2 className="section-title">
+                Winter Experiences Around You
+              </h2>
+            </div>
           </div>
-          <Link
-            to="/experiences"
-            className="text-xs sm:text-sm font-semibold text-[#0284C7] hover:underline flex items-center gap-1"
-          >
-            <span>View all experiences</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
         </div>
 
-        {/* 4 Stay Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {nearbyExperiences.map((item) => (
-            <div
-              key={item.id}
-              className="group rounded-[18px] border border-slate-200 bg-white p-4 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-            >
-              <div>
-                <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-100">
-                  <img
-                    src={img(item.img)}
-                    alt={item.name}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <span className="absolute top-2.5 right-2.5 bg-white/90 backdrop-blur-sm text-slate-800 text-[11px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
-                    <Star className="w-3 h-3 text-amber-500 fill-amber-500" />
-                    {item.rating}
-                  </span>
-                </div>
-                <div className="pt-3">
-                  <p className="text-xs text-slate-400 flex items-center gap-1 truncate">
-                    <MapPin className="w-3 h-3 text-[#0284C7]" />
-                    {item.location}
-                  </p>
-                  <h4 className="font-head text-sm font-bold text-[#0D1F35] mt-1 truncate group-hover:text-[#0284C7] transition-colors">
-                    {item.name}
-                  </h4>
-                  <p className="text-[11px] text-slate-500 mt-1 font-body">
-                    {item.guests} guests · {item.beds} bedrooms
-                  </p>
-                </div>
-              </div>
+        {/* Swiper Slider: starts at left container edge and bleeds off to the right edge */}
+        <div
+          className="mt-6 sm:mt-8"
+          style={{
+            paddingLeft: 'max(1rem, calc((100vw - var(--container-max-w)) / 2 + 1.5rem))',
+          }}
+        >
+          <Swiper
+            modules={[FreeMode, Mousewheel]}
+            slidesPerView={1.2}
+            spaceBetween={16}
+            freeMode={true}
+            grabCursor={true}
+            mousewheel={{ forceToAxis: true }}
+            className="!overflow-visible"
+            breakpoints={{
+              640: {
+                slidesPerView: 2.2,
+                spaceBetween: 18,
+              },
+              1024: {
+                slidesPerView: 3.5,
+                spaceBetween: 20,
+              },
+            }}
+          >
+            {nearbyExperiences.map((item) => (
+              <SwiperSlide key={item.id} className="h-auto">
+                <div className="group rounded-[14px] border border-[#D1D7DD] bg-white p-5 hover:shadow-lg transition-all duration-300 flex flex-col justify-between h-full">
+                  <div>
+                    {/* Card Image */}
+                    <div className="relative w-full overflow-hidden rounded-[10px]">
+                      <img
+                        src={img(item.img)}
+                        alt={item.name}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    </div>
 
-              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
-                <div>
-                  <span className="font-head text-base font-bold text-[#0D1F35]">
-                    €{item.price}
-                  </span>
-                  <span className="text-[10px] text-slate-400"> /night</span>
+                    {/* Location & Title */}
+                    <div className="pt-5">
+                      <div className="flex items-center gap-[5px] text-xs text-[#98A1AC]">
+                        <MapPin className="w-3.5 h-3.5 text-[#98A1AC] shrink-0" />
+                        <span>{item.country}</span>
+                      </div>
+
+                      <h3 className="font-head text-base sm:text-xl font-semibold text-[#02213B] mt-[5px] truncate">
+                        {item.name}
+                      </h3>
+
+                      {/* Guests and Bedrooms */}
+                      <div className="flex items-center gap-3 text-xs text-[#98A1AC] mt-[10px] font-body">
+                        <span className="flex items-center gap-[5px]">
+                          <Users className="w-3.5 h-3.5 text-[#98A1AC] shrink-0" />
+                          {item.guests} guests
+                        </span>
+                        <span className="flex items-center gap-[5px]">
+                          <Bed className="w-3.5 h-3.5 text-[#98A1AC] shrink-0" />
+                          {item.beds} beds
+                        </span>
+                      </div>
+
+                      {/* Tags */}
+                      <p className="mt-[15px] text-sm text-[#98A1AC] truncate">
+                        {item.tags}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Bottom Row: Price & View Stay Button */}
+                  <div className="mt-5 pt-5 border-t border-[#D1D7DD] flex items-center justify-between">
+                    <div>
+                      <div className="flex items-baseline gap-1">
+                        <span className="font-head text-lg sm:text-xl font-bold text-[#02213B]">
+                          €{item.price}
+                        </span>
+                        <span className="text-xs text-[#98A1AC]">/night</span>
+                      </div>
+                      <p className="text-sm text-[#98A1AC] mt-[5px]">
+                        €{item.price * 7} total · 7 nights
+                      </p>
+                    </div>
+
+                    <Link
+                      to={`/stays/${item.id}`}
+                      className="inline-flex items-center justify-center rounded-[12px] bg-[#071D36] hover:bg-sky px-4 py-2 text-sm font-semibold text-white transition-all active:scale-95 shadow-sm whitespace-nowrap"
+                    >
+                      View Stay
+                    </Link>
+                  </div>
                 </div>
-                <Link
-                  to={`/stays/${item.id}`}
-                  className="rounded-lg bg-[#062541] hover:bg-[#0284C7] px-3 py-1.5 text-xs font-semibold text-white transition active:scale-95"
-                >
-                  Book Now
-                </Link>
-              </div>
-            </div>
-          ))}
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </section>
 
