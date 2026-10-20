@@ -9,8 +9,14 @@ import {
   Share2,
   Users,
   Bed,
+  BedDouble,
   Bath,
   Flame,
+  FireExtinguisher,
+  Telescope,
+  Mountain,
+  Utensils,
+  Navigation,
   Sparkles,
   ShieldCheck,
   Check,
@@ -496,71 +502,104 @@ export default function PropertyDetail() {
               </div>
             </div>
 
-            {/* Icon Feature Badges Row (Rounded Pills/Boxes) */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2.5">
-              {[
-                { label: 'Sleeps 8', icon: Users },
-                { label: '4 Bedrooms', icon: Bed },
-                { label: '3 Bathrooms', icon: Bath },
-                { label: 'Private Sauna', icon: Flame },
-                { label: 'Fireplace', icon: Flame },
-                { label: 'Northern Lights', icon: Sparkles },
-              ].map((badge) => {
-                const Icon = badge.icon;
-                return (
-                  <div
-                    key={badge.label}
-                    className="text-center flex flex-col items-center justify-center hover:border-slate-300 transition shadow-xs"
-                  >
-                    <Icon className="w-4 h-4 text-[#062541] mb-1.5" />
-                    <span className="text-[11px] font-semibold text-[#0D1F35] font-head">
-                      {badge.label}
-                    </span>
-                  </div>
-                );
-              })}
+            {/* Icon Feature Badges Row (Border Top & Bottom with Soft Blue Icon Box) */}
+            <div className="border-y border-[#E2E8F0] py-6 sm:py-7 my-8 sm:my-10">
+              <div className="grid grid-cols-3 sm:grid-cols-6 gap-4 sm:gap-6">
+                {[
+                  { label: 'Sleeps 6', icon: Users },
+                  { label: '3 Bedrooms', icon: BedDouble },
+                  { label: '2 Bathrooms', icon: Bath },
+                  { label: 'Private Sauna', icon: Flame },
+                  { label: 'Fireplace', icon: FireExtinguisher },
+                  { label: 'Northern Lights', icon: Telescope },
+                ].map((badge) => {
+                  const Icon = badge.icon;
+                  return (
+                    <div
+                      key={badge.label}
+                      className="flex flex-col items-center text-center group cursor-default"
+                    >
+                      <div className="w-12 h-12 rounded-[12px] bg-[#E8F3FB] flex items-center justify-center text-[#0D1F3C] transition-colors group-hover:bg-[#E0EFFF]">
+                        <Icon className="w-5 h-5  text-[#000000]" strokeWidth={2} />
+                      </div>
+                      <span className="mt-[15px] text-xs sm:text-base text-[#0D1F3C] leading-tight">
+                        {badge.label}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Where You'll Stay */}
-            <div className="pt-6 border-t border-slate-100">
-              <span className="section-eyebrow !text-[#0284C7]">LOCATION</span>
-              <h3 className="section-title !mt-1 !text-xl sm:!text-2xl text-[#0D1F35]">
-                Where You'll Stay
-              </h3>
-              <p className="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed max-w-xl">
-                Located in the scenic district of Kvaløya, Tromsø, surrounded by pristine Arctic fjords and mountain trails with zero light pollution for prime aurora viewing.
-              </p>
+            <div className="py-2">
+              <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-8 xl:gap-12 items-center">
+                {/* Left: Text & Milestones List */}
+                <div>
+                  <span className="text-xs sm:text-[13px] font-bold tracking-wider text-[#38BDF8] uppercase">
+                    LOCATION
+                  </span>
+                  <h3 className="font-head text-2xl sm:text-3xl lg:text-[32px] font-bold text-[#0D1F3C] mt-1.5 leading-tight">
+                    Where You’ll Stay
+                  </h3>
+                  <p className="mt-3 sm:mt-4 text-sm sm:text-base text-[#7B8FA6] leading-relaxed">
+                    Situated on the shores of Malangen Fjord, approximately 20 km south of Tromsø city. Accessible by car on a quiet coastal road, with easy access to all major winter attractions.
+                  </p>
 
-              <div className="mt-6 grid grid-cols-1 md:grid-cols-[1fr_260px] gap-6 items-center">
-                {/* Distance milestones list */}
-                <div className="space-y-3.5">
-                  {[
-                    { place: 'Tromsø Airport (TOS)', time: '25 min drive' },
-                    { place: 'Kvaløya Mountain Ski Slopes', time: '15 min drive' },
-                    { place: 'Arctic Fjord Safari Excursions', time: '10 min drive' },
-                    { place: 'Local Organic Grocery & Bakery', time: '12 min drive' },
-                  ].map((item) => (
-                    <div key={item.place} className="flex items-center justify-between text-xs sm:text-sm py-2 border-b border-slate-100">
-                      <span className="flex items-center gap-2 text-slate-700 font-medium">
-                        <MapPin className="w-3.5 h-3.5 text-[#0284C7] shrink-0" />
-                        {item.place}
-                      </span>
-                      <span className="text-slate-400 font-medium">{item.time}</span>
-                    </div>
-                  ))}
+                  {/* 4 Distance milestones list */}
+                  <div className="mt-6 sm:mt-7 space-y-4">
+                    {[
+                      { place: 'Tromsø Ski Centre', distance: '8 km', icon: Mountain },
+                      { place: 'Northern Lights Plateau', distance: '1.2 km', icon: Telescope },
+                      { place: 'Arctic Restaurant Fossegrimen', distance: '4.5 km', icon: Utensils },
+                      { place: 'Tromsø Airport', distance: '22 km', icon: Navigation },
+                    ].map((item) => {
+                      const Icon = item.icon;
+                      return (
+                        <div
+                          key={item.place}
+                          className="flex items-center justify-between py-0.5"
+                        >
+                          <div className="flex items-center gap-3 sm:gap-3.5">
+                            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-[14px] bg-[#EBF5FF] flex items-center justify-center text-[#0D1F3C] shrink-0">
+                              <Icon className="w-5 h-5 text-[#0D1F3C]" strokeWidth={2} />
+                            </div>
+                            <span className="text-sm sm:text-[15px] font-semibold text-[#0D1F3C]">
+                              {item.place}
+                            </span>
+                          </div>
+                          <span className="text-sm sm:text-[15px] font-medium text-[#7B8FA6]">
+                            {item.distance}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
 
-                {/* Map Card */}
-                <div className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-sm aspect-[4/3] bg-slate-100">
-                  <img
-                    src={img('map.png')}
-                    alt="Property Location Map"
-                    className="w-full h-full object-cover"
+                {/* Right: Interactive Iframe Map Card */}
+                <div className="relative rounded-[24px] sm:rounded-[28px] overflow-hidden border border-[#E2E8F0] shadow-sm bg-slate-100 h-[340px] sm:h-[380px] md:h-[400px]">
+                  {/* Google Map iframe */}
+                  <iframe
+                    title="Tromsø Location Map"
+                    src="https://maps.google.com/maps?q=Tromso+Norway&t=&z=9&ie=UTF8&iwloc=&output=embed"
+                    className="w-full h-full border-0"
+                    loading="lazy"
+                    allowFullScreen
                   />
-                  <div className="absolute inset-0 bg-[#062541]/10 flex items-center justify-center">
-                    <div className="bg-[#062541] text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg flex items-center gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-[#7EC8E3]" />
-                      <span>Arktis Cabin</span>
+
+                  {/* Floating Top-Left Badge: Tromsø, Norway */}
+                  <div className="absolute top-4 left-4 z-10 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-xl shadow-md border border-white/80 pointer-events-none">
+                    <span className="text-xs sm:text-[13px] font-semibold text-[#0D1F3C]">
+                      Tromsø, Norway
+                    </span>
+                  </div>
+
+                  {/* Floating Marker Badge: Arktis Fjord */}
+                  <div className="absolute bottom-1/3 right-1/4 z-10 pointer-events-none">
+                    <div className="inline-flex items-center gap-1.5 bg-[#0F2847] text-white px-3.5 py-1.5 rounded-full text-xs font-semibold shadow-xl border border-white/20">
+                      <MapPin className="w-3.5 h-3.5 text-[#38BDF8]" />
+                      <span>Arktis Fjord</span>
                     </div>
                   </div>
                 </div>
