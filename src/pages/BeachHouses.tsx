@@ -742,10 +742,10 @@ export default function BeachHouses() {
                           setSelectedBedrooms(num);
                           setCurrentPage(1);
                         }}
-                        className={`py-2 text-xs font-semibold rounded-xl transition cursor-pointer text-center ${
+                        className={`py-2 text-sm font-medium rounded-[8px] px-[15px] transition cursor-pointer text-center ${
                           isActive
-                            ? 'bg-[#062541] text-white shadow-sm'
-                            : 'bg-[#F8FAFC] border border-slate-200 text-slate-700 hover:bg-slate-100'
+                            ? 'bg-[#062541] text-white'
+                            : 'bg-[#fff] border border-[#E5EDF5] text-[#082B45] hover:bg-slate-100'
                         }`}
                       >
                         {num}
@@ -1034,7 +1034,7 @@ export default function BeachHouses() {
       />
 
       {/* 5. "Beach Houses FAQ" Section */}
-      <Section tone="light" className="!bg-white">
+      <Section tone="light" className="!bg-white !py-0">
         <div className="text-center mb-10">
           <p className="section-eyebrow">
             FREQUENTLY ASKED QUESTIONS
@@ -1079,8 +1079,6 @@ export default function BeachHouses() {
         </div>
       </Section>
 
-      {/* Extra bottom padding to blend smoothly with footer newsletter */}
-      <div className="h-6 sm:h-10 bg-[#FAFBFD]" />
     </div>
   );
 }
