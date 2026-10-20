@@ -74,9 +74,8 @@ export default function DestinationsPage() {
             <div className="mt-8">
               <Button
                 variant="sky"
-                pill
                 to="/stays"
-                className="px-6 py-2.5 sm:px-7 sm:py-3 text-xs sm:text-sm font-semibold text-navy hover:brightness-105 active:scale-95 shadow-sm"
+                className="px-6 py-2.5 sm:px-7 sm:py-3 text-xs sm:text-sm font-medium text-[#02213B] hover:brightness-105 active:scale-95 shadow-sm"
               >
                 Explore Northern Norway
               </Button>
@@ -126,7 +125,6 @@ export default function DestinationsPage() {
               <div className="mt-8">
                 <Button
                   to="/stays"
-                  pill
                   className="bg-navy hover:bg-[#071D36] px-8 py-3 text-xs sm:text-sm font-semibold text-white transition shadow-sm rounded-[18px]"
                 >
                   Discover Winter Stays
@@ -136,8 +134,6 @@ export default function DestinationsPage() {
           </div>
         </div>
       </section>
-
-      <div className="h-12" />
     </>
   );
 }

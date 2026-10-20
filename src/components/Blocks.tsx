@@ -21,7 +21,7 @@ export const FeaturedStays = ({
   eyebrow = "Handpicked for winter",
   title = "Featured Winter Stays",
   sub = "Discover unique cabins, chalets and unforgettable places made for your next winter escape.",
-  action = "View All Stays",
+  action = "Explore Stays",
   to = "/stays",
   center = false,
   showAction = true,
@@ -59,7 +59,7 @@ export const Destinations = ({
   center?: boolean;
   showAction?: boolean;
 } = {}) => (
-  <Section tone={tone}>
+  <Section tone={tone} className="!pb-0">
     <SectionHead
       dark={tone === "dark"}
       center={center}
