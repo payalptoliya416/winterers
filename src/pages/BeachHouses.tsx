@@ -394,14 +394,22 @@ const faqData = [
   },
 ];
 
-const propertyTypes = ['Entire Home', 'Cabin', 'Chalet', 'Villa', 'Igloo / Luxury Tent'] as const;
+const propertyTypes = [
+  'Beach House',
+  'Villa',
+  'Cabin',
+  'Chalet',
+  'Lake House',
+  'Glass Igloo & Dome',
+] as const;
+
 const amenityList = [
   'Ocean View',
+  'Direct Beach Access',
   'Hot Tub',
-  'Fireplace',
   'Sauna',
   'Pet Friendly',
-  'Ski-in / Ski-out',
+  'WiFi',
   'Kitchen',
   'Free Parking',
 ];
@@ -409,7 +417,8 @@ const amenityList = [
 export default function BeachHouses() {
   // Filters state
   const [searchTerm, setSearchTerm] = useState('');
-  const [maxPrice, setMaxPrice] = useState(800);
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(5000);
   const [selectedBedrooms, setSelectedBedrooms] = useState<string>('Any');
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
@@ -449,7 +458,8 @@ export default function BeachHouses() {
 
   const clearAllFilters = () => {
     setSearchTerm('');
-    setMaxPrice(800);
+    setMinPrice(0);
+    setMaxPrice(5000);
     setSelectedBedrooms('Any');
     setSelectedTypes([]);
     setSelectedAmenities([]);
@@ -472,7 +482,8 @@ export default function BeachHouses() {
         }
 
         // Price filter
-        if (stay.price > maxPrice) return false;
+        if (stay.price < minPrice) return false;
+        if (maxPrice < 5000 && stay.price > maxPrice) return false;
 
         // Bedrooms filter
         if (selectedBedrooms !== 'Any') {
@@ -485,12 +496,22 @@ export default function BeachHouses() {
 
         // Property Type filter
         if (selectedTypes.length > 0) {
-          if (!selectedTypes.includes(stay.type)) return false;
+          const matches = selectedTypes.some((t) => {
+            if (t === 'Beach House') return stay.type === 'Entire Home' || (stay.type as string) === 'Beach House' || stay.name.toLowerCase().includes('beach');
+            if (t === 'Lake House') return stay.type === 'Entire Home' || (stay.type as string) === 'Lake House' || stay.name.toLowerCase().includes('lake') || stay.name.toLowerCase().includes('fjord') || stay.name.toLowerCase().includes('bay');
+            if (t === 'Glass Igloo & Dome') return stay.type === 'Igloo / Luxury Tent' || (stay.type as string) === 'Glass Igloo & Dome' || stay.name.toLowerCase().includes('dome') || stay.name.toLowerCase().includes('glass');
+            return stay.type === t;
+          });
+          if (!matches) return false;
         }
 
         // Amenities filter
         if (selectedAmenities.length > 0) {
-          const hasAll = selectedAmenities.every((a) => stay.amenities.includes(a));
+          const hasAll = selectedAmenities.every((a) => {
+            if (a === 'Direct Beach Access') return stay.amenities.includes('Ocean View') || stay.tags.some(t => t.toLowerCase().includes('beach') || t.toLowerCase().includes('pier') || t.toLowerCase().includes('waterfront'));
+            if (a === 'WiFi') return true;
+            return stay.amenities.includes(a);
+          });
           if (!hasAll) return false;
         }
 
@@ -503,7 +524,23 @@ export default function BeachHouses() {
         // Default: recommended
         return (b.featured ? 1 : 0) - (a.featured ? 1 : 0) || b.rating - a.rating;
       });
-  }, [searchTerm, maxPrice, selectedBedrooms, selectedTypes, selectedAmenities, sortBy]);
+  }, [searchTerm, minPrice, maxPrice, selectedBedrooms, selectedTypes, selectedAmenities, sortBy]);
+
+  // Dual price slider calculations
+  const minPercent = Math.min(100, Math.max(0, Math.round((minPrice / 5000) * 100)));
+  const maxPercent = Math.min(100, Math.max(0, Math.round((maxPrice / 5000) * 100)));
+
+  const handleMinPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Math.min(Number(e.target.value), maxPrice - 100);
+    setMinPrice(Math.max(0, value));
+    setCurrentPage(1);
+  };
+
+  const handleMaxPriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = Math.max(Number(e.target.value), minPrice + 100);
+    setMaxPrice(Math.min(5000, value));
+    setCurrentPage(1);
+  };
 
   // Pagination calculation
   const totalPages = Math.ceil(filteredStays.length / itemsPerPage) || 1;
@@ -514,7 +551,8 @@ export default function BeachHouses() {
 
   const hasActiveFilters =
     searchTerm !== '' ||
-    maxPrice < 800 ||
+    minPrice > 0 ||
+    maxPrice < 5000 ||
     selectedBedrooms !== 'Any' ||
     selectedTypes.length > 0 ||
     selectedAmenities.length > 0;
@@ -584,7 +622,7 @@ export default function BeachHouses() {
               )}
             </div>
 
-            <div className="divide-y divide-slate-100 space-y-5">
+            <div className="divide-y divide-slate-100 space-y-2">
               {/* Search input */}
               <div className="pt-4">
                 <label className="block text-base font-semibold text-[#082B45] mb-3">
@@ -599,37 +637,92 @@ export default function BeachHouses() {
                       setSearchTerm(e.target.value);
                       setCurrentPage(1);
                     }}
-                    placeholder="e.g. Lofoten, Norway..."
-                    className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-[#F8FAFC] border border-[#E5EDF5] rounded-[12px] text-[#6B7C93] placeholder-[#6B7C93] outline-none transition"
+                    placeholder="Search destination"
+                    className="w-full pl-9 pr-3 py-[15px] text-xs sm:text-sm bg-[#fff] border border-[#E5EDF5] rounded-[12px] text-[#6B7C93] placeholder-[#6B7C93] outline-none transition"
                   />
                 </div>
               </div>
 
               {/* Price Range Slider */}
               <div className="pt-5">
-                <div className="flex items-center justify-between mb-2">
-                  <label className="block text-base font-semibold text-[#082B45] mb-3">
-                    Price Range
-                  </label>
-                  <span className="text-xs font-bold text-[#0284C7]">
-                    Up to €{maxPrice}/nt
-                  </span>
+                <style>{`
+                  .range-slider-thumb {
+                    -webkit-appearance: none;
+                    appearance: none;
+                    height: 0;
+                    outline: none;
+                  }
+                  .range-slider-thumb::-webkit-slider-thumb {
+                    -webkit-appearance: none;
+                    appearance: none;
+                    width: 22px;
+                    height: 22px;
+                    border-radius: 50%;
+                    background: #42BAE4;
+                    border: 3.5px solid #ffffff;
+                    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+                    cursor: pointer;
+                    pointer-events: auto;
+                    transition: transform 0.15s ease;
+                  }
+                  .range-slider-thumb::-webkit-slider-thumb:hover {
+                    transform: scale(1.1);
+                  }
+                  .range-slider-thumb::-moz-range-thumb {
+                    width: 22px;
+                    height: 22px;
+                    border-radius: 50%;
+                    background: #42BAE4;
+                    border: 3.5px solid #ffffff;
+                    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+                    cursor: pointer;
+                    pointer-events: auto;
+                    transition: transform 0.15s ease;
+                  }
+                  .range-slider-thumb::-moz-range-thumb:hover {
+                    transform: scale(1.1);
+                  }
+                `}</style>
+                <label className="block text-base font-semibold text-[#082B45] mb-3">
+                  Price Range
+                </label>
+                <div className="relative w-full h-6 flex items-center select-none mt-2">
+                  {/* Background track */}
+                  <div className="absolute inset-x-0 h-[7px] rounded-full bg-[#D4EEF9]" />
+                  {/* Highlighted active range */}
+                  <div
+                    className="absolute h-[7px] rounded-full bg-[#42BAE4]"
+                    style={{
+                      left: `${minPercent}%`,
+                      width: `${Math.max(0, maxPercent - minPercent)}%`,
+                    }}
+                  />
+                  {/* Min input */}
+                  <input
+                    type="range"
+                    min={0}
+                    max={5000}
+                    step={50}
+                    value={minPrice}
+                    onChange={handleMinPriceChange}
+                    className={`range-slider-thumb pointer-events-none absolute inset-x-0 w-full appearance-none bg-transparent ${
+                      minPrice > 2500 ? 'z-[5]' : 'z-[3]'
+                    }`}
+                  />
+                  {/* Max input */}
+                  <input
+                    type="range"
+                    min={0}
+                    max={5000}
+                    step={50}
+                    value={maxPrice}
+                    onChange={handleMaxPriceChange}
+                    className="range-slider-thumb pointer-events-none absolute inset-x-0 w-full appearance-none bg-transparent z-[4]"
+                  />
                 </div>
-                <input
-                  type="range"
-                  min={200}
-                  max={800}
-                  step={20}
-                  value={maxPrice}
-                  onChange={(e) => {
-                    setMaxPrice(Number(e.target.value));
-                    setCurrentPage(1);
-                  }}
-                  className="w-full accent-[#062541] cursor-pointer"
-                />
-                <div className="flex justify-between text-[11px] text-slate-400 font-medium mt-1">
-                  <span>€200</span>
-                  <span>€800+</span>
+                <div className="flex justify-between text-sm text-[#6F8397] font-medium mt-2">
+                  <span>€{minPrice.toLocaleString()}</span>
+                  <span>€{maxPrice >= 5000 ? '5,000+' : maxPrice.toLocaleString()}</span>
                 </div>
               </div>
 
@@ -664,23 +757,34 @@ export default function BeachHouses() {
 
               {/* Property Type Checkboxes */}
               <div className="pt-5">
-                <label className="block text-base font-semibold text-[#082B45] mb-3">
+                <label className="block text-base sm:text-[17px] font-bold text-[#0A1F33] mb-3.5">
                   Property Type
                 </label>
-                <div className="space-y-2">
+                <div className="space-y-3.5">
                   {propertyTypes.map((type) => {
                     const isChecked = selectedTypes.includes(type);
                     return (
                       <label
                         key={type}
-                        className="flex items-center gap-2.5 text-xs sm:text-[13px] text-slate-700 hover:text-[#062541] cursor-pointer select-none"
+                        className="flex items-center gap-3.5 text-sm sm:text-[15px] font-normal text-[#0B2138] cursor-pointer select-none group"
                       >
                         <input
                           type="checkbox"
                           checked={isChecked}
                           onChange={() => toggleType(type)}
-                          className="w-4 h-4 rounded border-slate-300 text-[#062541] focus:ring-[#7EC8E3] accent-[#062541] cursor-pointer"
+                          className="sr-only"
                         />
+                        <div
+                          className={`w-[22px] h-[22px] rounded-[6px] flex items-center justify-center transition-all shrink-0 ${
+                            isChecked
+                              ? 'bg-[#42BAE4] border border-[#42BAE4]'
+                              : 'bg-white border border-[#D5E0EB] group-hover:border-[#B7CCD9]'
+                          }`}
+                        >
+                          {isChecked && (
+                            <Check className="w-3.5 h-3.5 text-white stroke-[2.8]" />
+                          )}
+                        </div>
                         <span>{type}</span>
                       </label>
                     );
@@ -690,23 +794,34 @@ export default function BeachHouses() {
 
               {/* Amenities Checkboxes */}
               <div className="pt-5">
-                <label className="block text-base font-semibold text-[#082B45] mb-3">
+                <label className="block text-base sm:text-[17px] font-bold text-[#0A1F33] mb-3.5">
                   Amenities
                 </label>
-                <div className="space-y-2">
+                <div className="space-y-3.5">
                   {amenityList.map((amenity) => {
                     const isChecked = selectedAmenities.includes(amenity);
                     return (
                       <label
                         key={amenity}
-                        className="flex items-center gap-2.5 text-xs sm:text-[13px] text-slate-700 hover:text-[#062541] cursor-pointer select-none"
+                        className="flex items-center gap-3.5 text-sm sm:text-[15px] font-normal text-[#0B2138] cursor-pointer select-none group"
                       >
                         <input
                           type="checkbox"
                           checked={isChecked}
                           onChange={() => toggleAmenity(amenity)}
-                          className="w-4 h-4 rounded border-slate-300 text-[#062541] focus:ring-[#7EC8E3] accent-[#062541] cursor-pointer"
+                          className="sr-only"
                         />
+                        <div
+                          className={`w-[22px] h-[22px] rounded-[6px] flex items-center justify-center transition-all shrink-0 ${
+                            isChecked
+                              ? 'bg-[#42BAE4] border border-[#42BAE4]'
+                              : 'bg-white border border-[#D5E0EB] group-hover:border-[#B7CCD9]'
+                          }`}
+                        >
+                          {isChecked && (
+                            <Check className="w-3.5 h-3.5 text-white stroke-[2.8]" />
+                          )}
+                        </div>
                         <span>{amenity}</span>
                       </label>
                     );
@@ -715,13 +830,13 @@ export default function BeachHouses() {
               </div>
 
               {/* Clear button */}
-              <div className="pt-5">
+              <div className="pt-6">
                 <button
                   type="button"
                   onClick={clearAllFilters}
-                  className="w-full py-2.5 text-xs sm:text-sm font-semibold rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-700 transition cursor-pointer"
+                  className="w-full py-3.5 text-sm sm:text-base font-semibold rounded-[14px] border border-[#DCE5EE] bg-white hover:bg-slate-50 text-[#0B2138] transition cursor-pointer shadow-sm active:scale-[0.99]"
                 >
-                  Clear All Filters
+                  Clear Filters
                 </button>
               </div>
             </div>
