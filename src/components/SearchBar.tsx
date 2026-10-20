@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import { useState, useRef } from 'react';
 import { useAppDispatch as useDispatch, useAppSelector as useSelector } from '../store/hooks';
 import { setField } from '../store/searchSlice';
+import GuestPopup, { GuestCounts, formatGuestSummary } from './GuestPopup';
+import CalendarPopup from './CalendarPopup';
 
 interface SearchBarProps {
   cta?: string;
@@ -20,19 +20,58 @@ export default function SearchBar({
 
   const [checkIn, setCheckIn] = useState<Date | null>(null);
   const [checkOut, setCheckOut] = useState<Date | null>(null);
+  const [checkInOpen, setCheckInOpen] = useState(false);
+  const [checkOutOpen, setCheckOutOpen] = useState(false);
+  const checkInRef = useRef<HTMLDivElement>(null);
+  const checkOutRef = useRef<HTMLDivElement>(null);
 
-  const handleCheckIn = (date: Date | null) => {
+  const handleCheckIn = (date: Date) => {
     setCheckIn(date);
-    d(setField({ name: 'checkIn', value: date ? date.toISOString() : '' }));
-    if (date && checkOut && checkOut <= date) {
+    d(setField({ name: 'checkIn', value: date.toISOString() }));
+    if (checkOut && checkOut <= date) {
       setCheckOut(null);
       d(setField({ name: 'checkOut', value: '' }));
     }
   };
 
-  const handleCheckOut = (date: Date | null) => {
+  const handleCheckOut = (date: Date) => {
     setCheckOut(date);
-    d(setField({ name: 'checkOut', value: date ? date.toISOString() : '' }));
+    d(setField({ name: 'checkOut', value: date.toISOString() }));
+  };
+
+  const formatSearchDate = (d: Date | null) => {
+    if (!d) return 'Add date';
+    return d.toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+    });
+  };
+
+  const [guestPopupOpen, setGuestPopupOpen] = useState(false);
+  const guestsTriggerRef = useRef<HTMLDivElement>(null);
+  const [guestCounts, setGuestCounts] = useState<GuestCounts>({
+    adults: 2,
+    children: 0,
+    infants: 0,
+    pets: 0,
+  });
+
+  const handleGuestsChange = (newCounts: GuestCounts) => {
+    setGuestCounts(newCounts);
+    d(setField({ name: 'guests', value: formatGuestSummary(newCounts) }));
+  };
+
+  const toggleGuestsPopup = () => {
+    setCheckInOpen(false);
+    setCheckOutOpen(false);
+    setGuestPopupOpen((prev) => {
+      const next = !prev;
+      if (next && !v.guests) {
+        d(setField({ name: 'guests', value: formatGuestSummary(guestCounts) }));
+      }
+      return next;
+    });
   };
 
   /* shared field wrapper */
@@ -57,54 +96,129 @@ export default function SearchBar({
         </label>
 
         {/* Check-in */}
-        <div
-          className={`${fieldCls} w-full lg:w-[160px] lg:flex-none cursor-pointer [&_.react-datepicker-wrapper]:w-full [&_.react-datepicker__input-container]:w-full [&_.react-datepicker__input-container_input]:w-full`}
-        >
-          <span className="block text-[13px] font-bold text-[#15293E] mb-1 leading-none">Check-in</span>
-          <DatePicker
-            selected={checkIn}
-            onChange={handleCheckIn}
-            selectsStart
-            startDate={checkIn}
-            endDate={checkOut}
-            minDate={new Date()}
-            placeholderText="Add date"
-            dateFormat="dd MMM yyyy"
-            className="w-full bg-transparent text-sm text-[#15293E] placeholder:text-[#9AA8B8] outline-none font-normal cursor-pointer leading-tight"
-            popperPlacement="bottom-start"
-          />
+        <div ref={checkInRef} className="relative w-full lg:w-[160px] lg:flex-none">
+          <div
+            onClick={() => {
+              setCheckInOpen((prev) => !prev);
+              setCheckOutOpen(false);
+              setGuestPopupOpen(false);
+            }}
+            className={`${fieldCls} cursor-pointer select-none`}
+            role="button"
+            tabIndex={0}
+          >
+            <span className="block text-[13px] font-bold text-[#15293E] mb-1 leading-none">Check-in</span>
+            <span
+              className={`block truncate text-sm leading-tight ${
+                checkIn ? 'text-[#15293E] font-medium' : 'text-[#9AA8B8] font-normal'
+              }`}
+            >
+              {formatSearchDate(checkIn)}
+            </span>
+          </div>
+
+          {checkInOpen && (
+            <div
+              className="absolute left-0 top-full mt-2 z-50"
+              onClick={(e) => e.stopPropagation()}
+              onMouseDown={(e) => e.stopPropagation()}
+            >
+              <CalendarPopup
+                title="Select Check-in"
+                selectedDate={checkIn}
+                minDate={new Date()}
+                onSelect={(picked) => {
+                  handleCheckIn(picked);
+                  setCheckInOpen(false);
+                }}
+                onClose={() => setCheckInOpen(false)}
+                anchorRef={checkInRef}
+              />
+            </div>
+          )}
         </div>
 
         {/* Check-out */}
-        <div
-          className={`${fieldCls} w-full lg:w-[160px] lg:flex-none cursor-pointer [&_.react-datepicker-wrapper]:w-full [&_.react-datepicker__input-container]:w-full [&_.react-datepicker__input-container_input]:w-full`}
-        >
-          <span className="block text-[13px] font-bold text-[#15293E] mb-1 leading-none">Check-out</span>
-          <DatePicker
-            selected={checkOut}
-            onChange={handleCheckOut}
-            selectsEnd
-            startDate={checkIn}
-            endDate={checkOut}
-            minDate={checkIn ?? new Date()}
-            placeholderText="Add date"
-            dateFormat="dd MMM yyyy"
-            className="w-full bg-transparent text-sm text-[#15293E] placeholder:text-[#9AA8B8] outline-none font-normal cursor-pointer leading-tight"
-            popperPlacement="bottom-start"
-          />
+        <div ref={checkOutRef} className="relative w-full lg:w-[160px] lg:flex-none">
+          <div
+            onClick={() => {
+              setCheckOutOpen((prev) => !prev);
+              setCheckInOpen(false);
+              setGuestPopupOpen(false);
+            }}
+            className={`${fieldCls} cursor-pointer select-none`}
+            role="button"
+            tabIndex={0}
+          >
+            <span className="block text-[13px] font-bold text-[#15293E] mb-1 leading-none">Check-out</span>
+            <span
+              className={`block truncate text-sm leading-tight ${
+                checkOut ? 'text-[#15293E] font-medium' : 'text-[#9AA8B8] font-normal'
+              }`}
+            >
+              {formatSearchDate(checkOut)}
+            </span>
+          </div>
+
+          {checkOutOpen && (
+            <div
+              className="absolute left-0 top-full mt-2 z-50"
+              onClick={(e) => e.stopPropagation()}
+              onMouseDown={(e) => e.stopPropagation()}
+            >
+              <CalendarPopup
+                title="Select Check-out"
+                selectedDate={checkOut}
+                minDate={checkIn ?? new Date()}
+                onSelect={(picked) => {
+                  handleCheckOut(picked);
+                  setCheckOutOpen(false);
+                }}
+                onClose={() => setCheckOutOpen(false)}
+                anchorRef={checkOutRef}
+              />
+            </div>
+          )}
         </div>
 
         {/* Guests */}
-        <label className={`${fieldCls} w-full lg:w-[160px] lg:flex-none`}>
-          <span className="block text-[13px] font-bold text-[#15293E] mb-1 leading-none">Guests</span>
-          <input
-            type="text"
-            placeholder="Add guests"
-            value={v.guests}
-            onChange={(e) => d(setField({ name: 'guests', value: e.target.value }))}
-            className="w-full bg-transparent text-sm text-[#15293E] placeholder:text-[#9AA8B8] outline-none font-normal leading-tight"
-          />
-        </label>
+        <div ref={guestsTriggerRef} className="relative w-full lg:w-[160px] lg:flex-none">
+          <div
+            onClick={toggleGuestsPopup}
+            className={`${fieldCls} cursor-pointer select-none`}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                toggleGuestsPopup();
+              }
+            }}
+          >
+            <span className="block text-[13px] font-bold text-[#15293E] mb-1 leading-none">Guests</span>
+            <span
+              className={`block truncate text-sm leading-tight ${
+                v.guests ? 'text-[#15293E] font-medium' : 'text-[#9AA8B8] font-normal'
+              }`}
+            >
+              {v.guests || 'Add guests'}
+            </span>
+          </div>
+
+          {guestPopupOpen && (
+            <div
+              className="absolute right-0 top-full mt-2 z-50 lg:right-auto lg:left-0"
+              onClick={(e) => e.stopPropagation()}
+              onMouseDown={(e) => e.stopPropagation()}
+            >
+              <GuestPopup
+                counts={guestCounts}
+                onChange={handleGuestsChange}
+                onClose={() => setGuestPopupOpen(false)}
+                anchorRef={guestsTriggerRef}
+              />
+            </div>
+          )}
+        </div>
 
         {/* Search Button */}
         <div className="w-full lg:w-auto lg:flex-none">

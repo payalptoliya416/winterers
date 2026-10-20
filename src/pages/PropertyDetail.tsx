@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useAppDispatch as useDispatch, useAppSelector as useSelector } from '../store/hooks';
 import { toggleSave, selectSorted } from '../store/staysSlice';
@@ -39,6 +39,7 @@ import {
   Check,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
   X,
   Grid,
   Calendar,
@@ -57,6 +58,8 @@ import {
   Eye,
 } from 'lucide-react';
 import { img } from '../data';
+import GuestPopup, { GuestCounts } from '../components/GuestPopup';
+import CalendarPopup from '../components/CalendarPopup';
 
 const galleryPhotos = [
   { url: 'p-main.jpg', title: 'The Cabin — Alpine Timber Exterior & Snowy Peaks', category: 'The Cabin' },
@@ -203,22 +206,52 @@ export default function PropertyDetail() {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   // Booking Card state
-  const [checkIn, setCheckIn] = useState('2026-11-14');
-  const [checkOut, setCheckOut] = useState('2026-11-19');
+  const [checkInDate, setCheckInDate] = useState<Date | null>(new Date('2026-11-14'));
+  const [checkOutDate, setCheckOutDate] = useState<Date | null>(new Date('2026-11-19'));
+  const [checkInOpen, setCheckInOpen] = useState(false);
+  const [checkOutOpen, setCheckOutOpen] = useState(false);
+  const checkInRef = useRef<HTMLDivElement>(null);
+  const checkOutRef = useRef<HTMLDivElement>(null);
   const [guestCount, setGuestCount] = useState(2);
   const [guestDropdown, setGuestDropdown] = useState(false);
+  const guestTriggerRef = useRef<HTMLDivElement>(null);
+  const [guestCounts, setGuestCounts] = useState<GuestCounts>({
+    adults: 2,
+    children: 0,
+    infants: 0,
+    pets: 0,
+  });
+
+  const handleGuestsChange = (newCounts: GuestCounts) => {
+    setGuestCounts(newCounts);
+    setGuestCount(newCounts.adults + newCounts.children);
+  };
+
   const [bookingSuccess, setBookingSuccess] = useState(false);
 
   // Amenities modal state
   const [showAllAmenities, setShowAllAmenities] = useState(false);
 
-  // Calculate nights
-  const nights = 5;
+  // Calculate nights dynamically
+  const nights = Math.max(
+    1,
+    checkInDate && checkOutDate
+      ? Math.round((checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 60 * 60 * 24))
+      : 5
+  );
   const pricePerNight = 389;
   const staySubtotal = pricePerNight * nights;
   const cleaningFee = 65;
   const serviceFee = 48;
   const totalPrice = staySubtotal + cleaningFee + serviceFee;
+
+  const formatCardDate = (d: Date | null) => {
+    if (!d) return 'Add date';
+    const day = String(d.getDate()).padStart(2, '0');
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const yr = d.getFullYear();
+    return `${day}-${m}-${yr}`;
+  };
 
   // Keyboard navigation for lightbox
   useEffect(() => {
@@ -866,65 +899,140 @@ export default function PropertyDetail() {
               </div>
 
               {/* Dates & Guests Input Box */}
-              <div className="rounded-[12px] border border-[#E2E8F0] overflow-hidden divide-y divide-[#E2E8F0] text-xs">
+              <div className="rounded-[12px] border border-[#E2E8F0] divide-y divide-[#E2E8F0] text-xs relative">
                 <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-[#E2E8F0]">
-                  <div className="p-3 sm:p-3.5 xl:p-[17px] min-w-0">
-                    <label className="block text-xs font-bold uppercase tracking-wider text-[#0D1F3C]">
+                  {/* Check-In */}
+                  <div
+                    ref={checkInRef}
+                    onClick={() => {
+                      setCheckInOpen((prev) => !prev);
+                      setCheckOutOpen(false);
+                      setGuestDropdown(false);
+                    }}
+                    className="p-3 sm:p-3.5 xl:p-[17px] min-w-0 relative cursor-pointer select-none"
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <label className="block text-xs font-bold uppercase tracking-wider text-[#0D1F3C] cursor-pointer">
                       CHECK-IN
                     </label>
-                    <input
-                      type="date"
-                      value={checkIn}
-                      onChange={(e) => setCheckIn(e.target.value)}
-                      className="w-full bg-transparent text-sm sm:text-base text-[#7B8FA6] outline-none cursor-pointer mt-0.5 min-w-0"
-                    />
+                    <div className="flex items-center justify-between mt-0.5">
+                      <span className="text-sm sm:text-base text-[#0D1F3C] font-normal">
+                        {formatCardDate(checkInDate)}
+                      </span>
+                      <Calendar className="w-4 h-4 text-[#0D1F3C] shrink-0" />
+                    </div>
+
+                    {checkInOpen && (
+                      <div
+                        className="absolute left-0 top-full mt-2 z-50"
+                        onClick={(e) => e.stopPropagation()}
+                        onMouseDown={(e) => e.stopPropagation()}
+                      >
+                        <CalendarPopup
+                          title="Select Check-in"
+                          selectedDate={checkInDate}
+                          minDate={new Date()}
+                          onSelect={(picked) => {
+                            setCheckInDate(picked);
+                            if (checkOutDate && checkOutDate <= picked) {
+                              const nextDay = new Date(picked);
+                              nextDay.setDate(nextDay.getDate() + 1);
+                              setCheckOutDate(nextDay);
+                            }
+                            setCheckInOpen(false);
+                          }}
+                          onClose={() => setCheckInOpen(false)}
+                          anchorRef={checkInRef}
+                        />
+                      </div>
+                    )}
                   </div>
-                  <div className="p-3 sm:p-3.5 xl:p-[17px] min-w-0">
-                    <label className="block text-xs font-bold uppercase tracking-wider text-[#0D1F3C]">
+
+                  {/* Check-Out */}
+                  <div
+                    ref={checkOutRef}
+                    onClick={() => {
+                      setCheckOutOpen((prev) => !prev);
+                      setCheckInOpen(false);
+                      setGuestDropdown(false);
+                    }}
+                    className="p-3 sm:p-3.5 xl:p-[17px] min-w-0 relative cursor-pointer select-none"
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <label className="block text-xs font-bold uppercase tracking-wider text-[#0D1F3C] cursor-pointer">
                       CHECK-OUT
                     </label>
-                    <input
-                      type="date"
-                      value={checkOut}
-                      onChange={(e) => setCheckOut(e.target.value)}
-                      className="w-full bg-transparent text-sm sm:text-base text-[#7B8FA6] outline-none cursor-pointer mt-0.5 min-w-0"
-                    />
+                    <div className="flex items-center justify-between mt-0.5">
+                      <span className="text-sm sm:text-base text-[#0D1F3C] font-normal">
+                        {formatCardDate(checkOutDate)}
+                      </span>
+                      <Calendar className="w-4 h-4 text-[#0D1F3C] shrink-0" />
+                    </div>
+
+                    {checkOutOpen && (
+                      <div
+                        className="absolute right-0 top-full mt-2 z-50"
+                        onClick={(e) => e.stopPropagation()}
+                        onMouseDown={(e) => e.stopPropagation()}
+                      >
+                        <CalendarPopup
+                          title="Select Check-out"
+                          selectedDate={checkOutDate}
+                          minDate={checkInDate ?? new Date()}
+                          onSelect={(picked) => {
+                            setCheckOutDate(picked);
+                            setCheckOutOpen(false);
+                          }}
+                          onClose={() => setCheckOutOpen(false)}
+                          anchorRef={checkOutRef}
+                        />
+                      </div>
+                    )}
                   </div>
                 </div>
 
-                <div className="p-3 relative">
-                  <label className="block text-xs font-bold uppercase tracking-wider text-[#0D1F3C]">
+                <div
+                  ref={guestTriggerRef}
+                  onClick={() => {
+                    setCheckInOpen(false);
+                    setCheckOutOpen(false);
+                    setGuestDropdown((prev) => !prev);
+                  }}
+                  className="p-3 relative rounded-b-[12px] cursor-pointer select-none"
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      setGuestDropdown((prev) => !prev);
+                    }
+                  }}
+                >
+                  <label className="block text-xs font-bold uppercase tracking-wider text-[#0D1F3C] cursor-pointer">
                     GUESTS
                   </label>
-                  <button
-                    type="button"
-                    onClick={() => setGuestDropdown(!guestDropdown)}
-                    className="w-full flex items-center justify-between text-sm sm:text-base text-[#7B8FA6] mt-0.5 cursor-pointer"
-                  >
-                    <span>{guestCount} {guestCount === 1 ? 'guest' : 'guests'}</span>
-                    <span className="text-slate-400 text-[10px]">▼</span>
-                  </button>
+                  <div className="w-full flex items-center justify-between text-sm sm:text-base text-[#7B8FA6] mt-0.5">
+                    <span className="truncate">
+                      {guestCount} {guestCount === 1 ? 'guest' : 'guests'}
+                      {guestCounts.infants > 0 ? `, ${guestCounts.infants} infant${guestCounts.infants > 1 ? 's' : ''}` : ''}
+                      {guestCounts.pets > 0 ? `, ${guestCounts.pets} pet${guestCounts.pets > 1 ? 's' : ''}` : ''}
+                    </span>
+                    <ChevronDown className={`w-4 h-4 text-[#7B8FA6] transition-transform duration-200 shrink-0 ${guestDropdown ? 'rotate-180' : ''}`} />
+                  </div>
 
                   {guestDropdown && (
-                    <div className="absolute left-0 right-0 top-full mt-1 bg-white border border-slate-200 rounded-xl p-3 shadow-lg z-30 flex items-center justify-between">
-                      <span className="text-xs font-medium text-slate-700">Total Guests:</span>
-                      <div className="flex items-center gap-3">
-                        <button
-                          type="button"
-                          onClick={() => setGuestCount((c) => Math.max(1, c - 1))}
-                          className="w-7 h-7 rounded-full border border-slate-200 flex items-center justify-center font-bold text-slate-600 hover:bg-slate-100"
-                        >
-                          -
-                        </button>
-                        <span className="text-xs font-bold text-[#0D1F35]">{guestCount}</span>
-                        <button
-                          type="button"
-                          onClick={() => setGuestCount((c) => Math.min(8, c + 1))}
-                          className="w-7 h-7 rounded-full border border-slate-200 flex items-center justify-center font-bold text-slate-600 hover:bg-slate-100"
-                        >
-                          +
-                        </button>
-                      </div>
+                    <div
+                      className="absolute left-0 top-full mt-2 z-50"
+                      onClick={(e) => e.stopPropagation()}
+                      onMouseDown={(e) => e.stopPropagation()}
+                    >
+                      <GuestPopup
+                        counts={guestCounts}
+                        onChange={handleGuestsChange}
+                        onClose={() => setGuestDropdown(false)}
+                        anchorRef={guestTriggerRef}
+                      />
                     </div>
                   )}
                 </div>
