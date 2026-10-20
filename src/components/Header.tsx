@@ -50,7 +50,7 @@ export default function Header() {
                     to={path}
                     end={path === '/'}
                     className={({ isActive }) =>
-                      `relative flex flex-col items-center py-1 transition-colors whitespace-nowrap ${
+                      `group relative flex flex-col items-center py-1 transition-colors duration-200 whitespace-nowrap ${
                         isActive
                           ? 'text-[#7EC8E3] font-semibold'
                           : 'text-navy/80 hover:text-[#7EC8E3]'
@@ -60,9 +60,13 @@ export default function Header() {
                     {({ isActive }) => (
                       <>
                         <span>{label}</span>
-                        {isActive && (
-                          <span className="absolute -bottom-1 h-[2.5px] w-3.5 rounded-full bg-[#7EC8E3]" />
-                        )}
+                        <span
+                          className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2.5px] rounded-full bg-[#7EC8E3] transition-all duration-300 ease-out ${
+                            isActive
+                              ? 'w-5 group-hover:w-6 opacity-100'
+                              : 'w-0 opacity-0 group-hover:w-5 group-hover:opacity-100'
+                          }`}
+                        />
                       </>
                     )}
                   </NavLink>
