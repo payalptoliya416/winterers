@@ -2,6 +2,8 @@ import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
 import SearchBar from '../components/SearchBar';
+import Section from '../components/Section';
+import { Experiences } from '../components/Blocks';
 import {
   Search,
   MapPin,
@@ -21,6 +23,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Eye,
+  Waves,
+  Home,
 } from 'lucide-react';
 import { img } from '../data';
 
@@ -338,38 +342,25 @@ const allBeachHouses: BeachHouseStay[] = [
 
 const coastalPillars = [
   {
-    icon: Sparkles,
-    title: 'Curated Coastal Stays',
-    desc: 'Handpicked beachfront properties inspected for winter insulation, scenic vistas, and supreme comfort.',
+    icon: Waves,
+    title: 'Stunning Ocean Views',
+    desc: 'Wake up to breathtaking coastal scenery every day.',
   },
   {
-    icon: UserCheck,
-    title: 'Personalized Service',
-    desc: 'Local coastal hosts ready to assist with fireside wood delivery, private chefs, and itinerary planning.',
+    icon: Home,
+    title: 'Privacy & Space',
+    desc: 'Enjoy more space with your family or friends.',
+  },
+  {
+    icon: Heart,
+    title: 'Relaxing Atmosphere',
+    desc: 'Unwind in peaceful coastal surroundings.',
   },
   {
     icon: Compass,
-    title: 'Unrivaled Experiences',
-    desc: 'From private seaside sauna sessions to fjord cruises and aurora viewings over arctic waters.',
+    title: 'Adventure Nearby',
+    desc: 'From beach walks to winter activities.',
   },
-  {
-    icon: Headphones,
-    title: '24/7 Dedicated Support',
-    desc: 'Around-the-clock winter travel assistance ensuring seamless booking, arrival, and unforgettable stays.',
-  },
-];
-
-const winterExperiences = [
-  { title: 'Skiing & Snowboarding', img: 'ex01.png' },
-  { title: 'Northern Lights Hunt', img: 'aurora.jpg' },
-  { title: 'Fjord & Coastal Safaris', img: 'destination-norway.png' },
-  { title: 'Seaside Hot Tubs & Spa', img: 'hottub.jpg' },
-  { title: 'Winter Hiking & Trails', img: 'mountain.jpg' },
-  { title: 'Snowmobiling Adventures', img: 'ex06.png' },
-  { title: 'Fireside Dining', img: 'l-cozy.jpg' },
-  { title: 'Ice & Sea Fishing', img: 'ex08.png' },
-  { title: 'Coastal Photography', img: 'feature03.png' },
-  { title: 'Shoreline Golf & Wildlife', img: 'golf.png' },
 ];
 
 const faqData = [
@@ -551,7 +542,7 @@ export default function BeachHouses() {
             <h2 className="section-title !mt-1.5 !text-2xl sm:!text-3xl lg:!text-4xl text-[#0D1F35]">
               Featured Beach Houses
             </h2>
-            <p className="mt-2 text-xs sm:text-sm text-slate-500 max-w-2xl font-body">
+            <p className="mt-2 text-sm sm:text-base text-[#98A1AC] max-w-3xl font-body">
               Explore our handpicked collection of breathtaking stays nestled along scenic winter shorelines.
             </p>
           </div>
@@ -802,7 +793,7 @@ export default function BeachHouses() {
                       </div>
 
                       {/* Card Footer: Price & Book Now */}
-                      <div className="mt-4 pt-3.5 flex items-center justify-between">
+                      <div className="mt-4 flex items-center justify-between">
                         <div>
                           <div className="flex items-baseline gap-1">
                             <span className="font-head text-base font-bold text-[#02213B]">
@@ -843,12 +834,12 @@ export default function BeachHouses() {
 
             {/* Pagination Controls */}
             {totalPages > 1 && (
-              <div className="mt-10 sm:mt-12 flex items-center justify-center gap-2">
+              <div className="mt-10 sm:mt-12 flex items-center justify-center gap-[5px]">
                 <button
                   type="button"
                   onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
                   disabled={currentPage === 1}
-                  className="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition cursor-pointer"
+                  className="w-[46px] h-[46px] rounded-[17px] border border-[#E5EDF5] flex items-center justify-center text-slate-600 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition cursor-pointer"
                   aria-label="Previous page"
                 >
                   <ChevronLeft className="w-4 h-4" />
@@ -861,10 +852,10 @@ export default function BeachHouses() {
                       key={num}
                       type="button"
                       onClick={() => setCurrentPage(num)}
-                      className={`w-9 h-9 rounded-full text-xs font-semibold transition cursor-pointer flex items-center justify-center ${
+                      className={`w-[46px] h-[46px] rounded-[17px] text-base font-semibold transition cursor-pointer flex items-center justify-center ${
                         isActive
                           ? 'bg-[#062541] text-white shadow-sm'
-                          : 'border border-slate-200 text-slate-700 hover:bg-slate-50'
+                          : 'border border-[#E5EDF5] text-[#082B45] hover:bg-slate-50'
                       }`}
                     >
                       {num}
@@ -876,7 +867,7 @@ export default function BeachHouses() {
                   type="button"
                   onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
                   disabled={currentPage === totalPages}
-                  className="w-9 h-9 rounded-full border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition cursor-pointer"
+                  className="w-[46px] h-[46px] rounded-[17px] border border-[#E5EDF5] flex items-center justify-center text-slate-600 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed transition cursor-pointer"
                   aria-label="Next page"
                 >
                   <ChevronRight className="w-4 h-4" />
@@ -887,32 +878,32 @@ export default function BeachHouses() {
         </div>
       </section>
 
-      {/* 3. "A Different Kind of Coastal Escape" Section */}
-      <section className="bg-[#F0F5FC] py-14 sm:py-18 md:py-[110px]">
+      {/* 3. "WHY STAY IN A BEACH HOUSE" Section */}
+      <section className="bg-[#F0F5FA] py-14 sm:py-20 lg:py-24">
         <div className="site-container text-center">
           <span className="section-eyebrow">
-            WHAT SETS US APART
+            WHY STAY IN A BEACH HOUSE
           </span>
           <h2 className="section-title">
             A Different Kind of Coastal Escape
           </h2>
-          <p className="mx-auto mt-3 max-w-3xl text-xs sm:text-sm md:text-base text-[#98A1AC] leading-relaxed font-body">
-           Beach houses offer the perfect combination of natural beauty, privacy and modern comfort, making your winter coastal getaway truly special.
+          <p className="mx-auto mt-3.5 max-w-3xl text-xs sm:text-sm md:text-base text-[#98A1AC] leading-relaxed font-body">
+            Beach houses offer the perfect combination of natural beauty, privacy and modern comfort, making your winter coastal getaway truly special.
           </p>
 
-          <div className="mt-10 sm:mt-[25px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[32px]">
+          <div className="mt-10 sm:mt-12 lg:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
             {coastalPillars.map(({ icon: Icon, title, desc }) => (
               <div
                 key={title}
-                className="rounded-[22px] bg-white p-6 sm:p-7 border border-[#DDE8F0] text-center flex flex-col items-center hover:-translate-y-1 hover:shadow-md transition-all duration-300"
+                className="rounded-[28px] bg-white pt-9 pb-8 px-6 sm:px-7 border border-[#E2ECF2] text-center flex flex-col items-center hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
               >
-                <div className="w-[76px] h-[76px] rounded-[28px] bg-[#E8F1F8] flex items-center justify-center text-[#1A3A5C] mb-[25px]">
+                <div className="w-[58px] h-[58px] rounded-[20px] bg-[#EAF3FA] flex items-center justify-center text-[#0D1F35] mb-6">
                   <Icon className="w-6 h-6 stroke-[1.8]" />
                 </div>
-                <h3 className="font-head text-base sm:text-lg font-bold text-[#0A1628] mb-[15px]">
+                <h3 className="font-head text-[17px] sm:text-lg font-bold text-[#0D1F35] mb-2.5">
                   {title}
                 </h3>
-                <p className="text-xs sm:text-sm text-[#6B8299] leading-relaxed font-body">
+                <p className="text-xs sm:text-[13.5px] text-[#7A8B9C] leading-relaxed font-body max-w-[210px]">
                   {desc}
                 </p>
               </div>
@@ -922,98 +913,59 @@ export default function BeachHouses() {
       </section>
 
       {/* 4. "Choose Your Winter Experience" Section */}
-      <section className="site-container py-14 sm:py-18 md:py-24">
-        <div className="text-center">
-          <span className="section-eyebrow !text-[#0284C7] tracking-wider">
-            EXPERIENCES & ACTIVITIES
-          </span>
-          <h2 className="section-title !mt-2 text-2xl sm:text-3xl lg:text-[36px] text-[#0D1F35]">
-            Choose Your Winter Experience
-          </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-xs sm:text-sm md:text-base text-slate-500 leading-relaxed font-body">
-            Complement your coastal beach house stay with handpicked winter excursions and coastal adventures.
-          </p>
-        </div>
-
-        {/* 10 Experience Cards Grid (2 rows x 5 columns on desktop) */}
-        <div className="mt-10 sm:mt-14 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4 md:gap-5">
-          {winterExperiences.map((exp) => (
-            <Link
-              key={exp.title}
-              to="/experiences"
-              className="group relative block aspect-[4/3] sm:h-[180px] w-full overflow-hidden rounded-2xl shadow-sm hover:shadow-md transition-all duration-300"
-            >
-              <img
-                src={img(exp.img)}
-                alt={exp.title}
-                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              {/* Gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#062541]/90 via-[#062541]/35 to-transparent" />
-              {/* Title label at bottom */}
-              <div className="absolute inset-x-3 bottom-3 flex items-center justify-between">
-                <span className="font-head text-xs sm:text-sm font-semibold text-white drop-shadow-sm line-clamp-1">
-                  {exp.title}
-                </span>
-                <span className="w-5 h-5 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white shrink-0 group-hover:translate-x-0.5 transition-transform">
-                  <ChevronRight className="w-3 h-3" />
-                </span>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
+      <Experiences
+        eyebrow="CHOOSE YOUR ADVENTURE"
+        title="Choose Your Winter Experience"
+        sub="Find the perfect winter stay for the experience you came for."
+        bg="bg-white"
+        linkTo="/experiences"
+      />
 
       {/* 5. "Beach Houses FAQ" Section */}
-      <section className="py-14 sm:py-18 md:py-24">
-        <div className="site-container max-w-4xl">
-          <div className="text-center mb-10 sm:mb-12">
-            <span className="section-eyebrow !text-[#0284C7] tracking-wider">
-              FREQUENTLY ASKED QUESTIONS
-            </span>
-            <h2 className="section-title !mt-2 text-2xl sm:text-3xl lg:text-[36px] text-[#0D1F35]">
-              Beach Houses FAQ
-            </h2>
-            <p className="mx-auto mt-3 max-w-xl text-xs sm:text-sm text-slate-500 leading-relaxed font-body">
-              Everything you need to know about booking and enjoying an extraordinary winter coastal stay.
-            </p>
-          </div>
-
-          {/* Accordion List */}
-          <div className="space-y-3 sm:space-y-3.5">
-            {faqData.map((faq, idx) => {
-              const isOpen = openFaqs.includes(idx);
-              return (
-                <div
-                  key={faq.q}
-                  className="rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-sm transition-all"
-                >
-                  <button
-                    type="button"
-                    onClick={() => toggleFaq(idx)}
-                    className="w-full px-5 sm:px-7 py-4 sm:py-5 flex items-center justify-between gap-4 text-left font-head text-sm sm:text-base font-semibold text-[#0D1F35] hover:text-[#0284C7] transition-colors cursor-pointer"
-                  >
-                    <span>{faq.q}</span>
-                    <span className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 shrink-0 transition-transform">
-                      {isOpen ? (
-                        <Minus className="w-3.5 h-3.5 text-[#0284C7]" />
-                      ) : (
-                        <Plus className="w-3.5 h-3.5" />
-                      )}
-                    </span>
-                  </button>
-
-                  {isOpen && (
-                    <div className="px-5 sm:px-7 pb-5 sm:pb-6 text-xs sm:text-sm text-slate-600 font-body leading-relaxed border-t border-slate-100 pt-3">
-                      {faq.a}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
+      <Section tone="light" className="!bg-white">
+        <div className="text-center mb-10">
+          <p className="section-eyebrow">
+            FREQUENTLY ASKED QUESTIONS
+          </p>
+          <h2 className="section-title">
+            Beach Houses FAQ
+          </h2>
         </div>
-      </section>
+
+        <div className="mx-auto max-w-[954px] border-t border-[#D4DDE6] divide-y divide-[#D4DDE6]">
+          {faqData.map((faq, i) => {
+            const isOpen = openFaqs.includes(i);
+            return (
+              <div key={faq.q} className="transition-colors">
+                <button
+                  type="button"
+                  onClick={() => toggleFaq(i)}
+                  className="flex w-full items-start justify-between text-left py-5 sm:py-[28px] cursor-pointer group select-none"
+                  aria-expanded={isOpen}
+                >
+                  <div className="pr-4">
+                    <span className="text-base sm:text-lg font-semibold text-[#06243A] group-hover:text-[#5CBDE5] transition-colors leading-snug block">
+                      {faq.q}
+                    </span>
+                    {isOpen && (
+                      <p className="mt-3 text-sm sm:text-base text-[#6B8090] font-normal leading-relaxed pr-4 sm:pr-10 animate-in fade-in duration-200">
+                        {faq.a}
+                      </p>
+                    )}
+                  </div>
+                  <div className="w-7 h-7 sm:w-[30px] sm:h-[30px] rounded-full border border-[#D4DDE6] flex items-center justify-center text-[#64748B] shrink-0 group-hover:border-[#94A3B8] transition-colors">
+                    {isOpen ? (
+                      <Minus className="w-4 h-4 text-[#6B8090]" strokeWidth={2} />
+                    ) : (
+                      <Plus className="w-4 h-4 text-[#6B8090]" strokeWidth={2} />
+                    )}
+                  </div>
+                </button>
+              </div>
+            );
+          })}
+        </div>
+      </Section>
 
       {/* Extra bottom padding to blend smoothly with footer newsletter */}
       <div className="h-6 sm:h-10 bg-[#FAFBFD]" />
