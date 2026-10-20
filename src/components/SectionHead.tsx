@@ -29,14 +29,14 @@ export default function SectionHead({
         <h2 className={`section-title ${dark ? "!text-white" : ""}`}>{title}</h2>
         {sub && (
           <p
-            className={`mt-5 text-base ${dark ? "text-[#F0F4F8]" : "text-[#98A1AC]"}`}
+            className={`mt-5 text-sm sm:text-base ${dark ? "text-[#F0F4F8]" : "text-[#98A1AC]"}`}
           >
             {sub}
           </p>
         )}
       </div>
       {action && (
-        <Button to={to} variant={dark ? "outline" : "primary"} size="sm" pill className="rounded-[18px]">
+        <Button to={to} variant={dark ? "outline" : "primary"} size="sm" className="rounded-[13px] w-max">
           {action}
         </Button>
       )}

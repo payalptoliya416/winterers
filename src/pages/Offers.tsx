@@ -56,18 +56,18 @@ export default function Offers() {
       <section className="bg-[#EEF4FA] py-14 sm:py-16 md:py-[110px]">
         <Container>
           <div className="text-center">
-            <p className="section-eyebrow mb-1.5 sm:mb-2">
+            <p className="section-eyebrow">
               FOR MEMBERS
             </p>
             <h2 className="section-title">
               Unlock Exclusive Winter Savings
             </h2>
-            <p className="mt-3 text-xs sm:text-sm text-navy/50 font-body max-w-xl mx-auto">
+            <p className="mt-[25px] text-sm sm:text-base text-[#98A1AC] font-body">
               Sign in to access selected member rates and early winter offers.
             </p>
           </div>
 
-          <div className="mt-10 md:mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-[30px]">
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-[30px]">
             {perks.map(({ icon: Icon, title, text }) => (
               <div
                 key={title}
@@ -76,10 +76,10 @@ export default function Offers() {
                 <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-[18px] bg-[#E8F1F8] text-[#1A3A5C]">
                   <Icon className="h-6 w-6 text-[#1A3A5C]" strokeWidth={1.8} />
                 </div>
-                <h3 className="font-head text-lg sm:text-2xl font-semibold text-[#0A1628]">
+                <h3 className="!font-body text-lg sm:text-2xl font-semibold text-[#0A1628]">
                   {title}
                 </h3>
-                <p className="mt-[15px] text-xs sm:text-lg leading-relaxed text-[#6B8299] font-body">
+                <p className="mt-[15px] text-sm sm:text-base leading-relaxed text-[#6B8299] font-body">
                   {text}
                 </p>
               </div>

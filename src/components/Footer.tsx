@@ -70,7 +70,7 @@ export default function Footer() {
         <div className="absolute inset-x-0 top-0 h-1/2 bg-white pointer-events-none" />
 
         {/* Newsletter Floating / Overlapping Card */}
-        <div className="relative z-10 site-container pt-8 sm:pt-14 md:pt-16">
+        <div className="relative z-10 site-container pt-8 sm:pt-14 md:pt-[110px]">
           <div className="relative overflow-hidden rounded-[26px] sm:rounded-[32px] bg-[#07192C]">
             {/* Background Image of Cozy Winter Cabin */}
             <div

@@ -55,7 +55,7 @@ export default function ExclusiveOfferFeature() {
                 Was <span className="line-through">€620</span>
               </p>
               <div className="mt-[10px] flex items-center gap-4">
-                <span className="font-head text-3xl sm:text-[34px] font-bold text-[#1A3A5C]">
+                <span className="font-body text-3xl sm:text-[34px] font-bold text-[#1A3A5C]">
                   €449
                 </span>
                 <span className="rounded-[8px] bg-[#1A7F6E] px-3 py-2 text-sm font-bold text-white tracking-wide">

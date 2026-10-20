@@ -68,7 +68,7 @@ export default function Hero({
           )}
 
           {text && (
-            <p className="mx-auto mt-4 sm:mt-[25px] max-w-2xl font-body text-xs sm:text-sm md:text-base leading-relaxed text-[#F0F4F8] font-normal">
+            <p className="mx-auto mt-4 sm:mt-[25px] max-w-2xl font-body text-xs sm:text-sm md:text-base leading-relaxed text-[#F0F4F8]/80 font-normal">
               {text}
             </p>
           )}

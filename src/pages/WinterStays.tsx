@@ -154,23 +154,38 @@ export default function WinterStays() {
   const sort = useSelector((x) => x.stays.sort);
   const [activeTags, setActiveTags] = useState(['Lapland', '€200–€400', '6+ Guests']);
   const [openFilter, setOpenFilter] = useState<string | null>(null);
+  const [dropdownCoord, setDropdownCoord] = useState<{ top: number; left: number } | null>(null);
   const [sortOpen, setSortOpen] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [selectedStayId, setSelectedStayId] = useState<number>(2);
   const sortRef = useRef<HTMLDivElement>(null);
   const filterBarRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (sortRef.current && !sortRef.current.contains(e.target as Node)) {
         setSortOpen(false);
       }
-      if (filterBarRef.current && !filterBarRef.current.contains(e.target as Node)) {
+      if (
+        filterBarRef.current &&
+        !filterBarRef.current.contains(e.target as Node) &&
+        (!dropdownRef.current || !dropdownRef.current.contains(e.target as Node))
+      ) {
         setOpenFilter(null);
+        setDropdownCoord(null);
       }
     };
+    const handleCloseDropdown = () => {
+      setOpenFilter(null);
+      setDropdownCoord(null);
+    };
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    window.addEventListener('resize', handleCloseDropdown);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      window.removeEventListener('resize', handleCloseDropdown);
+    };
   }, []);
 
   const currentSortLabel = sortOptions.find((o) => o.value === sort)?.label || 'Top rated';
@@ -186,6 +201,7 @@ export default function WinterStays() {
       }
     }
     setOpenFilter(null);
+    setDropdownCoord(null);
   };
 
   const removeTag = (tag: string) => {
@@ -215,16 +231,27 @@ export default function WinterStays() {
 
       {/* Filter Bar */}
       <div ref={filterBarRef} className="site-container pt-6 sm:pt-8 pb-4">
-        {/* Filter Buttons Row with Interactive Dropdowns */}
-        <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
-          {Object.entries(filterConfigs).map(([label, { icon: Icon, hasChevron, options }]) => {
+        {/* Filter Buttons Row with Horizontal Scroll on responsive */}
+        <div className="flex items-center gap-2 sm:gap-2.5 overflow-x-auto pb-2.5 pt-1 scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden flex-nowrap lg:flex-wrap lg:overflow-visible lg:pb-0">
+          {Object.entries(filterConfigs).map(([label, { icon: Icon, hasChevron }]) => {
             const isOpen = openFilter === label;
             return (
-              <div key={label} className="relative">
+              <div key={label} className="relative shrink-0">
                 <button
                   type="button"
-                  onClick={() => setOpenFilter((prev) => (prev === label ? null : label))}
-                  className={`inline-flex items-center gap-2 rounded-full border bg-white px-3.5 py-2 sm:py-2.5 text-xs sm:text-[13px] font-medium transition cursor-pointer whitespace-nowrap shadow-sm ${
+                  onClick={(e) => {
+                    if (openFilter === label) {
+                      setOpenFilter(null);
+                      setDropdownCoord(null);
+                    } else {
+                      const rect = e.currentTarget.getBoundingClientRect();
+                      const dropdownWidth = 208;
+                      const left = Math.max(12, Math.min(rect.left, window.innerWidth - dropdownWidth - 12));
+                      setDropdownCoord({ top: rect.bottom + 8, left });
+                      setOpenFilter(label);
+                    }
+                  }}
+                  className={`inline-flex items-center gap-2 rounded-full border bg-white px-3.5 py-2 sm:py-2.5 text-xs sm:text-[13px] font-medium transition cursor-pointer whitespace-nowrap shadow-xs ${
                     isOpen
                       ? 'border-sky text-sky bg-[#F4F9FF]'
                       : 'border-slate-200 text-[#1E293B] hover:border-slate-300 hover:bg-slate-50'
@@ -240,44 +267,49 @@ export default function WinterStays() {
                     />
                   )}
                 </button>
-
-                {isOpen && (
-                  <div className="absolute left-0 top-full mt-2 w-52 rounded-2xl border border-slate-100 bg-white p-1.5 shadow-2xl z-40">
-                    <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 px-3 py-1 border-b border-slate-100 mb-1">
-                      {label}
-                    </div>
-                    <div className="max-h-60 overflow-y-auto space-y-0.5">
-                      {options.map((opt) => {
-                        const isSelected =
-                          activeTags.includes(opt) ||
-                          (label === 'Sort by' &&
-                            ((opt === 'Top rated' && sort === 'top') ||
-                              (opt === 'Price: low to high' && sort === 'low') ||
-                              (opt === 'Price: high to low' && sort === 'high')));
-
-                        return (
-                          <button
-                            key={opt}
-                            type="button"
-                            onClick={() => handleSelectOption(label, opt)}
-                            className={`w-full text-left px-3 py-2 text-xs sm:text-[13px] rounded-xl transition flex items-center justify-between cursor-pointer ${
-                              isSelected
-                                ? 'bg-[#EBF5FF] text-[#0284C7] font-semibold'
-                                : 'text-slate-700 hover:bg-slate-50 hover:text-navy'
-                            }`}
-                          >
-                            <span>{opt}</span>
-                            {isSelected && <span className="text-xs">✓</span>}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
               </div>
             );
           })}
         </div>
+
+        {/* Floating Fixed Dropdown (Avoids clipping inside overflow-x-auto) */}
+        {openFilter && dropdownCoord && filterConfigs[openFilter] && (
+          <div
+            ref={dropdownRef}
+            style={{ top: dropdownCoord.top, left: dropdownCoord.left }}
+            className="fixed w-52 rounded-2xl border border-slate-100 bg-white p-1.5 shadow-2xl z-50 animate-in fade-in zoom-in-95 duration-150"
+          >
+            <div className="text-[10px] font-semibold uppercase tracking-wider text-slate-400 px-3 py-1 border-b border-slate-100 mb-1">
+              {openFilter}
+            </div>
+            <div className="max-h-60 overflow-y-auto space-y-0.5">
+              {filterConfigs[openFilter].options.map((opt) => {
+                const isSelected =
+                  activeTags.includes(opt) ||
+                  (openFilter === 'Sort by' &&
+                    ((opt === 'Top rated' && sort === 'top') ||
+                      (opt === 'Price: low to high' && sort === 'low') ||
+                      (opt === 'Price: high to low' && sort === 'high')));
+
+                return (
+                  <button
+                    key={opt}
+                    type="button"
+                    onClick={() => handleSelectOption(openFilter, opt)}
+                    className={`w-full text-left px-3 py-2 text-xs sm:text-[13px] rounded-xl transition flex items-center justify-between cursor-pointer ${
+                      isSelected
+                        ? 'bg-[#EBF5FF] text-[#0284C7] font-semibold'
+                        : 'text-slate-700 hover:bg-slate-50 hover:text-navy'
+                    }`}
+                  >
+                    <span>{opt}</span>
+                    {isSelected && <span className="text-xs">✓</span>}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {/* Active Filter Chips Row - Aligned to Right */}
         {activeTags.length > 0 && (
@@ -344,7 +376,7 @@ export default function WinterStays() {
                 Stay Somewhere Extraordinary
               </h2>
 
-              <p className="mt-3.5 sm:mt-[25px] text-xs sm:text-sm md:text-base leading-relaxed text-white font-normal max-w-lg">
+              <p className="mt-3.5 sm:mt-[25px] text-xs sm:text-sm md:text-base leading-relaxed text-[#C8E6F5] font-normal max-w-lg">
                 Our hand-picked collection of the world's most remarkable winter properties — each one a destination in its own right.
               </p>
 
@@ -423,7 +455,7 @@ export default function WinterStays() {
               locationStays[0];
 
             return (
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 items-start">
                 {/* Left Side: Stays List */}
                 <div className="lg:col-span-5 flex flex-col">
                   <p className="text-sm text-slate-400 font-normal mb-3.5">
@@ -439,7 +471,7 @@ export default function WinterStays() {
                           onClick={() => setSelectedStayId(item.id)}
                           className={`group rounded-2xl border p-4 transition-all duration-300 flex items-center justify-between gap-3.5 cursor-pointer ${
                             isSelected
-                              ? 'border-sky bg-sky/[0.04] ring-2 ring-sky/30 shadow-md'
+                              ? ' bg-sky/[0.04]'
                               : 'border-slate-200/80 bg-white hover:border-slate-300 hover:shadow-md'
                           }`}
                         >
@@ -451,26 +483,21 @@ export default function WinterStays() {
                                 alt={item.name}
                                 className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                               />
-                              {isSelected && (
-                                <span className="absolute bottom-1.5 left-1.5 rounded-full bg-sky text-white text-[9px] font-bold px-1.5 py-0.5 shadow-sm">
-                                  Active
-                                </span>
-                              )}
                             </div>
 
                             {/* Details */}
                             <div className="min-w-0">
-                              <p className="text-sm font-medium text-[#7A8FA6]">
+                              <p className="text-sm text-[#7A8FA6]">
                                 {item.type}
                               </p>
-                              <h3 className="font-head text-sm sm:text-base font-semibold text-[#0D1B2A] truncate">
+                              <h3 className="font-head text-sm sm:text-base font-medium text-[#0D1B2A] truncate">
                                 {item.name}
                               </h3>
                               <div className="mt-0.5 flex items-center gap-1 text-sm text-[#7A8FA6]">
                                 <MapPin className="w-3 h-3 text-[#7A8FA6] shrink-0" />
                                 <span className="truncate">{item.location}</span>
                               </div>
-                              <p className="mt-3 text-sm text-[#0D1B2A] font-bold">
+                              <p className="mt-3 text-base text-[#0D1B2A] font-medium">
                                 €{item.price}{' '}
                                 <span className="text-xs font-normal text-[#7A8FA6]">/night</span>
                               </p>
@@ -479,14 +506,14 @@ export default function WinterStays() {
 
                           {/* Right Side: Rating & View Link */}
                           <div className="flex flex-col items-end justify-between self-stretch shrink-0 py-0.5">
-                            <span className="flex items-center gap-1 text-xs font-semibold text-navy">
-                              <Star className="w-3.5 h-3.5 text-navy/70" />
+                            <span className="flex items-center gap-1 text-sm font-semibold text-[#000000]">
+                                <Star className="w-3.5 h-3.5 text-[#000000]" />
                               {item.rating}
                             </span>
                             <Link
                               to={`/stays/${item.id}`}
                               onClick={(e) => e.stopPropagation()}
-                              className="text-sm font-semibold text-[#1A5F9E] hover:underline transition"
+                              className="text-sm font-semibold text-[#1A5F9E] underline transition"
                             >
                               View
                             </Link>
@@ -527,7 +554,7 @@ export default function WinterStays() {
       <section className="bg-[#031B33] py-16 md:py-20 lg:py-24">
         <div className="site-container">
           <div className="mb-6 sm:mb-8">
-            <p className="section-eyebrow mb-1.5">
+            <p className="section-eyebrow">
               STAFF PICK
             </p>
             <h2 className="section-title !text-white">
@@ -568,50 +595,50 @@ export default function WinterStays() {
                   </div>
 
                   {/* 3 Stat Pill Blocks */}
-                  <div className="grid grid-cols-3 gap-2.5 mt-5">
-                    <div className="rounded-xl bg-[#EEF6FC] p-3 text-center flex flex-col items-center justify-center gap-1">
+                  <div className="grid grid-cols-3 gap-[15px] mt-[32px]">
+                    <div className="rounded-xl bg-[#EEF6FC] py-[14px] px-3 text-center flex flex-col items-center justify-center gap-1">
                       <Users className="w-4 h-4 text-[#0D1B2A]" />
                       <span className="text-xs font-semibold text-[#0D1B2A]">2 Guests</span>
                     </div>
-                    <div className="rounded-xl bg-[#EEF6FC] p-3 text-center flex flex-col items-center justify-center gap-1">
+                    <div className="rounded-xl bg-[#EEF6FC] py-[14px] px-3 text-center flex flex-col items-center justify-center gap-1">
                       <Bed className="w-4 h-4 text-[#0D1B2A]" />
                       <span className="text-xs font-semibold text-[#0D1B2A]">1 Bedroom</span>
                     </div>
-                    <div className="rounded-xl bg-[#EEF6FC] p-3 text-center flex flex-col items-center justify-center gap-1">
+                    <div className="rounded-xl bg-[#EEF6FC] py-[14px] px-3 text-center flex flex-col items-center justify-center gap-1">
                       <Bath className="w-4 h-4 text-[#0D1B2A]" />
                       <span className="text-xs font-semibold text-[#0D1B2A]">1 Bathroom</span>
                     </div>
                   </div>
 
                   {/* Description */}
-                  <p className="mt-5 text-xs sm:text-sm text-[#64748B] leading-relaxed">
+                  <p className="mt-5 text-xs sm:text-sm text-[#7A8FA6] leading-relaxed">
                     Sleep under the northern lights in this architecturally stunning glass lodge. The panoramic ceiling offers uninterrupted aurora views from your bed. Includes private sauna, guided aurora tours, and a private chef on request.
                   </p>
 
                   {/* Feature Checklist (2 columns) */}
-                  <div className="grid grid-cols-2 gap-y-2.5 gap-x-3 text-sm font-medium text-[#0D1B2A] mt-5">
+                  <div className="grid grid-cols-2 gap-y-2.5 gap-x-3 text-sm text-[#0D1B2A] mt-5 sm:mt-[30px]">
                     <div className="flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-[#071D36] shrink-0" />
+                      <Check className="w-3.5 h-3.5 text-[#0D1B2A] shrink-0" />
                       <span>Private sauna</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-[#071D36] shrink-0" />
+                      <Check className="w-3.5 h-3.5 text-[#0D1B2A] shrink-0" />
                       <span>Aurora observatory</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-[#071D36] shrink-0" />
+                      <Check className="w-3.5 h-3.5 text-[#0D1B2A] shrink-0" />
                       <span>Wi-Fi</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-[#071D36] shrink-0" />
+                      <Check className="w-3.5 h-3.5 text-[#0D1B2A] shrink-0" />
                       <span>Breakfast included</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-[#071D36] shrink-0" />
+                      <Check className="w-3.5 h-3.5 text-[#0D1B2A] shrink-0" />
                       <span>Hot tub</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Check className="w-3.5 h-3.5 text-[#071D36] shrink-0" />
+                      <Check className="w-3.5 h-3.5 text-[#0D1B2A] shrink-0" />
                       <span>Snowmobile tours</span>
                     </div>
                   </div>
@@ -622,9 +649,9 @@ export default function WinterStays() {
                   <div>
                     <div className="flex items-baseline gap-1">
                       <span className="font-head text-2xl font-bold text-[#071D36]">€459</span>
-                      <span className="text-sm text-slate-400 font-normal">/ night</span>
+                      <span className="text-sm text-[#7A8FA6] font-normal">/ night</span>
                     </div>
-                    <p className="text-sm text-slate-400 mt-0.5">
+                    <p className="text-sm text-[#7A8FA6] mt-2">
                       €3,213 total · 7 nights
                     </p>
                   </div>
@@ -642,7 +669,7 @@ export default function WinterStays() {
       </section>
 
       {/* Stays You May Like Section with Swiper Slider */}
-      <section className="py-12 md:py-[110px] bg-white overflow-hidden">
+      <section className="pt-12 md:pt-[110px] bg-white overflow-hidden">
         <div className="site-container">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
             <div>

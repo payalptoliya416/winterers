@@ -27,7 +27,7 @@ const specs = [
 
 export default function NorthernLightsFeature() {
   return (
-    <section className="bg-[#062038] py-12 md:py-16 lg:py-20 text-white">
+    <section className="bg-[#062038] py-12 md:py-16 lg:py-[110px] text-white">
       <Container>
         <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-2 lg:gap-[41px]">
           {/* Left Column: Image with floating rating badge */}

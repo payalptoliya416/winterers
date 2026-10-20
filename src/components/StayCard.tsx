@@ -52,7 +52,7 @@ export default function StayCard({
       </div>
 
       {/* Bottom Row: Price & View Stay Button */}
-        <div className="mt-5 pt-5 border-t border-[#D1D7DD] flex items-center justify-between">
+        <div className="mt-5 pt-5 border-t border-[#D1D7DD] flex items-center justify-between flex-wrap gap-2">
         <div>
           <div className="flex items-baseline gap-1">
             <span className="font-head text-lg sm:text-xl font-bold text-[#02213B]">

@@ -23,7 +23,7 @@ export default function Experiences() {
         }
         text="From northern lights and mountain adventures to cozy escapes and unforgettable snowy moments, discover experiences made for people who truly love winter."
       >
-        <Button variant="light" size="lg" to="/stays" pill>
+        <Button variant="light" size="lg" to="/stays">
          Find Your Stay
         </Button>
       </Hero>
