@@ -17,6 +17,18 @@ import {
   Mountain,
   Utensils,
   Navigation,
+  Armchair,
+  Thermometer,
+  Wifi,
+  Tv,
+  Columns2,
+  Car,
+  HeartPulse,
+  Droplets,
+  Wind,
+  ChefHat,
+  Coffee,
+  Refrigerator,
   Sparkles,
   ShieldCheck,
   Check,
@@ -25,8 +37,10 @@ import {
   X,
   Grid,
   Calendar,
+  Clock,
   Lock,
   MessageSquare,
+  MessageCircle,
   Award,
   Waves,
   Key,
@@ -68,20 +82,43 @@ const galleryPhotos = [
 
 const placeAmenities = [
   {
-    category: 'Scenic Views',
-    items: ['Mountain view', 'Arctic Fjord view', 'Northern Lights view', 'Forest view'],
+    category: 'Comfort',
+    icon: Armchair,
+    items: [
+      { name: 'Fireplace', icon: Flame },
+      { name: 'Heating', icon: Thermometer },
+      { name: 'Wi-Fi', icon: Wifi },
+      { name: 'Smart TV', icon: Tv },
+    ],
   },
   {
-    category: 'Bathroom',
-    items: ['Hot tub & Outdoor Jacuzzi', 'Private Finnish Sauna', 'Rain shower', 'Premium organic toiletries'],
+    category: 'Outdoor',
+    icon: Mountain,
+    items: [
+      { name: 'Private Terrace', icon: Columns2 },
+      { name: 'Mountain View', icon: Mountain },
+      { name: 'Fire Pit', icon: Flame },
+      { name: 'Private Parking', icon: Car },
+    ],
   },
   {
-    category: 'Bedroom & Laundry',
-    items: ['Washer & dryer', 'Goose down duvets', 'Extra wool blankets', 'Dedicated drying room for ski gear'],
+    category: 'Wellness',
+    icon: HeartPulse,
+    items: [
+      { name: 'Sauna', icon: Waves },
+      { name: 'Hot Tub', icon: Droplets },
+      { name: 'Spa Amenities', icon: Wind },
+    ],
   },
   {
-    category: 'Heating & Safety',
-    items: ['Wood-burning stone fireplace', 'Radiant floor heating', 'Smoke & carbon monoxide alarm', 'First aid kit'],
+    category: 'Kitchen',
+    icon: Utensils,
+    items: [
+      { name: 'Full Kitchen', icon: ChefHat },
+      { name: 'Coffee Machine', icon: Coffee },
+      { name: 'Dining Area', icon: Utensils },
+      { name: 'Refrigerator', icon: Refrigerator },
+    ],
   },
 ];
 
@@ -547,7 +584,7 @@ export default function PropertyDetail() {
                   </p>
 
                   {/* 4 Distance milestones list */}
-                  <div className="mt-6 sm:mt-7 space-y-4">
+                  <div className="mt-6 sm:mt-[25px] space-y-4">
                     {[
                       { place: 'Tromsø Ski Centre', distance: '8 km', icon: Mountain },
                       { place: 'Northern Lights Plateau', distance: '1.2 km', icon: Telescope },
@@ -560,15 +597,15 @@ export default function PropertyDetail() {
                           key={item.place}
                           className="flex items-center justify-between py-0.5"
                         >
-                          <div className="flex items-center gap-3 sm:gap-3.5">
-                            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-[14px] bg-[#EBF5FF] flex items-center justify-center text-[#0D1F3C] shrink-0">
-                              <Icon className="w-5 h-5 text-[#0D1F3C]" strokeWidth={2} />
+                          <div className="flex items-center gap-3 sm:gap-[10px]">
+                            <div className="w-[32px] h-[32px] rounded-[8px] bg-[#E8F3FB] flex items-center justify-center text-[#0D1F3C] shrink-0">
+                              <Icon className="w-4 h-4 text-[#0D1F3C]" strokeWidth={2} />
                             </div>
-                            <span className="text-sm sm:text-[15px] font-semibold text-[#0D1F3C]">
+                            <span className="text-sm font-medium text-[#0D1F3C]">
                               {item.place}
                             </span>
                           </div>
-                          <span className="text-sm sm:text-[15px] font-medium text-[#7B8FA6]">
+                          <span className="text-sm text-[#7B8FA6]">
                             {item.distance}
                           </span>
                         </div>
@@ -578,7 +615,7 @@ export default function PropertyDetail() {
                 </div>
 
                 {/* Right: Interactive Iframe Map Card */}
-                <div className="relative rounded-[24px] sm:rounded-[28px] overflow-hidden border border-[#E2E8F0] shadow-sm bg-slate-100 h-[340px] sm:h-[380px] md:h-[400px]">
+                <div className="relative rounded-[20px] overflow-hidden border border-[#E2E8F0] h-full">
                   {/* Google Map iframe */}
                   <iframe
                     title="Tromsø Location Map"
@@ -607,111 +644,183 @@ export default function PropertyDetail() {
             </div>
 
             {/* What This Place Offers (Amenities) */}
-            <div className="pt-6 border-t border-slate-100">
-              <h3 className="section-title !mt-0 !text-xl sm:!text-2xl text-[#0D1F35]">
+            <div className="pt-8 sm:pt-10 border-t border-slate-100">
+              <h3 className="section-title">
                 What This Place Offers
               </h3>
 
-              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-                {placeAmenities.map((cat) => (
-                  <div key={cat.category} className="space-y-2.5">
-                    <h5 className="font-head text-xs font-bold uppercase tracking-wider text-[#062541]">
-                      {cat.category}
-                    </h5>
-                    <ul className="space-y-2">
-                      {cat.items.map((item) => (
-                        <li key={item} className="flex items-center gap-2 text-xs sm:text-[13px] text-slate-600">
-                          <Check className="w-3.5 h-3.5 text-[#0284C7] shrink-0" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+              <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10">
+                {placeAmenities.map((cat) => {
+                  const CatIcon = cat.icon;
+                  return (
+                    <div key={cat.category} className="space-y-5">
+                      {/* Category Header */}
+                      <div className="flex items-center gap-2.5 font-medium text-sm sm:text-base text-[#0D1F3C]">
+                        <CatIcon className="w-5 h-5 text-[#0D1F3C] shrink-0" strokeWidth={2} />
+                        <span>{cat.category}</span>
+                      </div>
+
+                      {/* Amenities List */}
+                      <ul className="space-y-3.5 sm:space-y-4">
+                        {cat.items.map((item) => {
+                          const ItemIcon = item.icon;
+                          return (
+                            <li
+                              key={item.name}
+                              className="flex items-center gap-2.5 text-sm sm:text-base font-medium text-[#7B8FA6]"
+                            >
+                              <ItemIcon className="w-5 h-5 text-[#7B8FA6] shrink-0" strokeWidth={1.8} />
+                              <span>{item.name}</span>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  );
+                })}
               </div>
 
               <button
                 type="button"
                 onClick={() => setShowAllAmenities(true)}
-                className="mt-6 inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs sm:text-sm font-semibold text-slate-700 hover:bg-slate-50 transition shadow-xs cursor-pointer"
+                className="mt-8 sm:mt-10 inline-flex items-center justify-center rounded-[18px] border border-[#E2E8F0] px-6 sm:px-7 py-3 text-base font-medium text-[#0D1F3C] hover:bg-slate-50 transition shadow-xs cursor-pointer"
               >
-                Show all 32 amenities
+                Show all 22 amenities
               </button>
             </div>
 
-            {/* Stay Somewhere Extraordinary Feature Box */}
-            <div className="pt-6 border-t border-slate-100">
-              <div className="grid grid-cols-1 md:grid-cols-[1fr_260px] gap-6 items-center">
+            {/* Stay Somewhere Extraordinary (About This Property) */}
+            <div className="pb-8 sm:pb-10 border-b">
+              {/* Top Row: Title & Top Paragraphs (Left) + Large Image (Right) */}
+              <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-[25px] items-start">
                 <div>
-                  <span className="section-eyebrow !text-[#0284C7]">AUTHENTIC HYGGE</span>
-                  <h3 className="section-title !mt-1 !text-xl sm:!text-2xl text-[#0D1F35]">
+                  <span className="section-eyebrow">
+                    ABOUT THIS PROPERTY
+                  </span>
+                  <h3 className="section-title">
                     Stay Somewhere Extraordinary
                   </h3>
-                  <p className="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed font-body">
-                    Immerse yourself in deep Arctic tranquility. During polar nights, witness emerald Northern Lights dancing directly above your heated terrace. In the daytime, explore snowshoeing trails right from your doorstep or embark on whale-watching safaris in the adjacent fjords.
+
+                  <p className="mt-4 sm:mt-[25px] text-sm sm:text-base text-[#7B8FA6] leading-relaxed">
+                   The Arktis Fjord Cabin was built by local craftsmen using traditional Norwegian timber techniques, blending seamlessly into the landscape while offering all the comforts of a luxury retreat. The interior is a study in contrasts — raw, natural materials paired with refined, contemporary furnishings.
                   </p>
-                  <p className="mt-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed font-body">
-                    Every detail has been crafted with sustainability and Norwegian artisanal woodwork, offering you warmth and authentic hygge in the heart of winter.
+
+                  <p className="mt-3.5 sm:mt-4 text-sm sm:text-base text-[#7B8FA6] leading-relaxed">
+                   From the moment you arrive, the cabin wraps you in warmth. Light the stone fireplace, pour a glass of wine, and watch the light fade across the fjord. In the evening, the private sauna beckons — and if you're lucky, the northern lights will ignite the sky above you.
                   </p>
-                  <div className="mt-5">
-                    <Link
-                      to="/experiences"
-                      className="inline-flex items-center gap-2 rounded-xl bg-[#062541] hover:bg-[#0284C7] px-4 py-2.5 text-xs font-semibold text-white transition active:scale-95 shadow-sm"
-                    >
-                      <span>Explore Local Experiences</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
-                  </div>
                 </div>
 
-                <div className="rounded-2xl overflow-hidden aspect-[4/3] shadow-md border border-slate-100">
+                <div className="rounded-[23px] overflow-hidden">
                   <img
-                    src={img('p-inside.jpg')}
-                    alt="Interior Lounge"
+                    src={img('authenticate.png')}
+                    alt="Cozy fireside cabin interior lounge with candles"
                     className="w-full h-full object-cover"
                   />
                 </div>
               </div>
+
+              {/* Bottom Paragraph (Full width) */}
+              <p className="mt-5 sm:mt-6 text-sm sm:text-base text-[#7B8FA6] leading-relaxed max-w-3xl">
+               Located just 20 minutes from Tromsø city centre, you're close to world-class winter experiences — dog sledding, snowmobile tours, and guided northern lights expeditions — yet completely secluded in your private corner of Arctic Norway.
+              </p>
+
+              {/* Read More Button */}
+              <div className="mt-6 sm:mt-7">
+                <button
+                  type="button"
+                  onClick={() => alert('Arktis Fjord Cabin features 240 m² of handcrafted living space with heated floors, private sauna, outdoor hot tub, panoramic fjord views, and eco-certified geothermal heating.')}
+                  className="inline-flex items-center justify-center rounded-[18px] bg-[#02213B] hover:bg-[#0D1F3C] text-white px-7 py-3.5 text-sm font-medium transition-all cursor-pointer"
+                >
+                  Read more about this property
+                </button>
+              </div>
             </div>
 
             {/* Your Host */}
-            <div className="pt-6 border-t border-slate-100">
-              <h3 className="section-title !mt-0 !text-xl sm:!text-2xl text-[#0D1F35] mb-5">
+            <div className="">
+              <h3 className="section-title">
                 Your Host
               </h3>
 
-              <div className="rounded-2xl border border-slate-200 bg-[#F8FAFC] p-6 flex flex-col sm:flex-row items-center justify-between gap-6">
-                <div className="flex items-center gap-4 text-center sm:text-left">
-                  <div className="w-16 h-16 rounded-full overflow-hidden bg-slate-200 shrink-0 shadow-sm">
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 sm:gap-8 mt-5">
+                {/* Left: Avatar + Host Info */}
+                <div className="flex items-center gap-3 sm:gap-[15px]">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden shrink-0">
                     <img
-                      src={img('host-anna.jpg')}
-                      alt="Host Thomas"
+                      src={img('ingrid.jpg')}
+                      alt="Host Ingrid Larsen"
                       className="w-full h-full object-cover"
                     />
                   </div>
                   <div>
-                    <h4 className="font-head text-base sm:text-lg font-bold text-[#0D1F35]">
-                      Thomas Alexander
+                    <h4 className="font-body text-sm sm:text-base font-semibold text-[#0D1F3C] leading-snug">
+                      Ingrid Larsen
                     </h4>
-                    <p className="text-xs text-slate-500">Superhost · Joined in 2019</p>
-                    <div className="flex items-center gap-3 mt-1.5 text-xs text-slate-600">
-                      <span>★ 4.96 Rating</span>
-                      <span>•</span>
-                      <span>148 Reviews</span>
-                      <span>•</span>
-                      <span className="text-[#0284C7] font-medium">100% Response Rate</span>
+                    <p className="text-xs sm:text-sm text-[#7B8FA6] mt-[4px] font-normal">
+                      Hosted by Ingrid · Since 2019
+                    </p>
+                    <div className="flex items-center gap-1 text-xs font-medium text-[#0D1F3C] mt-[10px]">
+                      <Star className="w-3.5 h-3.5 text-[#F59E0B] fill-[#F59E0B]" />
+                      <span>Superhost</span>
                     </div>
                   </div>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={() => alert('Message sent to Thomas Alexander!')}
-                  className="inline-flex items-center gap-2 rounded-xl bg-[#062541] hover:bg-[#0284C7] px-5 py-2.5 text-xs sm:text-sm font-semibold text-white transition active:scale-95 shadow-sm cursor-pointer whitespace-nowrap"
-                >
-                  <MessageSquare className="w-4 h-4" />
-                  <span>Contact Host</span>
-                </button>
+                {/* Middle: 3 Stat Badges */}
+                <div className="flex items-center gap-6 sm:gap-8 xl:gap-10">
+                  {/* Stat 1: Response Rate */}
+                  <div className="flex flex-col items-center text-center">
+                    <div className="w-10 h-10 rounded-[14px] bg-[#E8F3FB] flex items-center justify-center text-[#0D1F3C]">
+                      <MessageCircle className="w-4 h-4 text-[#0D1F3C]" strokeWidth={2} />
+                    </div>
+                    <span className="font-semibold text-sm text-[#0D1F3C] mt-3 leading-none">
+                      98%
+                    </span>
+                    <span className="text-xs text-[#7B8FA6] font-normal mt-1 whitespace-nowrap">
+                      Response Rate
+                    </span>
+                  </div>
+
+                  {/* Stat 2: Response Time */}
+                  <div className="flex flex-col items-center text-center">
+                    <div className="w-10 h-10 rounded-[14px] bg-[#E8F3FB] flex items-center justify-center text-[#0D1F3C]">
+                      <Clock className="w-4 h-4 text-[#0D1F3C]" strokeWidth={2} />
+                    </div>
+                    <span className="font-semibold text-sm text-[#0D1F3C] mt-3 leading-none">
+                      Within 1 hour
+                    </span>
+                    <span className="text-xs text-[#7B8FA6] font-normal mt-1 whitespace-nowrap">
+                      Response Time
+                    </span>
+                  </div>
+
+                  {/* Stat 3: Years Hosting */}
+                  <div className="flex flex-col items-center text-center">
+                    <div className="w-10 h-10 rounded-[14px] bg-[#E8F3FB] flex items-center justify-center text-[#0D1F3C]">
+                      <Calendar className="w-4 h-4 text-[#0D1F3C]" strokeWidth={2} />
+                    </div>
+                    <span className="font-semibold text-sm text-[#0D1F3C] mt-3 leading-none">
+                      6 years
+                    </span>
+                    <span className="text-xs text-[#7B8FA6] font-normal mt-1 whitespace-nowrap">
+                      Years Hosting
+                    </span>
+                  </div>
+                </div>
+
+                {/* Right: Contact Host Button */}
+                <div className="flex flex-col items-center sm:items-start lg:items-center">
+                  <button
+                    type="button"
+                    onClick={() => alert('Message dialog opened for host Ingrid Larsen!')}
+                    className="inline-flex items-center justify-center rounded-[18px] bg-[#02213B] hover:bg-[#0D1F3C] text-white px-7 sm:px-8 py-3.5 text-sm font-semibold shadow-sm transition-all active:scale-95 cursor-pointer whitespace-nowrap"
+                  >
+                    Contact Host
+                  </button>
+                  <span className="text-xs text-[#7B8FA6] font-normal mt-2 text-center">
+                    Usually responds quickly
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -843,7 +952,7 @@ export default function PropertyDetail() {
       </div>
 
       {/* 4. Bottom Section: "Winter Experiences Around You" */}
-      <section className="site-container w-full px-4 sm:px-6 lg:px-8 mt-16 sm:mt-24 pt-12 border-t border-slate-100">
+      <section className="site-container w-full px-4 sm:px-6 lg:px-8 mt-[110px]">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
           <div>
             <span className="section-eyebrow !text-[#0284C7]">NEAR THIS PROPERTY</span>
@@ -1119,21 +1228,28 @@ export default function PropertyDetail() {
             </div>
 
             <div className="space-y-6">
-              {placeAmenities.map((cat) => (
-                <div key={cat.category} className="space-y-2">
-                  <h4 className="font-head text-xs font-bold uppercase tracking-wider text-[#062541]">
-                    {cat.category}
-                  </h4>
-                  <ul className="space-y-2">
-                    {cat.items.map((item) => (
-                      <li key={item} className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700">
-                        <Check className="w-4 h-4 text-[#0284C7] shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+              {placeAmenities.map((cat) => {
+                const CatIcon = cat.icon;
+                return (
+                  <div key={cat.category} className="space-y-2.5">
+                    <h4 className="flex items-center gap-2 font-head text-sm font-bold text-[#0D1F3C]">
+                      <CatIcon className="w-4 h-4 text-[#0D1F3C]" strokeWidth={2} />
+                      <span>{cat.category}</span>
+                    </h4>
+                    <ul className="space-y-2 pl-1">
+                      {cat.items.map((item) => {
+                        const ItemIcon = item.icon;
+                        return (
+                          <li key={item.name} className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-700">
+                            <ItemIcon className="w-4 h-4 text-[#7B8FA6] shrink-0" strokeWidth={1.8} />
+                            <span>{item.name}</span>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                );
+              })}
             </div>
 
             <button
