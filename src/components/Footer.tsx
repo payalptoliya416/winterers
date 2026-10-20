@@ -118,7 +118,7 @@ export default function Footer() {
       </div>
 
       {/* Main Footer Content */}
-      <div className="site-container pt-4 sm:pt-8 md:pt-[60px] pb-10 sm:pb-12">
+      <div className="site-container pt-4 sm:pt-8 md:pt-[60px] pb-5 sm:pb-[25px]">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1.2fr_1.5fr] gap-10 lg:gap-12">
           {/* Column 1: Brand Info & Socials */}
           <div>
@@ -201,7 +201,7 @@ export default function Footer() {
                 <li key={item.label}>
                   <Link
                     to={item.path}
-                    className="text-xs sm:text-sm text-[#F0F4F8] hover:text-[#7EC8E3] transition inline-block"
+                    className="text-xs sm:text-sm text-[#F0F4F8]/70 hover:text-[#7EC8E3] transition inline-block"
                   >
                     {item.label}
                   </Link>
@@ -220,7 +220,7 @@ export default function Footer() {
                 <li key={cat}>
                   <Link
                     to={cat === 'Beach Houses' ? '/beach-houses' : '/stays'}
-                    className="text-xs sm:text-sm text-[#F0F4F8] hover:text-[#7EC8E3] transition inline-block"
+                    className="text-xs sm:text-sm text-[#F0F4F8]/70 hover:text-[#7EC8E3] transition inline-block"
                   >
                     {cat}
                   </Link>
@@ -244,10 +244,10 @@ export default function Footer() {
                       <Icon className="w-4 h-4" />
                     </div>
                     <div>
-                      <span className="block text-xs sm:text-sm font-medium text-white group-hover:text-[#7EC8E3] transition-colors">
+                      <span className="block text-xs sm:text-sm font-medium text-[#F0F4F8] group-hover:text-[#7EC8E3] transition-colors">
                         {item.title}
                       </span>
-                      <span className="block text-[11px] sm:text-xs text-[#F0F4F8] mt-[5px] font-body">
+                      <span className="block text-[11px] sm:text-xs text-[#F0F4F8]/70 mt-[5px] font-body">
                         {item.desc}
                       </span>
                     </div>
@@ -259,7 +259,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Divider and Copyright Bar */}
-        <div className="mt-12 sm:mt-16 md:mt-20 border-t border-[#1A3554] pt-6 sm:pt-[35px]">
+        <div className="mt-12 sm:mt-16 md:mt-10 border-t border-[#1A3554] pt-6 sm:pt-[26px]">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-[#8AA8C8] font-body">
             <span>© 2025 Winterers. All rights reserved.</span>
             <span>Made for people who prefer winter.</span>
