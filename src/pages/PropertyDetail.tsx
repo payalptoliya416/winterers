@@ -35,6 +35,7 @@ import {
   Refrigerator,
   Sparkles,
   ShieldCheck,
+  BadgeCheck,
   Check,
   ChevronLeft,
   ChevronRight,
@@ -970,6 +971,22 @@ export default function PropertyDetail() {
                 </div>
               </div>
               <p className='text-[#7B8FA6] text-sm text-center'>Free cancellation before Dec 10 · No charge until booking</p>
+            </div>
+
+            {/* Trust Guarantees */}
+            <div className="flex items-center justify-between gap-[15px] px-1 pt-4 text-sm text-[#7B8FA6]">
+              <div className="flex items-center gap-3">
+                <ShieldCheck className="w-4 h-4 text-[#000000] shrink-0" />
+                <span>Verified property</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Lock className="w-4 h-4 text-[#000000] shrink-0" />
+                <span>Secure payment</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <BadgeCheck className="w-4 h-4 text-[#000000] shrink-0" />
+                <span>Superhost guarantee</span>
+              </div>
             </div>
           </aside>
         </div>
