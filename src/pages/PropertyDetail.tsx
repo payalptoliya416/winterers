@@ -408,45 +408,89 @@ export default function PropertyDetail() {
             </div>
 
             {/* Key Features Highlights */}
-            <div className="space-y-4 mt-[48px]">
-              <div className="flex items-start gap-4">
-                <div className="w-9 h-9 rounded-full bg-[#EBF5FF] flex items-center justify-center text-[#0284C7] shrink-0 mt-0.5">
-                  <Award className="w-4 h-4" />
+            <div className="space-y-6 sm:space-y-7 mt-8 sm:mt-10">
+              {/* 1. Top 1% of homes */}
+              <div className="flex items-start gap-4 sm:gap-5">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center shrink-0 mt-0.5 text-[#0D1F3C]">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="w-6 h-6 sm:w-7 sm:h-7"
+                  >
+                    <path d="M6 3h12v7a6 6 0 0 1-12 0V3z" />
+                    <path d="M6 5H4a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h2" />
+                    <path d="M18 5h2a2 2 0 0 1 2 2v1a2 2 0 0 1-2 2h-2" />
+                    <path d="M12 16v3" />
+                    <path d="M9 19h6" />
+                    <path d="M7 21h10" />
+                  </svg>
                 </div>
                 <div>
-                  <h5 className="font-body text-base sm:text-lg font-semibold text-[#0D1F3C]">
-                    Top 5% of homes
+                  <h5 className="font-body text-base sm:text-[17px] font-semibold text-[#0D1F3C] leading-snug">
+                    Top 1% of homes
                   </h5>
-                  <p className="text-base text-[#7B8FA6] mt-1">
-                    This home is highly ranked based on ratings, reviews, and reliability.
+                  <p className="text-sm sm:text-base text-[#7B8FA6] mt-0.5 sm:mt-1 font-normal leading-relaxed">
+                    This home is one of the highest ranked based on ratings, reviews and reliability.
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <div className="w-9 h-9 rounded-full bg-[#EBF5FF] flex items-center justify-center text-[#0284C7] shrink-0 mt-0.5">
-                  <Waves className="w-4 h-4" />
+              {/* 2. Unwind in the hot tub */}
+              <div className="flex items-start gap-4 sm:gap-5">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center shrink-0 mt-0.5 text-[#0D1F3C]">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="w-6 h-6 sm:w-7 sm:h-7"
+                  >
+                    <path d="M4 12V6a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v1" />
+                    <path d="M2 12h20" />
+                    <path d="M4 12v4a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4v-4" />
+                    <path d="M7 20v2" />
+                    <path d="M17 20v2" />
+                  </svg>
                 </div>
                 <div>
-                  <h5 className="font-body text-sm sm:text-base font-semibold text-[#0D1F3C]">
-                    Unwind in the outdoor hot tub
+                  <h5 className="font-body text-base sm:text-[17px] font-semibold text-[#0D1F3C] leading-snug">
+                    Unwind in the hot tub
                   </h5>
-                  <p className="text-base text-[#7B8FA6] mt-1">
-                    One of the few properties in Tromsø with a heated geothermal jacuzzi.
+                  <p className="text-sm sm:text-base text-[#7B8FA6] mt-0.5 sm:mt-1 font-normal leading-relaxed">
+                    This is one of the few places in the area with this amenity.
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <div className="w-9 h-9 rounded-full bg-[#EBF5FF] flex items-center justify-center text-[#0284C7] shrink-0 mt-0.5">
-                  <Key className="w-4 h-4" />
+              {/* 3. Self check-in */}
+              <div className="flex items-start gap-4 sm:gap-5">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center shrink-0 mt-0.5 text-[#0D1F3C]">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="w-6 h-6 sm:w-7 sm:h-7"
+                  >
+                    <path d="M6 21V6a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3v15" />
+                    <path d="M3 21h18" />
+                    <circle cx="15" cy="13" r="1.25" fill="currentColor" stroke="none" />
+                  </svg>
                 </div>
                 <div>
-                  <h5 className="font-body text-sm sm:text-base font-semibold text-[#0D1F3C]">
+                  <h5 className="font-body text-base sm:text-[17px] font-semibold text-[#0D1F3C] leading-snug">
                     Self check-in
                   </h5>
-                  <p className="text-base text-[#7B8FA6] mt-1">
-                    Check yourself in with the secure digital keypad lockbox.
+                  <p className="text-sm sm:text-base text-[#7B8FA6] mt-0.5 sm:mt-1 font-normal leading-relaxed">
+                    Check yourself in with the lockbox.
                   </p>
                 </div>
               </div>
@@ -466,7 +510,7 @@ export default function PropertyDetail() {
                 return (
                   <div
                     key={badge.label}
-                    className="rounded-2xl border border-slate-200 bg-[#F8FAFC] p-3 text-center flex flex-col items-center justify-center hover:border-slate-300 transition shadow-xs"
+                    className="text-center flex flex-col items-center justify-center hover:border-slate-300 transition shadow-xs"
                   >
                     <Icon className="w-4 h-4 text-[#062541] mb-1.5" />
                     <span className="text-[11px] font-semibold text-[#0D1F35] font-head">
