@@ -22,14 +22,14 @@ export default function SectionHead({
     >
       <div>
         {eyebrow && (
-          <p className="section-eyebrow mb-2 sm:mb-2.5">
+          <p className="section-eyebrow">
             {eyebrow}
           </p>
         )}
         <h2 className={`section-title ${dark ? "!text-white" : ""}`}>{title}</h2>
         {sub && (
           <p
-            className={`mt-5 text-base ${dark ? "text-[#F0F4F8]" : "text-navy/50"}`}
+            className={`mt-5 text-base ${dark ? "text-[#F0F4F8]" : "text-[#98A1AC]"}`}
           >
             {sub}
           </p>

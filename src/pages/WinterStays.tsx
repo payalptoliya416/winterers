@@ -408,7 +408,7 @@ export default function WinterStays() {
         <div className="site-container">
           {/* Centered Header */}
           <div className="text-center mb-8">
-            <p className="section-eyebrow mb-2 sm:mb-2.5">
+            <p className="section-eyebrow">
               EXPLORE THE MAP
             </p>
             <h2 className="section-title">

@@ -864,7 +864,7 @@ export default function BeachHouses() {
                   return (
                     <div
                       key={stay.id}
-                      className="group rounded-[18px] border border-[#E2E8F0] bg-white p-4 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                      className="group rounded-[11px] border border-[#D1D7DD] bg-white p-4 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
                     >
                       <div>
                         {/* Image Container with Badge & Favorite Heart */}
@@ -878,7 +878,7 @@ export default function BeachHouses() {
                         </div>
 
                         {/* Property Details */}
-                        <div className="pt-3.5">
+                        <div className="pt-4">
                           <div className="flex items-center justify-between text-xs text-slate-400">
                             <span className="flex items-center gap-1 text-[#98A1AC] truncate">
                               <MapPin className="w-3.5 h-3.5 text-[#98A1AC] shrink-0" />
@@ -891,7 +891,7 @@ export default function BeachHouses() {
                           </h4>
 
                           {/* Guests and Bedrooms */}
-                          <div className="flex items-center gap-3 text-xs text-[#98A1AC] mt-[7px font-body">
+                          <div className="flex items-center gap-3 text-xs text-[#98A1AC] mt-[7px] font-body">
                             <span className="flex items-center gap-1">
                               <Users className="w-3.5 h-3.5 text-[#98A1AC] shrink-0" />
                               {stay.guests} guests
@@ -1003,19 +1003,19 @@ export default function BeachHouses() {
             Beach houses offer the perfect combination of natural beauty, privacy and modern comfort, making your winter coastal getaway truly special.
           </p>
 
-          <div className="mt-10 sm:mt-12 lg:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+          <div className="mt-10 sm:mt-[25px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
             {coastalPillars.map(({ icon: Icon, title, desc }) => (
               <div
                 key={title}
-                className="rounded-[28px] bg-white pt-9 pb-8 px-6 sm:px-7 border border-[#E2ECF2] text-center flex flex-col items-center hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+                className="rounded-[28px] bg-white pt-9 pb-8 px-6 sm:px-7 border border-[#DDE8F0] text-center flex flex-col items-center hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
               >
-                <div className="w-[58px] h-[58px] rounded-[20px] bg-[#EAF3FA] flex items-center justify-center text-[#0D1F35] mb-6">
+                <div className="w-[76px] h-[76px] rounded-[28px] bg-[#EAF3FA] flex items-center justify-center text-[#0D1F35] mb-6">
                   <Icon className="w-6 h-6 stroke-[1.8]" />
                 </div>
-                <h3 className="font-head text-[17px] sm:text-lg font-bold text-[#0D1F35] mb-2.5">
+                <h3 className="font-head text-[17px] sm:text-lg font-semibold text-[#0A1628] mb-[15px]">
                   {title}
                 </h3>
-                <p className="text-xs sm:text-[13.5px] text-[#7A8B9C] leading-relaxed font-body max-w-[210px]">
+                <p className="text-xs sm:text-sm text-[#6B8299] leading-relaxed font-body max-w-[210px]">
                   {desc}
                 </p>
               </div>
@@ -1037,7 +1037,7 @@ export default function BeachHouses() {
       <Section tone="light" className="!bg-white !py-0">
         <div className="text-center mb-10">
           <p className="section-eyebrow">
-            FREQUENTLY ASKED QUESTIONS
+           Why List With Us
           </p>
           <h2 className="section-title">
             Beach Houses FAQ
