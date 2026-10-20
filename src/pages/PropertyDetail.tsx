@@ -767,7 +767,7 @@ export default function PropertyDetail() {
                 Your Host
               </h3>
 
-              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 sm:gap-8 mt-5">
+              <div className="flex flex-col md:flex-row lg:items-center justify-between gap-6 sm:gap-8 mt-5">
                 {/* Left: Avatar + Host Info */}
                 <div className="flex items-center gap-3 sm:gap-[15px]">
                   <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden shrink-0">
@@ -851,7 +851,7 @@ export default function PropertyDetail() {
           </div>
 
           {/* Right Column: Sticky Booking Sidebar (Pinned on scroll!) */}
-          <aside className="w-full lg:sticky lg:top-24 z-20">
+          <aside className="w-full lg:sticky lg:top-16 z-20">
             <div className="rounded-[20px] border border-[#E2E8F0] bg-white py-[35px] px-[30px] space-y-5">
               {/* Price Header */}
               <div className="flex items-baseline justify-between">
@@ -936,7 +936,7 @@ export default function PropertyDetail() {
                     setBookingSuccess(true);
                     setTimeout(() => setBookingSuccess(false), 4000);
                   }}
-                  className="w-full py-3 px-[29px] rounded-[18px] bg-[#02213B] hover:bg-[#0284C7] text-white font-medium text-sm transition-all duration-200 active:scale-95 cursor-pointer flex items-center justify-center gap-2 col-span-6"
+                  className="w-full py-3 px-[29px] rounded-[18px] bg-[#02213B] hover:bg-[#0284C7] text-white font-medium text-sm transition-all duration-200 active:scale-95 cursor-pointer flex items-center justify-center gap-2 col-span-12 md:col-span-6"
                 >
                   <span>{bookingSuccess ? 'Booking Confirmed!' : 'Reserve Your Stay'}</span>
                 </button>
@@ -944,7 +944,7 @@ export default function PropertyDetail() {
                 <button
                   type="button"
                   onClick={() => alert('Message sent to host!')}
-                  className="w-full py-3 px-[29px] rounded-[18px] border border-[#E2E8F0] bg-white hover:bg-slate-50 text-[#02213B] font-medium text-sm transition cursor-pointer col-span-6"
+                  className="w-full py-3 px-[29px] rounded-[18px] border border-[#E2E8F0] bg-white hover:bg-slate-50 text-[#02213B] font-medium text-sm transition cursor-pointer col-span-12 md:col-span-6"
                 >
                   Contact Host
                 </button>
@@ -974,7 +974,7 @@ export default function PropertyDetail() {
             </div>
 
             {/* Trust Guarantees */}
-            <div className="flex items-center justify-between gap-[15px] px-1 pt-4 text-sm text-[#7B8FA6]">
+            <div className="flex items-center justify-center md:justify-between gap-[15px] px-1 pt-4 text-sm text-[#7B8FA6] flex-wrap">
               <div className="flex items-center gap-3">
                 <ShieldCheck className="w-4 h-4 text-[#000000] shrink-0" />
                 <span>Verified property</span>
