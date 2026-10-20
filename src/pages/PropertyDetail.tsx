@@ -26,18 +26,38 @@ import {
   Key,
   Compass,
   ArrowRight,
+  LayoutGrid,
+  Maximize2,
+  Minimize2,
+  Eye,
 } from 'lucide-react';
 import { img } from '../data';
 
 const galleryPhotos = [
-  { url: 'p-main.jpg', title: 'Exterior & Snowy Mountain Panorama' },
-  { url: 'p-inside.jpg', title: 'Cozy Fireside Living Room' },
-  { url: 'p-view.jpg', title: 'Night Atmosphere by the Fire' },
-  { url: 'aurora.jpg', title: 'Northern Lights Over the Deck' },
-  { url: 'p-after.jpg', title: 'Panoramic Dining & Kitchen' },
-  { url: 'feature01.png', title: 'Twilight Exterior View' },
-  { url: 'feature02.png', title: 'Snowy Forest Chalet Surroundings' },
-  { url: 'deal1.png', title: 'Deck Jacuzzi with Fjord Views' },
+  { url: 'p-main.jpg', title: 'The Cabin — Alpine Timber Exterior & Snowy Peaks', category: 'The Cabin' },
+  { url: 'p-inside.jpg', title: 'Inside — Handcrafted Fireside Living Lounge', category: 'Interior' },
+  { url: 'p-view.jpg', title: 'The View — Night Atmosphere by the Fireplace', category: 'Interior' },
+  { url: 'aurora.jpg', title: 'After Dark — Aurora Borealis Over the Fjord Deck', category: 'Northern Lights' },
+  { url: 'p-after.jpg', title: 'Candlelight Dining Space with Fjord Panorama', category: 'Interior' },
+  { url: 'hottub.jpg', title: 'Steaming Outdoor Cedar Jacuzzi with Mountain Backdrop', category: 'Wellness & Spa' },
+  { url: 'feature01.png', title: 'Twilight Exterior & Snow-Dusted Forest', category: 'The Cabin' },
+  { url: 'feature02.png', title: 'Illuminated Coastal Chalet & Heated Balcony', category: 'The Cabin' },
+  { url: 'feature03.png', title: 'Panoramic Glass Lounge Looking Out to the Fjords', category: 'Interior' },
+  { url: 'feature04.png', title: 'Master Bedroom with Private Snowy Balcony', category: 'Interior' },
+  { url: 'feature05.png', title: 'Wood-Fired Finnish Cedar Sauna Session', category: 'Wellness & Spa' },
+  { url: 'feature06.png', title: 'Shoreline Deck & Private Arctic Pier', category: 'Views' },
+  { url: 'find01.png', title: 'Nordic Breakfast Nook with Morning Alpine Sun', category: 'Interior' },
+  { url: 'find02.png', title: 'Snowfall Outside Triple-Glazed Panoramic Windows', category: 'Views' },
+  { url: 'find03.png', title: 'Luxury Rain Shower & Stone Basin En-Suite', category: 'Interior' },
+  { url: 'find04.png', title: 'Heated Ski Gear Drying Room & Boot Warmers', category: 'Amenities' },
+  { url: 'find05.png', title: 'Blue Hour Twilight Reflection on Arctic Waters', category: 'Views' },
+  { url: 'find06.png', title: 'Gourmet Chef Kitchen with Espresso Bar', category: 'Interior' },
+  { url: 'find07.png', title: 'Second Bedroom with Handcrafted Wood Finishes', category: 'Interior' },
+  { url: 'deal1.png', title: 'Starlight Soak Beneath Arctic Constellations', category: 'Wellness & Spa' },
+  { url: 'deal2.png', title: 'Warm Wool Throw Blankets & Reading Nook', category: 'Interior' },
+  { url: 'deal3.png', title: 'Private Snowshoe Trail Starting from Deck', category: 'Views' },
+  { url: 'hero-cabin.png', title: 'Golden Hour Mountain Peak Reflections', category: 'The Cabin' },
+  { url: 'beach.png', title: 'Frosty Coastal Shoreline at Dawn', category: 'Views' },
 ];
 
 const placeAmenities = [
@@ -110,6 +130,9 @@ export default function PropertyDetail() {
   // Gallery Lightbox Modal state
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
+  const [galleryViewMode, setGalleryViewMode] = useState<'slideshow' | 'grid'>('slideshow');
+  const [activeCategory, setActiveCategory] = useState<string>('All');
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   // Booking Card state
   const [checkIn, setCheckIn] = useState('2026-11-14');
@@ -146,112 +169,150 @@ export default function PropertyDetail() {
     setLightboxOpen(true);
   };
 
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+      setIsFullscreen(true);
+    } else {
+      document.exitFullscreen().catch(() => {});
+      setIsFullscreen(false);
+    }
+  };
+
   return (
-    <div className="w-full bg-white pt-24 sm:pt-28 pb-16">
+    <div className="w-full pt-24 sm:pt-32 pb-16">
       {/* 1. Breadcrumbs */}
-      <div className="site-container pb-4">
-        <nav className="flex items-center gap-2 text-xs text-slate-500 font-body">
-          <Link to="/" className="hover:text-[#062541] transition">Home</Link>
-          <span>/</span>
-          <Link to="/stays" className="hover:text-[#062541] transition">Winter Stays</Link>
-          <span>/</span>
-          <Link to="/destinations" className="hover:text-[#062541] transition">Northern Norway</Link>
-          <span>/</span>
-          <span className="text-[#0D1F35] font-semibold truncate">Entire cabin in Tromsø</span>
+      <div className="w-full px-3 sm:px-6 mb-3 sm:mb-3.5">
+        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-[13px] text-slate-500 font-body">
+          <Link to="/stays" className="hover:text-[#062541] transition-colors">Winter Stays</Link>
+          <span className="text-slate-300 font-normal px-0.5">/</span>
+          <Link to="/stays" className="hover:text-[#062541] transition-colors">Norway</Link>
+          <span className="text-slate-300 font-normal px-0.5">/</span>
+          <Link to="/stays" className="hover:text-[#062541] transition-colors">Northern Norway</Link>
+          <span className="text-slate-300 font-normal px-0.5">/</span>
+          <span className="text-[#0D1F35] font-semibold truncate">Arktis Fjord Cabin</span>
         </nav>
       </div>
 
-      {/* 2. Hero Gallery Section */}
-      <div className="site-container">
-        <div className="relative rounded-[24px] overflow-hidden bg-slate-900 shadow-sm">
-          {/* Gallery Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-2 h-[340px] sm:h-[440px] md:h-[500px] lg:h-[540px]">
-            {/* Big Main Image (Left, spans 8 cols) */}
+      {/* 2. Hero Gallery Section - Full width outside container */}
+      <div className="w-full px-3 sm:px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-5 h-full min-h-[800px]">
+          {/* Big Main Image (Left, spans 8 cols) */}
+          <div
+            onClick={() => openLightboxAt(0)}
+            className="lg:col-span-8 relative h-full rounded-[4px] overflow-hidden cursor-pointer group"
+          >
+            <img
+              src={img(galleryPhotos[0].url)}
+              alt={galleryPhotos[0].title}
+              className="w-full h-full object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
+            <span className="absolute bottom-3.5 left-3.5 sm:bottom-4 sm:left-5 text-sm font-medium uppercase tracking-[0.12em] text-white">
+              THE CABIN
+            </span>
+
+            {/* Mobile-only "View all 24 photos" Button */}
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                openLightboxAt(0);
+              }}
+              className="lg:hidden absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-lg bg-white/95 hover:bg-white text-[#0D1F35] px-3 py-1.5 text-xs font-medium shadow-sm backdrop-blur-sm transition-colors cursor-pointer z-10 border border-slate-200/80"
+            >
+              <Grid className="w-3.5 h-3.5 text-[#062541]" />
+              <span>View all 24 photos</span>
+            </button>
+          </div>
+
+          {/* Right 3 Images (Right, spans 4 cols) */}
+          <div className="hidden lg:grid lg:col-span-4 grid-rows-[1.32fr_1fr] gap-3 sm:gap-5 h-full">
+            {/* Top Right Image: Inside */}
             <div
-              onClick={() => openLightboxAt(0)}
-              className="md:col-span-8 relative h-full cursor-pointer overflow-hidden group"
+              onClick={() => openLightboxAt(1)}
+              className="relative h-full rounded-[4px] overflow-hidden cursor-pointer group"
             >
               <img
-                src={img(galleryPhotos[0].url)}
-                alt={galleryPhotos[0].title}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                src={img(galleryPhotos[1].url)}
+                alt={galleryPhotos[1].title}
+                className="w-full h-full object-cover object-center"
               />
-              <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
+              <span className="absolute bottom-3.5 left-3.5 text-xs font-semibold uppercase tracking-[0.12em] text-white/95 drop-shadow-md">
+                INSIDE
+              </span>
             </div>
 
-            {/* Right 3 Images (Right, spans 4 cols) */}
-            <div className="hidden md:grid md:col-span-4 grid-rows-2 gap-2 h-full">
-              {/* Top Right Image */}
+            {/* Bottom 2 Images split 50/50 */}
+            <div className="grid grid-cols-2 gap-3 sm:gap-5 h-full">
+              {/* Bottom Left: The View */}
               <div
-                onClick={() => openLightboxAt(1)}
-                className="relative h-full cursor-pointer overflow-hidden group"
+                onClick={() => openLightboxAt(2)}
+                className="relative h-full rounded-[4px] overflow-hidden cursor-pointer group"
               >
                 <img
-                  src={img(galleryPhotos[1].url)}
-                  alt={galleryPhotos[1].title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  src={img(galleryPhotos[2].url)}
+                  alt={galleryPhotos[2].title}
+                  className="w-full h-full object-cover object-center"
                 />
-                <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
+                <span className="absolute bottom-3.5 left-3.5 text-xs font-semibold uppercase tracking-[0.12em] text-white/95 drop-shadow-md">
+                  THE VIEW
+                </span>
               </div>
 
-              {/* Bottom 2 Images split 50/50 */}
-              <div className="grid grid-cols-2 gap-2 h-full">
-                <div
-                  onClick={() => openLightboxAt(2)}
-                  className="relative h-full cursor-pointer overflow-hidden group"
+              {/* Bottom Right: After Dark */}
+              <div
+                onClick={() => openLightboxAt(3)}
+                className="relative h-full rounded-[4px] overflow-hidden cursor-pointer group"
+              >
+                <img
+                  src={img(galleryPhotos[3].url)}
+                  alt={galleryPhotos[3].title}
+                  className="w-full h-full object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent pointer-events-none" />
+                <span className="absolute bottom-3.5 left-3.5 text-xs font-semibold uppercase tracking-[0.12em] text-white/95 drop-shadow-md">
+                  AFTER DARK
+                </span>
+
+                {/* "View all 24 photos" Button at bottom right */}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    openLightboxAt(0);
+                  }}
+                  className="absolute bottom-3 right-3 sm:bottom-3.5 sm:right-3.5 inline-flex items-center gap-1.5 sm:gap-2 rounded-lg bg-white/95 hover:bg-white text-[#0D1F35] px-3 sm:px-3.5 py-1.5 sm:py-2 text-xs sm:text-[13px] font-medium shadow-sm backdrop-blur-sm transition-colors cursor-pointer z-10 border border-slate-200/80"
                 >
-                  <img
-                    src={img(galleryPhotos[2].url)}
-                    alt={galleryPhotos[2].title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
-                </div>
-                <div
-                  onClick={() => openLightboxAt(3)}
-                  className="relative h-full cursor-pointer overflow-hidden group"
-                >
-                  <img
-                    src={img(galleryPhotos[3].url)}
-                    alt={galleryPhotos[3].title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
-                </div>
+                  <Grid className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#062541]" />
+                  <span>View all 24 photos</span>
+                </button>
               </div>
             </div>
           </div>
-
-          {/* "View All Photos" Button at bottom right */}
-          <button
-            type="button"
-            onClick={() => openLightboxAt(0)}
-            className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 inline-flex items-center gap-2 rounded-xl bg-white/95 hover:bg-white text-[#0D1F35] px-4 py-2 text-xs sm:text-sm font-semibold shadow-lg backdrop-blur-sm transition-all duration-200 active:scale-95 cursor-pointer z-10"
-          >
-            <Grid className="w-4 h-4 text-[#062541]" />
-            <span>View All Photos ({galleryPhotos.length})</span>
-          </button>
         </div>
       </div>
 
       {/* 3. Main Content + Sticky Booking Sidebar Layout */}
-      <div className="site-container mt-8 sm:mt-10">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] xl:grid-cols-[1fr_400px] gap-8 lg:gap-12 items-start">
+      <div className="w-full px-4 sm:px-6 lg:px-8 mt-8 sm:mt-12 site-container">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] xl:grid-cols-[1fr_495px] gap-8 lg:gap-[35px] items-start">
           {/* Left Column: Details (Scrollable) */}
           <div className="space-y-8 sm:space-y-10">
             {/* Title & Actions */}
             <div>
               <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                 <div>
-                  <h1 className="font-head text-2xl sm:text-3xl lg:text-[34px] font-bold text-[#0D1F35] leading-tight">
+                  <h1 className="font-head text-2xl sm:text-3xl lg:text-[32px] font-medium text-[#0D1F3C] leading-tight">
                     Entire cabin in Tromsø, Northern Norway
                   </h1>
-                  <p className="mt-1.5 text-xs sm:text-sm text-slate-500 font-body">
-                    By Thomas Alexander · Norway
+                  <p className="mt-[19px] text-xs sm:text-sm text-[#7B8FA6] font-body font-medium">
+                    Tromsø, Northern Norway
                   </p>
                 </div>
 
-                <div className="flex items-center gap-2.5 shrink-0">
+                <div className="flex items-center gap-[9px] shrink-0">
                   <button
                     type="button"
                     onClick={() => {
@@ -262,29 +323,16 @@ export default function PropertyDetail() {
                         alert('Link copied to clipboard!');
                       }
                     }}
-                    className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition shadow-sm cursor-pointer"
+                    className="inline-flex items-center gap-[11px] rounded-[8px] border border-[#E2E8F0] px-[15px] py-[10px] text-base font-medium text-[#0D1F3C] hover:bg-slate-50 transition cursor-pointer"
                   >
-                    <Share2 className="w-3.5 h-3.5 text-slate-500" />
+                    <Share2 className="w-4 h-4 text-[#0D1F3C]" />
                     <span>Share</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => d(toggleSave(+id))}
-                    className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition shadow-sm cursor-pointer"
-                  >
-                    <Heart
-                      className={`w-3.5 h-3.5 transition ${
-                        saved ? 'fill-red-500 text-red-500' : 'text-slate-500'
-                      }`}
-                    />
-                    <span>{saved ? 'Saved' : 'Save'}</span>
                   </button>
                 </div>
               </div>
 
-              <p className="mt-4 text-xs sm:text-sm md:text-[15px] leading-relaxed text-slate-600 font-body">
-                Perched high on the snowy ridges above Tromsø, this luxury timber cabin offers an unparalleled winter escape. Floor-to-ceiling panoramic windows frame panoramic vistas of snow-blanketed fjords and Arctic mountain peaks, while cozy interiors invite you to unwind by the crackling fireplace.
+              <p className="mt-4 text-xs sm:text-sm md:text-base leading-relaxed text-[#7B8FA6] font-body">
+                Nestled along the edge of a pristine Arctic fjord, this handcrafted log cabin is a sanctuary of warmth, silence, and breathtaking natural beauty. Surrounded by snow-dusted pine forest with panoramic mountain views — and one of the best northern lights viewing locations in all of Norway. Floor-to-ceiling panoramic windows frame panoramic vistas of snow-blanketed fjords and Arctic mountain peaks, while cozy interiors invite you to unwind by the crackling fireplace.
               </p>
             </div>
 
@@ -316,19 +364,19 @@ export default function PropertyDetail() {
             </div>
 
             {/* Hosted By Bar */}
-            <div className="flex items-center gap-4 py-4 border-y border-slate-100">
-              <div className="w-12 h-12 rounded-full overflow-hidden bg-slate-200 shrink-0">
+            <div className="flex items-center gap-5 pb-[35px] border-b border-[#E2E8F0]">
+              <div className="w-[58px] h-[58px] rounded-full overflow-hidden bg-slate-200 shrink-0">
                 <img
-                  src={img('host-anna.jpg')}
+                  src={img('hosted.png')}
                   alt="Host Thomas"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div>
-                <h4 className="font-head text-sm sm:text-base font-bold text-[#0D1F35]">
-                  Hosted by Thomas Alexander
+                <h4 className="font-body text-base sm:text-lg font-medium text-[#0D1F3C]">
+                  Hosted by Tito
                 </h4>
-                <p className="text-xs text-slate-500">Superhost · 7 years hosting on Winterers</p>
+                <p className="text-base text-[#7B8FA6]">Superhost · 10 months hosting</p>
               </div>
             </div>
 
@@ -560,57 +608,52 @@ export default function PropertyDetail() {
 
           {/* Right Column: Sticky Booking Sidebar (Pinned on scroll!) */}
           <aside className="w-full lg:sticky lg:top-24 z-20">
-            <div className="rounded-[24px] border border-slate-200 bg-white p-6 shadow-xl space-y-5">
+            <div className="rounded-[20px] border border-[#E2E8F0] bg-white py-[35px] px-[30px] space-y-5">
               {/* Price Header */}
               <div className="flex items-baseline justify-between">
                 <div>
-                  <span className="font-head text-2xl sm:text-3xl font-bold text-[#0D1F35]">
+                  <span className="font-head text-2xl sm:text-3xl font-bold text-[#0D1F3C]">
                     €{pricePerNight}
                   </span>
-                  <span className="text-xs text-slate-500 font-medium ml-1">/ night</span>
-                </div>
-                <div className="flex items-center gap-1 text-xs font-semibold text-[#0D1F35]">
-                  <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-                  <span>4.96</span>
-                  <span className="text-slate-400">(148)</span>
+                  <span className="text-base text-[#7B8FA6] font-medium ml-1">/ night</span>
                 </div>
               </div>
 
               {/* Dates & Guests Input Box */}
-              <div className="rounded-2xl border border-slate-200 overflow-hidden divide-y divide-slate-200 text-xs bg-[#F8FAFC]">
-                <div className="grid grid-cols-2 divide-x divide-slate-200">
-                  <div className="p-3">
-                    <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">
+              <div className="rounded-[12px] border border-[#E2E8F0] overflow-hidden divide-y divide-[#E2E8F0] text-xs">
+                <div className="grid grid-cols-2 divide-x divide-[#E2E8F0]">
+                  <div className="p-[17px]">
+                    <label className="block text-sm font-bold uppercase tracking-wider text-[#0D1F3C]">
                       CHECK-IN
                     </label>
                     <input
                       type="date"
                       value={checkIn}
                       onChange={(e) => setCheckIn(e.target.value)}
-                      className="w-full bg-transparent text-xs font-semibold text-[#0D1F35] outline-none cursor-pointer mt-0.5"
+                      className="w-full bg-transparent text-base text-[#7B8FA6] outline-none cursor-pointer mt-0.5"
                     />
                   </div>
-                  <div className="p-3">
-                    <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                  <div className="p-[17px]">
+                    <label className="block text-sm font-bold uppercase tracking-wider text-[#0D1F3C]">
                       CHECK-OUT
                     </label>
                     <input
                       type="date"
                       value={checkOut}
                       onChange={(e) => setCheckOut(e.target.value)}
-                      className="w-full bg-transparent text-xs font-semibold text-[#0D1F35] outline-none cursor-pointer mt-0.5"
+                      className="w-full bg-transparent text-base text-[#7B8FA6] outline-none cursor-pointer mt-0.5"
                     />
                   </div>
                 </div>
 
                 <div className="p-3 relative">
-                  <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                  <label className="block text-sm font-bold uppercase tracking-wider text-[#0D1F3C]">
                     GUESTS
                   </label>
                   <button
                     type="button"
                     onClick={() => setGuestDropdown(!guestDropdown)}
-                    className="w-full flex items-center justify-between text-xs font-semibold text-[#0D1F35] mt-0.5 cursor-pointer"
+                    className="w-full flex items-center justify-between text-base text-[#7B8FA6] mt-0.5 cursor-pointer"
                   >
                     <span>{guestCount} {guestCount === 1 ? 'guest' : 'guests'}</span>
                     <span className="text-slate-400 text-[10px]">▼</span>
@@ -642,73 +685,55 @@ export default function PropertyDetail() {
               </div>
 
               {/* Action Buttons */}
-              <div className="space-y-2">
+              <div className="pt-5 grid grid-cols-12 gap-[15px]">
                 <button
                   type="button"
                   onClick={() => {
                     setBookingSuccess(true);
                     setTimeout(() => setBookingSuccess(false), 4000);
                   }}
-                  className="w-full py-3.5 px-4 rounded-xl bg-[#062541] hover:bg-[#0284C7] text-white font-semibold text-sm transition-all duration-200 active:scale-95 shadow-md cursor-pointer flex items-center justify-center gap-2"
+                  className="w-full py-3 px-[29px] rounded-[18px] bg-[#02213B] hover:bg-[#0284C7] text-white font-medium text-sm transition-all duration-200 active:scale-95 cursor-pointer flex items-center justify-center gap-2 col-span-6"
                 >
-                  <Lock className="w-4 h-4 text-[#7EC8E3]" />
                   <span>{bookingSuccess ? 'Booking Confirmed!' : 'Reserve Your Stay'}</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => alert('Message sent to host!')}
-                  className="w-full py-2.5 px-4 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs transition cursor-pointer"
+                  className="w-full py-3 px-[29px] rounded-[18px] border border-[#E2E8F0] bg-white hover:bg-slate-50 text-[#02213B] font-medium text-sm transition cursor-pointer col-span-6"
                 >
                   Contact Host
                 </button>
               </div>
-
-              <p className="text-center text-[11px] text-slate-400 font-body">
-                You won't be charged yet · Free cancellation 14 days before
-              </p>
-
               {/* Price Breakdown */}
-              <div className="pt-4 border-t border-slate-100 space-y-2.5 text-xs text-slate-600 font-body">
+              <div className="pt-5 mt-[30px] border-t border-[#E2E8F0] space-y-2.5 text-sm text-[#7B8FA6] font-body">
                 <div className="flex items-center justify-between">
-                  <span className="underline decoration-slate-300">
+                  <span className="">
                     €{pricePerNight} × {nights} nights
                   </span>
-                  <span className="font-medium text-slate-800">€{staySubtotal}</span>
+                  <span className="text-[#7B8FA6]">€{staySubtotal}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="underline decoration-slate-300">Cleaning fee</span>
-                  <span className="font-medium text-slate-800">€{cleaningFee}</span>
+                  <span className="">Cleaning fee</span>
+                  <span className="text-[#7B8FA6]">€{cleaningFee}</span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="underline decoration-slate-300">Service fee</span>
-                  <span className="font-medium text-slate-800">€{serviceFee}</span>
+                  <span className="">Service fee</span>
+                  <span className="text-[#7B8FA6]">€{serviceFee}</span>
                 </div>
-                <div className="flex items-center justify-between pt-3 border-t border-slate-200 text-sm font-bold text-[#0D1F35]">
-                  <span>Total before taxes</span>
-                  <span className="font-head text-base">€{totalPrice}</span>
+                <div className="flex items-center justify-between pt-[15px] mt-[15px] border-t border-[#E2E8F0] text-base font-medium text-[#0D1F3C]">
+                  <span>Total</span>
+                  <span className="font-body text-base">€{totalPrice}</span>
                 </div>
               </div>
-
-              {/* Safety Badges */}
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-center gap-4 text-[11px] text-slate-400 font-medium">
-                <span className="flex items-center gap-1">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
-                  Verified stay
-                </span>
-                <span>•</span>
-                <span className="flex items-center gap-1">
-                  <Lock className="w-3.5 h-3.5 text-slate-400" />
-                  Secure payment
-                </span>
-              </div>
+              <p className='text-[#7B8FA6] text-sm text-center'>Free cancellation before Dec 10 · No charge until booking</p>
             </div>
           </aside>
         </div>
       </div>
 
       {/* 4. Bottom Section: "Winter Experiences Around You" */}
-      <section className="site-container mt-16 sm:mt-24 pt-12 border-t border-slate-100">
+      <section className="site-container w-full px-4 sm:px-6 lg:px-8 mt-16 sm:mt-24 pt-12 border-t border-slate-100">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
           <div>
             <span className="section-eyebrow !text-[#0284C7]">NEAR THIS PROPERTY</span>
@@ -777,75 +802,192 @@ export default function PropertyDetail() {
         </div>
       </section>
 
-      {/* 5. Lightbox Slider Modal (Opens when hero gallery images are clicked) */}
+      {/* 5. Unique Animated Lightbox Modal */}
       {lightboxOpen && (
-        <div className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex flex-col justify-between p-4 sm:p-6 text-white animate-fade-in">
-          {/* Top Bar: Counter & Close */}
-          <div className="flex items-center justify-between z-10">
-            <span className="text-xs sm:text-sm font-semibold tracking-wider text-white/80">
-              {photoIndex + 1} / {galleryPhotos.length} — {galleryPhotos[photoIndex].title}
-            </span>
-            <button
-              type="button"
-              onClick={() => setLightboxOpen(false)}
-              className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition cursor-pointer"
-              aria-label="Close gallery"
-            >
-              <X className="w-5 h-5 text-white" />
-            </button>
-          </div>
-
-          {/* Main Slider Display */}
-          <div className="relative flex-1 flex items-center justify-center my-4">
-            {/* Prev Button */}
-            <button
-              type="button"
-              onClick={() => setPhotoIndex((i) => (i - 1 + galleryPhotos.length) % galleryPhotos.length)}
-              className="absolute left-2 sm:left-6 w-11 h-11 rounded-full bg-white/15 hover:bg-white/30 backdrop-blur-sm flex items-center justify-center transition cursor-pointer z-10"
-              aria-label="Previous image"
-            >
-              <ChevronLeft className="w-6 h-6 text-white" />
-            </button>
-
-            {/* Current Image */}
-            <div className="max-w-5xl max-h-[75vh] w-full h-full flex items-center justify-center p-2">
-              <img
-                src={img(galleryPhotos[photoIndex].url)}
-                alt={galleryPhotos[photoIndex].title}
-                className="max-h-[75vh] max-w-full object-contain rounded-xl shadow-2xl transition-all duration-300"
-              />
+        <div className="fixed inset-0 z-50 bg-[#061826]/95 backdrop-blur-2xl flex flex-col text-white animate-in fade-in duration-300 select-none">
+          {/* Top Control Bar */}
+          <div className="flex items-center justify-between px-4 sm:px-8 py-3.5 sm:py-4 border-b border-white/10 z-20 bg-[#061826]/80 backdrop-blur-md">
+            {/* Left: Property title & category */}
+            <div className="flex items-center gap-3">
+              <span className="font-head text-sm sm:text-base font-bold text-white tracking-wide">
+                Arktis Fjord Cabin
+              </span>
+              <span className="hidden sm:inline-block px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#42BAE4]/20 text-[#7EC8E3] border border-[#42BAE4]/30">
+                {galleryPhotos[photoIndex].category}
+              </span>
             </div>
 
-            {/* Next Button */}
-            <button
-              type="button"
-              onClick={() => setPhotoIndex((i) => (i + 1) % galleryPhotos.length)}
-              className="absolute right-2 sm:right-6 w-11 h-11 rounded-full bg-white/15 hover:bg-white/30 backdrop-blur-sm flex items-center justify-center transition cursor-pointer z-10"
-              aria-label="Next image"
-            >
-              <ChevronRight className="w-6 h-6 text-white" />
-            </button>
-          </div>
-
-          {/* Bottom Thumbnail Strip */}
-          <div className="flex items-center justify-center gap-2 overflow-x-auto py-2">
-            {galleryPhotos.map((photo, idx) => (
+            {/* Center: Switch View Mode Tabs */}
+            <div className="flex items-center bg-white/10 rounded-full p-1 border border-white/10 shadow-inner">
               <button
-                key={photo.url}
                 type="button"
-                onClick={() => setPhotoIndex(idx)}
-                className={`w-14 h-10 sm:w-16 sm:h-12 rounded-lg overflow-hidden shrink-0 border-2 transition cursor-pointer ${
-                  photoIndex === idx ? 'border-[#7EC8E3] scale-105' : 'border-transparent opacity-50 hover:opacity-100'
+                onClick={() => setGalleryViewMode('slideshow')}
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                  galleryViewMode === 'slideshow'
+                    ? 'bg-[#42BAE4] text-white shadow-md'
+                    : 'text-white/70 hover:text-white'
                 }`}
               >
-                <img
-                  src={img(photo.url)}
-                  alt=""
-                  className="w-full h-full object-cover"
-                />
+                <Eye className="w-3.5 h-3.5" />
+                <span>Showcase</span>
               </button>
-            ))}
+              <button
+                type="button"
+                onClick={() => setGalleryViewMode('grid')}
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                  galleryViewMode === 'grid'
+                    ? 'bg-[#42BAE4] text-white shadow-md'
+                    : 'text-white/70 hover:text-white'
+                }`}
+              >
+                <LayoutGrid className="w-3.5 h-3.5" />
+                <span>All Photos (24)</span>
+              </button>
+            </div>
+
+            {/* Right: Counter & Actions */}
+            <div className="flex items-center gap-2 sm:gap-3">
+              <span className="hidden sm:inline-block text-xs font-semibold tracking-wider text-white/80 bg-white/10 px-3 py-1.5 rounded-full">
+                {photoIndex + 1} / {galleryPhotos.length}
+              </span>
+              <button
+                type="button"
+                onClick={toggleFullscreen}
+                className="hidden sm:flex w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 items-center justify-center transition cursor-pointer"
+                title="Toggle Fullscreen"
+              >
+                {isFullscreen ? <Minimize2 className="w-4 h-4 text-white" /> : <Maximize2 className="w-4 h-4 text-white" />}
+              </button>
+              <button
+                type="button"
+                onClick={() => setLightboxOpen(false)}
+                className="w-9 h-9 rounded-full bg-white/15 hover:bg-white/30 flex items-center justify-center transition-all duration-300 hover:rotate-90 cursor-pointer"
+                aria-label="Close gallery"
+              >
+                <X className="w-5 h-5 text-white" />
+              </button>
+            </div>
           </div>
+
+          {/* Body Content based on View Mode */}
+          {galleryViewMode === 'slideshow' ? (
+            <div className="relative flex-1 flex flex-col justify-between overflow-hidden p-3 sm:p-6">
+              {/* Central Photo Display with Left/Right Arrows */}
+              <div className="relative flex-1 flex items-center justify-center min-h-0">
+                {/* Prev Button */}
+                <button
+                  type="button"
+                  onClick={() => setPhotoIndex((i) => (i - 1 + galleryPhotos.length) % galleryPhotos.length)}
+                  className="absolute left-2 sm:left-6 w-12 h-12 rounded-full bg-black/40 hover:bg-[#42BAE4] border border-white/20 hover:border-transparent backdrop-blur-md flex items-center justify-center text-white transition-all duration-300 active:scale-90 cursor-pointer z-20 shadow-xl group"
+                  aria-label="Previous photo"
+                >
+                  <ChevronLeft className="w-6 h-6 group-hover:-translate-x-0.5 transition-transform" />
+                </button>
+
+                {/* Hero Image */}
+                <div className="relative max-w-5xl max-h-[68vh] w-full h-full flex items-center justify-center p-2">
+                  <img
+                    key={photoIndex}
+                    src={img(galleryPhotos[photoIndex].url)}
+                    alt={galleryPhotos[photoIndex].title}
+                    className="max-h-[68vh] max-w-full object-contain rounded-2xl shadow-2xl transition-all duration-500 animate-in fade-in zoom-in-95"
+                  />
+                  {/* Photo Title Overlay */}
+                  <div className="absolute bottom-4 inset-x-8 text-center pointer-events-none">
+                    <span className="inline-block px-4 py-2 rounded-xl bg-black/60 backdrop-blur-md text-xs sm:text-sm font-medium text-white/95 shadow-lg border border-white/10">
+                      {galleryPhotos[photoIndex].title}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Next Button */}
+                <button
+                  type="button"
+                  onClick={() => setPhotoIndex((i) => (i + 1) % galleryPhotos.length)}
+                  className="absolute right-2 sm:right-6 w-12 h-12 rounded-full bg-black/40 hover:bg-[#42BAE4] border border-white/20 hover:border-transparent backdrop-blur-md flex items-center justify-center text-white transition-all duration-300 active:scale-90 cursor-pointer z-20 shadow-xl group"
+                  aria-label="Next photo"
+                >
+                  <ChevronRight className="w-6 h-6 group-hover:translate-x-0.5 transition-transform" />
+                </button>
+              </div>
+
+              {/* Bottom Thumbnail Strip Carousel */}
+              <div className="pt-3 pb-1 border-t border-white/10 mt-auto">
+                <div className="flex items-center justify-center gap-2.5 overflow-x-auto py-1 px-4 scrollbar-none">
+                  {galleryPhotos.map((photo, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => setPhotoIndex(idx)}
+                      className={`relative w-16 h-11 sm:w-20 sm:h-14 rounded-xl overflow-hidden shrink-0 transition-all duration-300 cursor-pointer ${
+                        photoIndex === idx
+                          ? 'ring-2 ring-[#42BAE4] scale-105 opacity-100 shadow-lg'
+                          : 'opacity-40 hover:opacity-80 scale-95'
+                      }`}
+                    >
+                      <img
+                        src={img(photo.url)}
+                        alt=""
+                        className="w-full h-full object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ) : (
+            /* Grid View Mode: All 24 photos organized */
+            <div className="flex-1 overflow-y-auto p-4 sm:p-8 space-y-6">
+              {/* Category Filter Pills */}
+              <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-white/10">
+                {['All', 'The Cabin', 'Interior', 'Views', 'Northern Lights', 'Wellness & Spa'].map((cat) => (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => setActiveCategory(cat)}
+                    className={`px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
+                      activeCategory === cat
+                        ? 'bg-[#42BAE4] text-white shadow-md'
+                        : 'bg-white/10 text-white/70 hover:bg-white/20 hover:text-white'
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
+
+              {/* Photo Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {galleryPhotos
+                  .map((photo, idx) => ({ ...photo, originalIndex: idx }))
+                  .filter((p) => activeCategory === 'All' || p.category === activeCategory)
+                  .map((photo) => (
+                    <div
+                      key={photo.originalIndex}
+                      onClick={() => {
+                        setPhotoIndex(photo.originalIndex);
+                        setGalleryViewMode('slideshow');
+                      }}
+                      className="group relative aspect-[4/3] rounded-2xl overflow-hidden bg-slate-800 cursor-pointer hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
+                    >
+                      <img
+                        src={img(photo.url)}
+                        alt={photo.title}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-3.5">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-[#7EC8E3]">
+                          {photo.category}
+                        </span>
+                        <p className="text-xs font-medium text-white line-clamp-2 mt-0.5">
+                          {photo.title}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
 
