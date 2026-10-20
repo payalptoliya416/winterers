@@ -27,10 +27,10 @@ export default function Header() {
 
   return (
     <>
-      <header className="absolute inset-x-0 top-0 z-30 pt-3 sm:pt-5 md:pt-6 px-3 sm:px-6">
+      <header className="absolute inset-x-0 top-0 z-30 px-3 sm:px-6 py-5">
         <div className="">
-          <div className="rounded-[20px] sm:rounded-[24px] bg-white shadow-sm transition-all">
-            <div className="flex items-center justify-between lg:grid lg:grid-cols-[1fr_auto_1fr] px-4 sm:px-8 py-3 sm:py-3.5">
+          <div className="rounded-[18px] bg-white border border-[#D0DCE8] transition-all">
+            <div className="flex items-center justify-between lg:grid lg:grid-cols-[1fr_auto_1fr] px-4 sm:px-[25px] py-3 sm:py-3.5">
               {/* Logo (Left) */}
               <div className="flex items-center justify-start">
                 <Link
@@ -43,7 +43,7 @@ export default function Header() {
               </div>
 
               {/* Navigation Links (Exact Center) */}
-              <nav className="hidden items-center justify-center gap-7 lg:gap-9 text-[13px] sm:text-sm font-medium lg:flex">
+              <nav className="hidden items-center justify-center gap-7 lg:gap-10 text-[13px] sm:text-base font-medium lg:flex">
                 {nav.map(([label, path]) => (
                   <NavLink
                     key={path}
@@ -70,16 +70,16 @@ export default function Header() {
               </nav>
 
               {/* Action Buttons (Right) */}
-              <div className="hidden items-center justify-end gap-3 lg:flex">
+              <div className="hidden items-center justify-end gap-[15px] lg:flex">
                 <Link
                   to="#"
-                  className="inline-flex items-center justify-center rounded-[18px] border border-slate-200 bg-white px-5 sm:px-6 py-2 sm:py-2.5 text-sm font-medium text-navy hover:border-slate-300 hover:bg-slate-50 transition"
+                  className="inline-flex items-center justify-center rounded-[18px] border border-[#BDCDDE] px-5 sm:px-6 py-2 sm:py-2.5 text-base font-medium text-[#02213B] hover:border-slate-300 hover:bg-slate-50 transition"
                 >
                   Sign In
                 </Link>
                 <Link
                   to="/list-property"
-                  className="inline-flex items-center justify-center rounded-[18px] bg-[#02213B] px-5 sm:px-6 py-2 sm:py-2.5 text-sm font-medium text-white hover:bg-navy/90 transition shadow-sm"
+                  className="inline-flex items-center justify-center rounded-[18px] bg-[#02213B] px-5 sm:px-6 py-2 sm:py-2.5 text-base font-medium text-white hover:bg-navy/90 transition"
                 >
                   List Your Property
                 </Link>

@@ -248,7 +248,7 @@ export default function PropertyDetail() {
   };
 
   return (
-    <div className="w-full pt-24 sm:pt-32 pb-16">
+    <div className="w-full pt-24 sm:pt-36 pb-16">
       {/* 1. Breadcrumbs */}
       <div className="w-full px-3 sm:px-6 mb-3 sm:mb-3.5">
         <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-[13px] text-slate-500 font-body">
@@ -352,7 +352,7 @@ export default function PropertyDetail() {
                     e.stopPropagation();
                     openLightboxAt(0);
                   }}
-                  className="absolute bottom-3 right-3 sm:bottom-3.5 sm:right-3.5 inline-flex items-center gap-1.5 sm:gap-2 rounded-lg bg-white/95 hover:bg-white text-[#0D1F35] px-3 sm:px-3.5 py-1.5 sm:py-2 text-xs sm:text-[13px] font-medium shadow-sm backdrop-blur-sm transition-colors cursor-pointer z-10 border border-slate-200/80"
+                  className="absolute bottom-3 right-3 sm:bottom-3.5 sm:right-3.5 inline-flex items-center gap-2 sm:gap-2 rounded-[4px] bg-white/90 hover:bg-white text-[#0D1F35] px-3 sm:px-3.5 py-1.5 sm:py-2 text-xs sm:text-[13px] font-medium transition-colors cursor-pointer z-10 border border-[#DDE3EC]"
                 >
                   <Grid className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#062541]" />
                   <span>View all 24 photos</span>
@@ -364,7 +364,7 @@ export default function PropertyDetail() {
       </div>
 
       {/* 3. Main Content + Sticky Booking Sidebar Layout */}
-      <div className="w-full px-4 sm:px-6 lg:px-8 mt-8 sm:mt-12 site-container">
+      <div className="w-full px-4 sm:px-6 lg:px-8 mt-8 sm:mt-[60px] site-container">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] xl:grid-cols-[1fr_495px] gap-8 lg:gap-[35px] items-start">
           {/* Left Column: Details (Scrollable) */}
           <div className="space-y-8 sm:space-y-10">
@@ -375,8 +375,9 @@ export default function PropertyDetail() {
                   <h1 className="font-head text-2xl sm:text-3xl lg:text-[32px] font-medium text-[#0D1F3C] leading-tight">
                     Entire cabin in Tromsø, Northern Norway
                   </h1>
-                  <p className="mt-[19px] text-xs sm:text-sm text-[#7B8FA6] font-body font-medium">
-                    Tromsø, Northern Norway
+                  <p className="mt-4 text-xs sm:text-sm text-[#7B8FA6] font-body font-medium flex items-center gap-1.5">
+                    <MapPin className="w-4 h-4 text-[#7B8FA6] shrink-0" />
+                    <span>Tromsø, Northern Norway</span>
                   </p>
                 </div>
 
@@ -399,13 +400,13 @@ export default function PropertyDetail() {
                 </div>
               </div>
 
-              <p className="mt-4 text-xs sm:text-sm md:text-base leading-relaxed text-[#7B8FA6] font-body">
-                Nestled along the edge of a pristine Arctic fjord, this handcrafted log cabin is a sanctuary of warmth, silence, and breathtaking natural beauty. Surrounded by snow-dusted pine forest with panoramic mountain views — and one of the best northern lights viewing locations in all of Norway. Floor-to-ceiling panoramic windows frame panoramic vistas of snow-blanketed fjords and Arctic mountain peaks, while cozy interiors invite you to unwind by the crackling fireplace.
+              <p className="mt-[35px] text-xs sm:text-sm md:text-base leading-relaxed text-[#7B8FA6] font-body">
+                Nestled along the edge of a pristine Arctic fjord, this handcrafted log cabin is a sanctuary of warmth, silence, and breathtaking natural beauty. Surrounded by snow-dusted pine forest with panoramic mountain views — and one of the best northern lights viewing locations in all of Norway.
               </p>
             </div>
 
             {/* Guest Favourite Rating Badge Card */}
-            <div className="w-full rounded-[17px] border border-[#DCDCDC] px-[38px] sm:px-8 py-5 sm:py-[35px">
+            <div className="w-full rounded-[17px] border border-[#DCDCDC] px-[38px] sm:px-8 py-5 sm:py-[35px]">
               <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
                 {/* Left: Laurel Wreath + Headline */}
                 <div className="flex flex-col sm:flex-row items-center gap-5 sm:gap-7 text-center sm:text-left">
@@ -436,7 +437,7 @@ export default function PropertyDetail() {
                       {[...Array(5)].map((_, i) => (
                         <Star
                           key={i}
-                          className="w-2.5 h-2.5 fill-[#0D1B2E] text-[#0D1B2E]"
+                          className="w-3 h-3 fill-[#0D1B2E] text-[#0D1B2E]"
                         />
                       ))}
                     </div>
@@ -478,7 +479,7 @@ export default function PropertyDetail() {
             {/* Key Features Highlights */}
             <div className="space-y-6 sm:space-y-7 mt-8 sm:mt-10">
               {/* 1. Top 1% of homes */}
-              <div className="flex items-start gap-4 sm:gap-5">
+              <div className="flex items-center gap-4 sm:gap-5">
                 <div className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center shrink-0 mt-0.5 text-[#0D1F3C]">
                   <svg
                     viewBox="0 0 24 24"
@@ -508,7 +509,7 @@ export default function PropertyDetail() {
               </div>
 
               {/* 2. Unwind in the hot tub */}
-              <div className="flex items-start gap-4 sm:gap-5">
+              <div className="flex items-center gap-4 sm:gap-5">
                 <div className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center shrink-0 mt-0.5 text-[#0D1F3C]">
                   <svg
                     viewBox="0 0 24 24"
@@ -537,7 +538,7 @@ export default function PropertyDetail() {
               </div>
 
               {/* 3. Self check-in */}
-              <div className="flex items-start gap-4 sm:gap-5">
+              <div className="flex items-center gap-4 sm:gap-5">
                 <div className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center shrink-0 mt-0.5 text-[#0D1F3C]">
                   <svg
                     viewBox="0 0 24 24"
@@ -581,7 +582,7 @@ export default function PropertyDetail() {
                       key={badge.label}
                       className="flex flex-col items-center text-center group cursor-default"
                     >
-                      <div className="w-12 h-12 rounded-[12px] bg-[#E8F3FB] flex items-center justify-center text-[#0D1F3C] transition-colors group-hover:bg-[#E0EFFF]">
+                      <div className="w-12 h-12 rounded-[12px] bg-[#E8F3FB] flex items-center justify-center text-[#000] transition-colors group-hover:bg-[#E0EFFF]">
                         <Icon className="w-5 h-5  text-[#000000]" strokeWidth={2} />
                       </div>
                       <span className="mt-[15px] text-xs sm:text-base text-[#0D1F3C] leading-tight">
@@ -598,13 +599,13 @@ export default function PropertyDetail() {
               <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-8 xl:gap-12 items-center">
                 {/* Left: Text & Milestones List */}
                 <div>
-                  <span className="text-xs sm:text-[13px] font-bold tracking-wider text-[#38BDF8] uppercase">
+                  <span className="section-eyebrow">
                     LOCATION
                   </span>
-                  <h3 className="font-head text-2xl sm:text-3xl lg:text-[32px] font-bold text-[#0D1F3C] mt-1.5 leading-tight">
+                  <h3 className="section-title">
                     Where You’ll Stay
                   </h3>
-                  <p className="mt-3 sm:mt-4 text-sm sm:text-base text-[#7B8FA6] leading-relaxed">
+                  <p className="mt-3 sm:mt-5 text-sm sm:text-base text-[#7B8FA6] leading-relaxed">
                     Situated on the shores of Malangen Fjord, approximately 20 km south of Tromsø city. Accessible by car on a quiet coastal road, with easy access to all major winter attractions.
                   </p>
 
