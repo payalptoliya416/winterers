@@ -534,7 +534,7 @@ export default function BeachHouses() {
       {/* 2. Featured Beach Houses Main Section with Sidebar Filters & Grid */}
       <section className="site-container py-12 sm:py-16 md:py-20">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-8 sm:pb-10 border-b border-slate-200">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 sm:pb-[35px]">
           <div>
             <span className="section-eyebrow !text-[#0284C7] tracking-wider">
               EXCLUSIVE STAYS
@@ -548,29 +548,26 @@ export default function BeachHouses() {
           </div>
 
           {/* Sort By Dropdown */}
-          <div className="flex items-center gap-3 shrink-0 self-start md:self-end">
-            <span className="text-xs sm:text-sm text-slate-500 font-medium">Sort by:</span>
-            <div className="relative inline-block">
-              <select
-                value={sortBy}
-                onChange={(e) => {
-                  setSortBy(e.target.value as any);
-                  setCurrentPage(1);
-                }}
-                className="appearance-none bg-white border border-slate-200 text-[#0D1F35] text-xs sm:text-sm font-semibold rounded-xl pl-3.5 pr-8 py-2 sm:py-2.5 focus:outline-none focus:border-[#7EC8E3] cursor-pointer shadow-sm"
-              >
-                <option value="recommended">Recommended</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
-                <option value="rating">Top Rated</option>
-              </select>
-              <ChevronDown className="w-4 h-4 text-slate-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-            </div>
+          <div className="relative inline-block shrink-0 self-start md:self-end">
+            <select
+              value={sortBy}
+              onChange={(e) => {
+                setSortBy(e.target.value as any);
+                setCurrentPage(1);
+              }}
+              className="appearance-none bg-white border border-[#DCE5EE] hover:border-[#CAD7E2] text-[#0D2137] text-xs sm:text-sm font-medium rounded-[14px] pl-4 pr-8 py-2 sm:py-2.5 focus:outline-none focus:border-[#5CBDE5] cursor-pointer transition-colors"
+            >
+              <option value="recommended">Sort by recommended</option>
+              <option value="price-low">Sort by price: low to high</option>
+              <option value="price-high">Sort by price: high to low</option>
+              <option value="rating">Sort by top rated</option>
+            </select>
+            <ChevronDown className="w-3.5 h-3.5 text-[#5F7387] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none stroke-[2]" />
           </div>
         </div>
 
         {/* Layout: Sidebar + Grid */}
-        <div className="mt-8 sm:mt-10 grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-8 xl:gap-[30px] items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[360px_1fr] gap-8 xl:gap-[30px] items-start">
           {/* Left Sidebar Filters Card */}
           <aside className="rounded-[20px] bg-[#F0F5FC] p-5 sm:p-6 shadow-sm sticky top-10">
             <div className="flex items-center justify-end border-b border-slate-100">
