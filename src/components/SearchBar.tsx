@@ -25,6 +25,13 @@ export default function SearchBar({
   const checkInRef = useRef<HTMLDivElement>(null);
   const checkOutRef = useRef<HTMLDivElement>(null);
 
+  const handleRangeChange = (start: Date | null, end: Date | null) => {
+    setCheckIn(start);
+    setCheckOut(end);
+    d(setField({ name: 'checkIn', value: start ? start.toISOString() : '' }));
+    d(setField({ name: 'checkOut', value: end ? end.toISOString() : '' }));
+  };
+
   const handleCheckIn = (date: Date) => {
     setCheckIn(date);
     d(setField({ name: 'checkIn', value: date.toISOString() }));
@@ -125,12 +132,10 @@ export default function SearchBar({
             >
               <CalendarPopup
                 title="Select Check-in"
-                selectedDate={checkIn}
+                startDate={checkIn}
+                endDate={checkOut}
                 minDate={new Date()}
-                onSelect={(picked) => {
-                  handleCheckIn(picked);
-                  setCheckInOpen(false);
-                }}
+                onChangeRange={handleRangeChange}
                 onClose={() => setCheckInOpen(false)}
                 anchorRef={checkInRef}
               />
@@ -162,18 +167,16 @@ export default function SearchBar({
 
           {checkOutOpen && (
             <div
-              className="absolute left-0 top-full mt-2 z-50"
+              className="absolute left-0 lg:left-auto lg:right-0 top-full mt-2 z-50"
               onClick={(e) => e.stopPropagation()}
               onMouseDown={(e) => e.stopPropagation()}
             >
               <CalendarPopup
                 title="Select Check-out"
-                selectedDate={checkOut}
-                minDate={checkIn ?? new Date()}
-                onSelect={(picked) => {
-                  handleCheckOut(picked);
-                  setCheckOutOpen(false);
-                }}
+                startDate={checkIn}
+                endDate={checkOut}
+                minDate={new Date()}
+                onChangeRange={handleRangeChange}
                 onClose={() => setCheckOutOpen(false)}
                 anchorRef={checkOutRef}
               />

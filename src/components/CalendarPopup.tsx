@@ -1,10 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 
-interface CalendarPopupProps {
+export interface CalendarPopupProps {
   title?: string;
-  selectedDate: Date | null;
-  onSelect: (date: Date) => void;
+  startDate?: Date | null;
+  endDate?: Date | null;
+  onChangeRange?: (start: Date | null, end: Date | null) => void;
+  selectedDate?: Date | null;
+  onSelect?: (date: Date) => void;
   onClose: () => void;
   minDate?: Date | null;
   maxDate?: Date | null;
@@ -13,11 +18,14 @@ interface CalendarPopupProps {
 }
 
 export default function CalendarPopup({
-  title = 'Select Date',
+  title = 'Select Check-in',
+  startDate,
+  endDate,
+  onChangeRange,
   selectedDate,
   onSelect,
   onClose,
-  minDate,
+  minDate = new Date(),
   maxDate,
   anchorRef,
   className = '',
@@ -26,22 +34,21 @@ export default function CalendarPopup({
   const onCloseRef = useRef(onClose);
   onCloseRef.current = onClose;
 
-  // Initial month view is selectedDate or minDate or today
-  const initialDate = selectedDate ?? minDate ?? new Date();
-  const [currentView, setCurrentView] = useState<Date>(
-    new Date(initialDate.getFullYear(), initialDate.getMonth(), 1)
-  );
-  const [tempSelected, setTempSelected] = useState<Date | null>(selectedDate);
+  // Initialize start & end from range props or single selectedDate fallback
+  const initialStart = startDate ?? selectedDate ?? null;
+  const initialEnd = endDate ?? null;
 
-  // Sync tempSelected if prop changes
+  const [tempStart, setTempStart] = useState<Date | null>(initialStart);
+  const [tempEnd, setTempEnd] = useState<Date | null>(initialEnd);
+  const [hoverDate, setHoverDate] = useState<Date | null>(null);
+
+  // Sync internal state when external props change
   useEffect(() => {
-    setTempSelected(selectedDate);
-    if (selectedDate) {
-      setCurrentView(new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1));
-    }
-  }, [selectedDate]);
+    setTempStart(startDate ?? selectedDate ?? null);
+    setTempEnd(endDate ?? null);
+  }, [startDate, endDate, selectedDate]);
 
-  // Click-outside & Escape key handling without race condition
+  // Click-outside & Escape key handling
   useEffect(() => {
     const handleDown = (e: MouseEvent | TouchEvent) => {
       const target = e.target as Node;
@@ -74,197 +81,159 @@ export default function CalendarPopup({
     };
   }, [anchorRef]);
 
-  // Month navigation
-  const prevMonth = () => {
-    setCurrentView(
-      (prev) => new Date(prev.getFullYear(), prev.getMonth() - 1, 1)
-    );
-  };
+  // Handle date selection from DatePicker
+  const handleDateChange = (dates: [Date | null, Date | null]) => {
+    const [start, end] = dates;
+    setTempStart(start);
+    setTempEnd(end);
+    setHoverDate(null);
 
-  const nextMonth = () => {
-    setCurrentView(
-      (prev) => new Date(prev.getFullYear(), prev.getMonth() + 1, 1)
-    );
-  };
-
-  // Month & Year details
-  const year = currentView.getFullYear();
-  const month = currentView.getMonth();
-  const monthName = currentView.toLocaleDateString('en-US', { month: 'short' });
-
-  // Grid computation: Monday start
-  const firstDayOfMonth = new Date(year, month, 1);
-  const dayOffset = (firstDayOfMonth.getDay() + 6) % 7; // 0 = Mon, ..., 6 = Sun
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-  // Helper date comparison ignoring time
-  const isSameDay = (d1: Date | null, d2: Date | null) => {
-    if (!d1 || !d2) return false;
-    return (
-      d1.getFullYear() === d2.getFullYear() &&
-      d1.getMonth() === d2.getMonth() &&
-      d1.getDate() === d2.getDate()
-    );
-  };
-
-  const isDateDisabled = (day: number) => {
-    const date = new Date(year, month, day);
-    date.setHours(0, 0, 0, 0);
-
-    if (minDate) {
-      const min = new Date(minDate);
-      min.setHours(0, 0, 0, 0);
-      if (date < min) return true;
+    if (onChangeRange) {
+      onChangeRange(start, end);
     }
-    if (maxDate) {
-      const max = new Date(maxDate);
-      max.setHours(0, 0, 0, 0);
-      if (date > max) return true;
-    }
-    return false;
-  };
 
-  const handleDayClick = (day: number) => {
-    if (isDateDisabled(day)) return;
-    const picked = new Date(year, month, day);
-    setTempSelected(picked);
-    onSelect(picked);
+    if (onSelect) {
+      if (end) {
+        onSelect(end);
+      } else if (start) {
+        onSelect(start);
+      }
+    }
   };
 
   const handleClear = () => {
-    setTempSelected(null);
+    setTempStart(null);
+    setTempEnd(null);
+    setHoverDate(null);
+    if (onChangeRange) {
+      onChangeRange(null, null);
+    }
   };
 
   const handleDone = () => {
-    if (tempSelected) {
-      onSelect(tempSelected);
+    if (tempStart && tempEnd) {
+      onChangeRange?.(tempStart, tempEnd);
+    } else if (tempStart) {
+      onChangeRange?.(tempStart, null);
+      onSelect?.(tempStart);
     }
     onClose();
   };
 
-  const formatSummary = (d: Date | null) => {
-    if (!d) return 'Select dates';
-    return d.toLocaleDateString('en-US', {
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric',
-    });
-  };
+  // Calculate nights for display
+  const activeEnd =
+    tempEnd || (tempStart && hoverDate && hoverDate >= tempStart ? hoverDate : null);
+  const nights =
+    tempStart && activeEnd
+      ? Math.max(1, Math.round((activeEnd.getTime() - tempStart.getTime()) / (1000 * 60 * 60 * 24)))
+      : 0;
 
-  const weekDays = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
+  // Header dynamic title
+  const displayTitle =
+    title === 'Select Check-in' && tempStart && !tempEnd
+      ? 'Select Check-out'
+      : title;
 
   return (
     <div
       ref={popupRef}
-      className={`w-[320px] sm:w-[350px] max-w-[calc(100vw-32px)] bg-white rounded-[24px] shadow-[0_16px_50px_rgba(0,0,0,0.18)] border border-[#EAEAEA] p-5 select-none z-50 ${className}`}
+      className={`winterers-calendar w-[320px] sm:w-[350px] max-w-[calc(100vw-32px)] bg-white rounded-[24px] shadow-[0_16px_50px_rgba(0,0,0,0.14)] border border-[#EDEDED] p-5 select-none z-50 ${className}`}
       onClick={(e) => e.stopPropagation()}
       onMouseDown={(e) => e.stopPropagation()}
       onTouchStart={(e) => e.stopPropagation()}
     >
-      {/* Header: Title and Close 'X' */}
-      <div className="flex items-center justify-between pb-3 border-b border-[#F1F5F9]">
-        <h3 className="text-base font-bold text-[#0D1F3C] leading-none">
-          {title}
+      {/* Top Header: Title and Close 'X' */}
+      <div className="flex items-center justify-between pb-3.5 mb-2 border-b border-[#F3F4F6]">
+        <h3 className="text-[17px] font-bold text-[#111827] leading-tight">
+          {displayTitle}
         </h3>
         <button
           type="button"
           onClick={onClose}
-          className="w-7 h-7 rounded-full text-slate-400 hover:text-[#0D1F3C] hover:bg-[#EEF4FA] flex items-center justify-center transition cursor-pointer"
+          className="w-7 h-7 rounded-full text-[#9CA3AF] hover:text-[#111827] hover:bg-[#F3F4F6] flex items-center justify-center transition cursor-pointer"
           aria-label="Close calendar"
         >
           <X className="w-4 h-4" />
         </button>
       </div>
 
-      {/* Month Navigation */}
-      <div className="flex items-center justify-between py-3.5 px-1">
-        <button
-          type="button"
-          onClick={prevMonth}
-          className="w-8 h-8 rounded-full border border-slate-200 text-slate-600 hover:bg-[#EEF4FA] hover:border-[#02213B] hover:text-[#02213B] flex items-center justify-center transition cursor-pointer active:scale-95"
-          aria-label="Previous month"
-        >
-          <ChevronLeft className="w-4 h-4" />
-        </button>
+      {/* DatePicker Library Component with Range Selection */}
+      <div className="react-datepicker-custom-wrapper">
+        <DatePicker
+          inline
+          selectsRange
+          startDate={tempStart}
+          endDate={tempEnd}
+          onChange={handleDateChange}
+          onDayMouseEnter={(date: Date) => {
+            if (tempStart && !tempEnd && date >= tempStart) {
+              setHoverDate(date);
+            }
+          }}
+          minDate={minDate ?? undefined}
+          maxDate={maxDate ?? undefined}
+          calendarStartDay={1}
+          renderCustomHeader={({
+            date,
+            decreaseMonth,
+            increaseMonth,
+            prevMonthButtonDisabled,
+            nextMonthButtonDisabled,
+          }) => (
+            <div className="flex items-center justify-between py-2 px-1 mb-2">
+              <button
+                type="button"
+                onClick={decreaseMonth}
+                disabled={prevMonthButtonDisabled}
+                className="w-8 h-8 rounded-full border border-[#E5E7EB] text-[#4B5563] hover:border-[#02213B] hover:text-[#02213B] hover:bg-[#EEF4FA] flex items-center justify-center transition cursor-pointer active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed"
+                aria-label="Previous month"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
 
-        <span className="text-[15px] font-bold text-[#0D1F3C] tracking-wide">
-          {monthName} {year}
-        </span>
+              <span className="text-[15px] font-bold text-[#0D1F3C] tracking-wide">
+                {date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+              </span>
 
-        <button
-          type="button"
-          onClick={nextMonth}
-          className="w-8 h-8 rounded-full border border-slate-200 text-slate-600 hover:bg-[#EEF4FA] hover:border-[#02213B] hover:text-[#02213B] flex items-center justify-center transition cursor-pointer active:scale-95"
-          aria-label="Next month"
-        >
-          <ChevronRight className="w-4 h-4" />
-        </button>
+              <button
+                type="button"
+                onClick={increaseMonth}
+                disabled={nextMonthButtonDisabled}
+                className="w-8 h-8 rounded-full border border-[#E5E7EB] text-[#4B5563] hover:border-[#02213B] hover:text-[#02213B] hover:bg-[#EEF4FA] flex items-center justify-center transition cursor-pointer active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed"
+                aria-label="Next month"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          )}
+          renderDayContents={(day: number) => (
+            <span className="day-badge">{day}</span>
+          )}
+        />
       </div>
 
-      {/* Days of Week Header */}
-      <div className="grid grid-cols-7 gap-1 text-center mb-1">
-        {weekDays.map((wd) => (
-          <span
-            key={wd}
-            className="text-xs font-semibold text-[#7B8FA6] py-1"
-          >
-            {wd}
-          </span>
-        ))}
-      </div>
-
-      {/* Days Grid */}
-      <div className="grid grid-cols-7 gap-1 text-center">
-        {/* Leading empty cells */}
-        {Array.from({ length: dayOffset }).map((_, i) => (
-          <div key={`empty-${i}`} className="w-9 h-9" />
-        ))}
-
-        {/* Days of month */}
-        {Array.from({ length: daysInMonth }).map((_, i) => {
-          const day = i + 1;
-          const thisDate = new Date(year, month, day);
-          const disabled = isDateDisabled(day);
-          const isSelected = isSameDay(thisDate, tempSelected);
-
-          return (
-            <button
-              key={`day-${day}`}
-              type="button"
-              disabled={disabled}
-              onClick={() => handleDayClick(day)}
-              className={`w-9 h-9 mx-auto rounded-full text-xs sm:text-sm font-medium flex items-center justify-center transition cursor-pointer ${
-                isSelected
-                  ? 'bg-[#02213B] text-white font-bold shadow-xs'
-                  : disabled
-                  ? 'text-slate-300 line-through cursor-not-allowed'
-                  : 'text-[#0D1F3C] hover:bg-[#EEF4FA] hover:text-[#02213B]'
-              }`}
-            >
-              {day}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Footer */}
-      <div className="pt-4 mt-3 border-t border-[#F1F5F9] flex items-center justify-between">
-        <span className="text-xs sm:text-sm text-[#7B8FA6] font-medium truncate max-w-[140px]">
-          {formatSummary(tempSelected)}
+      {/* Footer: Night(s) count, Clear, Done */}
+      <div className="pt-3.5 mt-2 border-t border-[#F3F4F6] flex items-center justify-between">
+        <span className="text-[14px] text-[#9CA3AF] font-medium truncate max-w-[140px]">
+          {nights > 0
+            ? `${nights} night(s)`
+            : tempStart
+            ? 'Select check-out'
+            : 'Select dates'}
         </span>
 
         <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={handleClear}
-            className="px-3.5 py-1.5 rounded-full border border-slate-300 text-xs sm:text-sm font-medium text-[#0D1F3C] hover:bg-[#EEF4FA] transition cursor-pointer"
+            className="px-4 py-1.5 rounded-full border border-[#D1D5DB] text-[13px] font-semibold text-[#111827] hover:bg-[#F3F4F6] transition active:scale-95 cursor-pointer"
           >
             Clear
           </button>
           <button
             type="button"
             onClick={handleDone}
-            className="px-5 py-1.5 rounded-full bg-[#02213B] hover:bg-[#071D36] text-white text-xs sm:text-sm font-semibold transition shadow-xs cursor-pointer active:scale-95"
+            className="px-5 py-1.5 rounded-full bg-[#02213B] hover:bg-[#071D36] text-white text-[13px] font-bold shadow-xs transition active:scale-95 cursor-pointer"
           >
             Done
           </button>

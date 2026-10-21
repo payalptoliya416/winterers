@@ -38,7 +38,7 @@ export default function Hero({
 
       {/* Center content container - takes full 800px height */}
       <div
-        className={`relative z-10 flex h-full flex-col items-center ${
+        className={`relative z-10 flex h-full flex-col items-center gap-5 ${
           search && searchPosition === 'inner'
             ? 'justify-between pt-36 sm:pt-[236px] pb-7 sm:pb-9'
             : 'justify-center pt-24 pb-24'

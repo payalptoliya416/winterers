@@ -931,16 +931,12 @@ export default function PropertyDetail() {
                       >
                         <CalendarPopup
                           title="Select Check-in"
-                          selectedDate={checkInDate}
+                          startDate={checkInDate}
+                          endDate={checkOutDate}
                           minDate={new Date()}
-                          onSelect={(picked) => {
-                            setCheckInDate(picked);
-                            if (checkOutDate && checkOutDate <= picked) {
-                              const nextDay = new Date(picked);
-                              nextDay.setDate(nextDay.getDate() + 1);
-                              setCheckOutDate(nextDay);
-                            }
-                            setCheckInOpen(false);
+                          onChangeRange={(start, end) => {
+                            setCheckInDate(start);
+                            setCheckOutDate(end);
                           }}
                           onClose={() => setCheckInOpen(false)}
                           anchorRef={checkInRef}
@@ -979,11 +975,12 @@ export default function PropertyDetail() {
                       >
                         <CalendarPopup
                           title="Select Check-out"
-                          selectedDate={checkOutDate}
-                          minDate={checkInDate ?? new Date()}
-                          onSelect={(picked) => {
-                            setCheckOutDate(picked);
-                            setCheckOutOpen(false);
+                          startDate={checkInDate}
+                          endDate={checkOutDate}
+                          minDate={new Date()}
+                          onChangeRange={(start, end) => {
+                            setCheckInDate(start);
+                            setCheckOutDate(end);
                           }}
                           onClose={() => setCheckOutOpen(false)}
                           anchorRef={checkOutRef}

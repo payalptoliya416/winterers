@@ -54,21 +54,185 @@ h1,h2,h3,h4,h5,h6{@apply font-head}
     @apply mt-[15px] font-head text-2xl sm:text-3xl lg:text-[36px] font-medium text-[#0D1F35] tracking-tight leading-tight;
   }
 }
-/* react-datepicker theme overrides */
-.react-datepicker{font-family:"DM Sans",sans-serif;border:1px solid #e2e8f0;border-radius:1rem;box-shadow:0 10px 40px -8px rgba(6,37,65,0.18);overflow:hidden}
-.react-datepicker__header{background:#062541;border-bottom:none;border-radius:0;padding:12px 0 8px}
-.react-datepicker__current-month{color:#fff;font-family:"Space Grotesk",sans-serif;font-weight:600;font-size:0.875rem}
-.react-datepicker__navigation-icon::before{border-color:#5CBDE5}
-.react-datepicker__day-name{color:#5CBDE5;font-weight:600;font-size:0.7rem}
-.react-datepicker__day{border-radius:0.5rem;font-size:0.8rem;color:#062541}
-.react-datepicker__day:hover{background:#EEF4FA;border-radius:0.5rem}
-.react-datepicker__day--selected,.react-datepicker__day--range-start,.react-datepicker__day--range-end{background:#062541 !important;color:#fff !important;border-radius:0.5rem !important}
-.react-datepicker__day--in-range,.react-datepicker__day--in-selecting-range{background:#EEF4FA;color:#062541}
-.react-datepicker__day--keyboard-selected{color:#fff;border-radius:0.5rem}
-.react-datepicker__day--today{font-weight:700;color:#5CBDE5}
-.react-datepicker__day--disabled{color:#cbd5e1}
-.react-datepicker__triangle{display:none}
-.react-datepicker-popper{z-index:50}
+/* ==========================================================================
+   react-datepicker: Theme matching Project (Navy & Mist)
+   ========================================================================== */
+.winterers-calendar .react-datepicker {
+  font-family: inherit;
+  border: none;
+  background: transparent;
+  display: block;
+  width: 100%;
+}
+
+.winterers-calendar .react-datepicker__month-container {
+  float: none;
+  width: 100%;
+}
+
+.winterers-calendar .react-datepicker__header {
+  background: transparent;
+  border-bottom: none;
+  padding: 0;
+}
+
+.winterers-calendar .react-datepicker__day-names {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.winterers-calendar .react-datepicker__day-name {
+  color: #7B8FA6;
+  font-weight: 600;
+  font-size: 13px;
+  width: auto;
+  margin: 0;
+  line-height: 24px;
+}
+
+.winterers-calendar .react-datepicker__month {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.winterers-calendar .react-datepicker__week {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  align-items: center;
+  margin: 0;
+}
+
+.winterers-calendar .react-datepicker__day {
+  width: 100%;
+  height: 38px;
+  line-height: 38px;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #0D1F3C;
+  border-radius: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  background-color: transparent;
+  outline: none;
+}
+
+/* Day Number Inner Badge */
+.winterers-calendar .day-badge {
+  width: 34px;
+  height: 34px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* Normal Day Hover */
+.winterers-calendar .react-datepicker__day:not(.react-datepicker__day--disabled):not(.react-datepicker__day--in-range):not(.react-datepicker__day--in-selecting-range):hover .day-badge {
+  background-color: #EEF4FA;
+  color: #02213B;
+}
+
+/* Outside Month Days */
+.winterers-calendar .react-datepicker__day--outside-month {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Disabled Past Days: light gray + strikethrough */
+.winterers-calendar .react-datepicker__day--disabled {
+  cursor: not-allowed !important;
+  background-color: transparent !important;
+}
+.winterers-calendar .react-datepicker__day--disabled .day-badge {
+  color: #CBD5E1 !important;
+  text-decoration: line-through !important;
+  background-color: transparent !important;
+}
+
+/* In-Range Days (continuous connecting mist/ice strip) */
+.winterers-calendar .react-datepicker__day--in-range,
+.winterers-calendar .react-datepicker__day--in-selecting-range {
+  background-color: #EEF4FA !important;
+}
+.winterers-calendar .react-datepicker__day--in-range .day-badge,
+.winterers-calendar .react-datepicker__day--in-selecting-range .day-badge {
+  color: #062541 !important;
+  font-weight: 600;
+}
+
+/* Range Start Day: Navy circle + right connecting strip */
+.winterers-calendar .react-datepicker__day--range-start,
+.winterers-calendar .react-datepicker__day--selecting-range-start {
+  background-color: transparent !important;
+}
+.winterers-calendar .react-datepicker__day--range-start .day-badge,
+.winterers-calendar .react-datepicker__day--selecting-range-start .day-badge {
+  background-color: #02213B !important;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(2, 33, 59, 0.25);
+}
+
+/* Right-side strip for range-start if connected to end */
+.winterers-calendar .react-datepicker__day--range-start.react-datepicker__day--in-range:not(.react-datepicker__day--range-end)::after,
+.winterers-calendar .react-datepicker__day--range-start.react-datepicker__day--in-selecting-range:not(.react-datepicker__day--range-end)::after,
+.winterers-calendar .react-datepicker__day--selecting-range-start.react-datepicker__day--in-selecting-range:not(.react-datepicker__day--selecting-range-end)::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 50%;
+  background-color: #EEF4FA;
+  z-index: 1;
+}
+
+/* Range End Day: Navy circle + left connecting strip */
+.winterers-calendar .react-datepicker__day--range-end,
+.winterers-calendar .react-datepicker__day--selecting-range-end {
+  background-color: transparent !important;
+}
+.winterers-calendar .react-datepicker__day--range-end .day-badge,
+.winterers-calendar .react-datepicker__day--selecting-range-end .day-badge {
+  background-color: #02213B !important;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(2, 33, 59, 0.25);
+}
+
+/* Left-side strip for range-end if connected to previous */
+.winterers-calendar .react-datepicker__day--range-end.react-datepicker__day--in-range:not(.react-datepicker__day--range-start)::before,
+.winterers-calendar .react-datepicker__day--range-end.react-datepicker__day--in-selecting-range:not(.react-datepicker__day--range-start)::before,
+.winterers-calendar .react-datepicker__day--selecting-range-end.react-datepicker__day--in-selecting-range:not(.react-datepicker__day--selecting-range-start)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  background-color: #EEF4FA;
+  z-index: 1;
+}
+
+/* Reset react-datepicker default styles */
+.winterers-calendar .react-datepicker__day--keyboard-selected {
+  background-color: transparent !important;
+}
+.winterers-calendar .react-datepicker__triangle {
+  display: none !important;
+}
 
 /* Large text elements → Space Grotesk */
 [class~="text-lg"],[class~="text-xl"],[class~="text-2xl"],[class~="text-3xl"],[class~="text-4xl"],[class~="text-5xl"],[class~="text-6xl"]{font-family:"Space Grotesk",sans-serif}
