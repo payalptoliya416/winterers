@@ -232,6 +232,10 @@ export default function PropertyDetail() {
   // Amenities modal state
   const [showAllAmenities, setShowAllAmenities] = useState(false);
 
+  useEffect(() => {
+    document.title = 'Winterers | Arktis Fjord Cabin';
+  }, []);
+
   // Calculate nights dynamically
   const nights = Math.max(
     1,
