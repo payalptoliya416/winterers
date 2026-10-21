@@ -5,7 +5,7 @@ export default function HostBanner() {
     <section className="relative overflow-hidden bg-navy text-white">
       {/* Background Chalet Image */}
       <div
-        className="absolute inset-0 bg-cover bg-right md:bg-center"
+        className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url('/images/l-host.png')` }}
       />
 
