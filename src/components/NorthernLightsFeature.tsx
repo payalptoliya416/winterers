@@ -92,10 +92,9 @@ export default function NorthernLightsFeature() {
             <div className="mt-[60px] flex flex-wrap items-center gap-3.5 sm:gap-4">
               <Link
                 to="/stays"
-                className="inline-flex items-center justify-center rounded-[18px] bg-white px-[30px] py-3 text-sm 
-                sm:text-base font-medium text-[#02213B] hover:bg-white transition-all duration-200 shadow-md"
+                className="header-btn-signin inline-flex items-center justify-center rounded-[18px] bg-white px-[30px] py-3 text-sm sm:text-base font-medium text-[#02213B] shadow-md"
               >
-                Explore Northern Lights
+                <span className="relative z-10">Explore Northern Lights</span>
               </Link>
             </div>
           </div>

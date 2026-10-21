@@ -68,9 +68,9 @@ export default function ExclusiveOfferFeature() {
             <div className="mt-10">
               <Link
                 to="/stays"
-                className="inline-flex items-center justify-center rounded-[18px] bg-[#02213B] hover:bg-[#041a2e] px-[30px] py-3 text-xs sm:text-base font-medium text-white transition-all active:scale-95"
+                className="section-head-btn inline-flex items-center justify-center rounded-[18px] bg-[#02213B] px-[30px] py-3 text-xs sm:text-base font-medium text-white shadow-sm"
               >
-                View This Deal
+                <span className="relative z-10">View This Deal</span>
               </Link>
             </div>
           </div>

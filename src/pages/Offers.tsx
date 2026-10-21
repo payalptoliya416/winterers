@@ -89,9 +89,9 @@ export default function Offers() {
           <div className="mt-10 sm:mt-12 text-center">
             <Link
               to="/stays"
-              className="inline-flex items-center justify-center rounded-[18px] bg-[#02213B] hover:bg-[#041a2e] px-[30px] py-3 text-sm sm:text-base font-semibold text-white transition-all active:scale-95"
+              className="section-head-btn inline-flex items-center justify-center rounded-[18px] bg-[#02213B] px-[30px] py-3 text-sm sm:text-base font-semibold text-white shadow-sm"
             >
-              Sign In & Explore
+              <span className="relative z-10">Sign In & Explore</span>
             </Link>
           </div>
         </Container>
