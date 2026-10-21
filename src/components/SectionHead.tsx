@@ -36,8 +36,13 @@ export default function SectionHead({
         )}
       </div>
       {action && (
-        <Button to={to} variant={dark ? "outline" : "primary"} size="sm" className="rounded-[13px] w-max">
-          {action}
+        <Button
+          to={to}
+          variant={dark ? "outline" : "primary"}
+          size="sm"
+          className="section-head-btn rounded-[13px] w-max"
+        >
+          <span className="relative z-10">{action}</span>
         </Button>
       )}
     </div>

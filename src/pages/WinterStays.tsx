@@ -682,9 +682,9 @@ export default function WinterStays() {
             </div>
             <Link
               to="/stays"
-              className="inline-flex items-center justify-center rounded-full bg-[#071D36] hover:bg-[#051527] px-6 py-2.5 text-xs sm:text-sm font-semibold text-white transition-all active:scale-95 shadow-sm whitespace-nowrap self-start sm:self-auto"
+              className="section-head-btn inline-flex items-center justify-center rounded-full bg-[#071D36] px-6 py-2.5 text-xs sm:text-sm font-semibold text-white shadow-sm whitespace-nowrap self-start sm:self-auto"
             >
-              See all recommendations
+              <span className="relative z-10">See all recommendations</span>
             </Link>
           </div>
         </div>
