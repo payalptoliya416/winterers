@@ -236,3 +236,80 @@ h1,h2,h3,h4,h5,h6{@apply font-head}
 
 /* Large text elements → Space Grotesk */
 [class~="text-lg"],[class~="text-xl"],[class~="text-2xl"],[class~="text-3xl"],[class~="text-4xl"],[class~="text-5xl"],[class~="text-6xl"]{font-family:"Space Grotesk",sans-serif}
+
+/* ==========================================================================
+   Clean & Modern Button Hover Animations (Normal / Standard)
+   Dropdown items & list items are strictly excluded
+   ========================================================================== */
+.btn-animated,
+.btn-dark,
+.btn-light,
+.btn-sky,
+.btn-outline,
+button.btn-primary,
+button:not([role="option"]):not([role="menuitem"]):not(.dropdown-item):not(.calendar-nav-btn):not(.react-datepicker__day):not(.winterers-calendar button):not(.guest-popup button):not([class*="filter-option"]) {
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.22s ease,
+              background-color 0.22s ease,
+              border-color 0.22s ease,
+              color 0.22s ease !important;
+  will-change: transform;
+}
+
+/* Hover: subtle elegant 2px lift + soft depth shadow */
+.btn-animated:hover,
+.btn-dark:hover,
+.btn-light:hover,
+.btn-sky:hover,
+.btn-outline:hover,
+button.btn-primary:hover,
+button:not([role="option"]):not([role="menuitem"]):not(.dropdown-item):not(.calendar-nav-btn):not(.react-datepicker__day):not(.winterers-calendar button):not(.guest-popup button):not([class*="filter-option"]):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -3px rgba(6, 37, 65, 0.22);
+}
+
+/* Active / Click: subtle tactile press */
+.btn-animated:active,
+.btn-dark:active,
+.btn-light:active,
+.btn-sky:active,
+.btn-outline:active,
+button.btn-primary:active,
+button:not([role="option"]):not([role="menuitem"]):not(.dropdown-item):not(.calendar-nav-btn):not(.react-datepicker__day):not(.winterers-calendar button):not(.guest-popup button):not([class*="filter-option"]):active {
+  transform: translateY(0) scale(0.97);
+  box-shadow: 0 2px 8px -2px rgba(6, 37, 65, 0.15);
+}
+
+/* Dark Button Hover: subtle rich brightness */
+.btn-dark:hover,
+button.bg-navy:hover,
+button[class*="bg-[#071D36]"]:hover,
+button[class*="bg-[#02213B]"]:hover,
+button[class*="bg-[#062541]"]:hover {
+  filter: brightness(1.12);
+  box-shadow: 0 8px 22px -3px rgba(7, 29, 54, 0.35);
+}
+
+/* Light / White Button Hover */
+.btn-light:hover,
+button.bg-white:hover,
+button[class*="bg-white"]:hover {
+  border-color: #02213B;
+  box-shadow: 0 8px 22px -3px rgba(2, 33, 59, 0.18);
+}
+
+/* Sky Blue Button Hover */
+.btn-sky:hover,
+button.bg-sky:hover,
+button[class*="bg-sky"]:hover,
+button[class*="bg-[#7EC8E3]"]:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 8px 22px -3px rgba(126, 200, 227, 0.45);
+}
+
+/* Outline Button Hover */
+.btn-outline:hover {
+  background-color: rgba(92, 189, 229, 0.08);
+}
+

@@ -30,19 +30,19 @@ export default function Hero({
 
   return (
     <div
-      className="relative w-full h-[800px] min-h-[800px] bg-cover bg-center overflow-visible"
+      className="relative w-full h-auto min-h-[640px] sm:min-h-[720px] lg:min-h-[800px] bg-cover bg-center overflow-visible"
       style={{ backgroundImage: `url(${bgUrl})` }}
     >
       {/* Dark overlay for contrast */}
       <div className={`absolute inset-0 ${overlay}`} />
 
-      {/* Center content container - takes full 800px height */}
+      {/* Center content container */}
       <div
-        className={`relative z-10 flex h-full flex-col items-center gap-5 ${
+        className={`relative z-10 flex w-full min-h-[640px] sm:min-h-[720px] lg:min-h-[800px] flex-col items-center justify-between text-center text-white px-4 sm:px-6 ${
           search && searchPosition === 'inner'
-            ? 'justify-between pt-36 sm:pt-[236px] pb-7 sm:pb-9'
+            ? 'pt-24 sm:pt-28 md:pt-32 lg:pt-[190px] xl:pt-[220px] pb-8 sm:pb-10 lg:pb-12 gap-8'
             : 'justify-center pt-24 pb-24'
-        } text-center text-white px-4 sm:px-6`}
+        }`}
       >
         <Container className="!max-w-[1000px]">
           {eyebrow && (
@@ -82,7 +82,7 @@ export default function Hero({
 
         {/* Inner Search Bar - Placed comfortably inside hero banner at bottom */}
         {search && searchPosition === 'inner' && (
-          <div className="w-full max-w-[var(--container-max-w)]">
+          <div className="w-full max-w-[var(--container-max-w)] mt-6 sm:mt-8 lg:mt-auto">
             {search}
           </div>
         )}
@@ -90,7 +90,7 @@ export default function Hero({
 
       {/* Search Bar - Positioned at bottom edge overlapping */}
       {search && searchPosition === 'overlap' && (
-        <div className="absolute inset-x-0 bottom-0 translate-y-1/2 z-20 px-4 sm:px-6">
+        <div className="relative lg:absolute inset-x-0 bottom-0 lg:translate-y-1/2 z-20 px-4 sm:px-6 pb-6 lg:pb-0">
           <div className="mx-auto max-w-[var(--container-max-w)]">{search}</div>
         </div>
       )}

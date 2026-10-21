@@ -227,7 +227,7 @@ export default function SearchBar({
         <div className="w-full lg:w-auto lg:flex-none">
           <button
             type="button"
-            className="w-full lg:w-[220px] lg:h-[68px] py-2.5 inline-flex items-center justify-center rounded-[18px] bg-[#071D36] hover:bg-[#051527] px-8 font-medium text-white transition whitespace-nowrap text-base tracking-wide"
+            className="w-full xl:w-[220px] lg:h-[68px] py-2.5 inline-flex items-center justify-center rounded-[18px] bg-[#071D36] hover:bg-[#051527] px-8 font-medium text-white transition whitespace-nowrap text-base tracking-wide"
           >
             {cta}
           </button>

@@ -788,7 +788,7 @@ export default function BeachHouses() {
         <button
           type="button"
           onClick={clearAllFilters}
-          className="w-full py-3.5 text-sm sm:text-base font-semibold rounded-[14px] border border-[#DCE5EE] bg-white hover:bg-slate-50 text-[#082B45] transition cursor-pointer shadow-sm active:scale-[0.99]"
+          className="w-full py-3.5 text-sm sm:text-base font-semibold rounded-[14px] border border-[#DCE5EE] bg-white hover:bg-slate-50 text-[#082B45] transition cursor-pointer active:scale-[0.99]"
         >
           Clear Filters
         </button>
@@ -942,7 +942,7 @@ export default function BeachHouses() {
                       </div>
 
                       {/* Card Footer: Price & Book Now */}
-                      <div className="mt-4 flex items-center justify-between">
+                      <div className="mt-4 flex items-center justify-between flex-wrap gap-4">
                         <div>
                           <div className="flex items-baseline gap-1">
                             <span className="font-head text-base font-bold text-[#02213B]">

@@ -455,7 +455,7 @@ export default function WinterStays() {
               locationStays[0];
 
             return (
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-10 items-start">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 xl:gap-10 items-start">
                 {/* Left Side: Stays List */}
                 <div className="lg:col-span-5 flex flex-col">
                   <p className="text-sm text-slate-400 font-normal mb-3.5">
@@ -645,7 +645,7 @@ export default function WinterStays() {
                 </div>
 
                 {/* Footer with Price & Button */}
-                <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between gap-4">
+                <div className="mt-6 pt-5 border-t border-slate-100 flex items-center justify-between gap-4 flex-wrap">
                   <div>
                     <div className="flex items-baseline gap-1">
                       <span className="font-head text-2xl font-bold text-[#071D36]">€459</span>
