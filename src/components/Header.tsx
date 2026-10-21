@@ -77,15 +77,15 @@ export default function Header() {
               <div className="hidden items-center justify-end gap-2.5 xl:gap-[15px] lg:flex shrink-0">
                 <Link
                   to="#"
-                  className="inline-flex items-center justify-center rounded-xl xl:rounded-[18px] border border-[#BDCDDE] px-3.5 sm:px-4 xl:px-6 py-2 sm:py-2.5 text-xs sm:text-sm xl:text-base font-medium text-[#02213B] hover:border-slate-300 hover:bg-slate-50 transition whitespace-nowrap"
+                  className="header-btn-signin inline-flex items-center justify-center rounded-xl xl:rounded-[18px] border border-[#BDCDDE] bg-white px-3.5 sm:px-4 xl:px-6 py-2 sm:py-2.5 text-xs sm:text-sm xl:text-base font-medium text-[#02213B] whitespace-nowrap shadow-xs"
                 >
-                  Sign In
+                  <span className="relative z-10">Sign In</span>
                 </Link>
                 <Link
                   to="/list-property"
-                  className="inline-flex items-center justify-center rounded-xl xl:rounded-[18px] bg-[#02213B] px-3.5 sm:px-4 xl:px-6 py-2 sm:py-2.5 text-xs sm:text-sm xl:text-base font-medium text-white hover:bg-navy/90 transition whitespace-nowrap"
+                  className="header-btn-list inline-flex items-center justify-center rounded-xl xl:rounded-[18px] bg-[#02213B] px-3.5 sm:px-4 xl:px-6 py-2 sm:py-2.5 text-xs sm:text-sm xl:text-base font-medium text-white whitespace-nowrap shadow-xs"
                 >
-                  List Your Property
+                  <span className="relative z-10">List Your Property</span>
                 </Link>
               </div>
 
@@ -170,16 +170,16 @@ export default function Header() {
           <Link
             to="#"
             onClick={() => setOpen(false)}
-            className="inline-flex w-full items-center justify-center rounded-[18px] border border-slate-200 bg-white py-2.5 text-sm font-semibold text-navy hover:bg-slate-50 transition shadow-sm"
+            className="header-btn-signin inline-flex w-full items-center justify-center rounded-[18px] border border-slate-200 bg-white py-2.5 text-sm font-semibold text-navy shadow-sm"
           >
-            Sign In
+            <span className="relative z-10">Sign In</span>
           </Link>
           <Link
             to="/list-property"
             onClick={() => setOpen(false)}
-            className="inline-flex w-full items-center justify-center rounded-[18px] bg-[#02213B] py-2.5 text-sm font-semibold text-white hover:bg-navy/90 transition shadow-sm"
+            className="header-btn-list inline-flex w-full items-center justify-center rounded-[18px] bg-[#02213B] py-2.5 text-sm font-semibold text-white shadow-sm"
           >
-            List Your Property
+            <span className="relative z-10">List Your Property</span>
           </Link>
         </div>
       </aside>

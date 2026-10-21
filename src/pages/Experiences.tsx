@@ -13,6 +13,7 @@ export default function Experiences() {
   return (
     <>
       <Hero
+        className="!min-h-[760px] lg:!h-[760px] lg:!min-h-[760px]"
         name="hero-exp.png"
         eyebrow="WINTER EXPERIENCES"
         title={

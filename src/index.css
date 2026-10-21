@@ -313,3 +313,70 @@ button[class*="bg-[#7EC8E3]"]:hover {
   background-color: rgba(92, 189, 229, 0.08);
 }
 
+/* ==========================================================================
+   Header Buttons Hover Animation (Sign In & List Your Property)
+   Smooth slide-in sweep from the left + soft depth elevation
+   ========================================================================== */
+.header-btn-signin {
+  position: relative !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.header-btn-signin::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: #02213B;
+  transform: translateX(-101%);
+  transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 0;
+  border-radius: inherit;
+}
+.header-btn-signin:hover {
+  color: #FFFFFF !important;
+  border-color: #02213B !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -3px rgba(2, 33, 59, 0.28);
+}
+.header-btn-signin:hover::before {
+  transform: translateX(0);
+}
+.header-btn-signin:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.header-btn-list {
+  position: relative !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.header-btn-list::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: #5CBDE5;
+  transform: translateX(-101%);
+  transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 0;
+  border-radius: inherit;
+}
+.header-btn-list:hover {
+  color: #02213B !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px -3px rgba(92, 189, 229, 0.5);
+}
+.header-btn-list:hover::before {
+  transform: translateX(0);
+}
+.header-btn-list:active {
+  transform: translateY(0) scale(0.97);
+}
+
+

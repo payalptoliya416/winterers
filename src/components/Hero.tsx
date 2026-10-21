@@ -13,6 +13,7 @@ interface HeroProps {
   children?: ReactNode;
   search?: ReactNode;
   searchPosition?: 'overlap' | 'inner';
+  className?: string;
 }
 
 export default function Hero({
@@ -25,12 +26,13 @@ export default function Hero({
   children,
   search,
   searchPosition = 'inner',
+  className = '',
 }: HeroProps) {
   const bgUrl = img(name);
 
   return (
     <div
-      className="relative w-full h-auto min-h-[640px] sm:min-h-[720px] lg:min-h-[800px] bg-cover bg-center overflow-visible"
+      className={`relative w-full h-auto min-h-[640px] sm:min-h-[720px] lg:min-h-[800px] bg-cover bg-center overflow-visible ${className}`}
       style={{ backgroundImage: `url(${bgUrl})` }}
     >
       {/* Dark overlay for contrast */}
@@ -38,7 +40,7 @@ export default function Hero({
 
       {/* Center content container */}
       <div
-        className={`relative z-10 flex w-full min-h-[640px] sm:min-h-[720px] lg:min-h-[800px] flex-col items-center justify-between text-center text-white px-4 sm:px-6 ${
+        className={`relative z-10 flex w-full min-h-[inherit] flex-col items-center justify-between text-center text-white px-4 sm:px-6 ${
           search && searchPosition === 'inner'
             ? 'pt-36 sm:pt-40 md:pt-44 lg:pt-[200px] xl:pt-[236px] pb-8 sm:pb-10 lg:pb-12 gap-8'
             : 'justify-center pt-36 sm:pt-40 lg:pt-48 pb-24'
