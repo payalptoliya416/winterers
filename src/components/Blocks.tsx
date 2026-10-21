@@ -59,7 +59,7 @@ export const Destinations = ({
   center?: boolean;
   showAction?: boolean;
 } = {}) => (
-  <Section tone={tone} className="!pb-0">
+  <Section tone={tone} className="">
     <SectionHead
       dark={tone === "dark"}
       center={center}
