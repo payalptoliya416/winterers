@@ -26,7 +26,7 @@ export default function DestinationsPage() {
         </Button>
       </Hero>
 
-      <Destinations tone="light" center showAction={false} />
+      <Destinations tone="light" center showAction={false} className="!pb-0 md:!pb-0" />
       <FeaturedStays />
 
       {/* Northern Norway Feature Banner */}

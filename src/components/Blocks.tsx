@@ -54,12 +54,14 @@ export const Destinations = ({
   tone = "dark",
   center = false,
   showAction = true,
+  className = "",
 }: {
   tone?: "light" | "dark" | "mist";
   center?: boolean;
   showAction?: boolean;
+  className?: string;
 } = {}) => (
-  <Section tone={tone} className="">
+  <Section tone={tone} className={className}>
     <SectionHead
       dark={tone === "dark"}
       center={center}
