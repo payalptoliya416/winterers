@@ -40,8 +40,8 @@ export default function Hero({
       <div
         className={`relative z-10 flex w-full min-h-[640px] sm:min-h-[720px] lg:min-h-[800px] flex-col items-center justify-between text-center text-white px-4 sm:px-6 ${
           search && searchPosition === 'inner'
-            ? 'pt-24 sm:pt-28 md:pt-32 lg:pt-[190px] xl:pt-[220px] pb-8 sm:pb-10 lg:pb-12 gap-8'
-            : 'justify-center pt-24 pb-24'
+            ? 'pt-36 sm:pt-40 md:pt-44 lg:pt-[200px] xl:pt-[236px] pb-8 sm:pb-10 lg:pb-12 gap-8'
+            : 'justify-center pt-36 sm:pt-40 lg:pt-48 pb-24'
         }`}
       >
         <Container className="!max-w-[1000px]">
@@ -82,7 +82,7 @@ export default function Hero({
 
         {/* Inner Search Bar - Placed comfortably inside hero banner at bottom */}
         {search && searchPosition === 'inner' && (
-          <div className="w-full max-w-[var(--container-max-w)] mt-6 sm:mt-8 lg:mt-auto">
+          <div className="w-full max-w-[var(--container-max-w)]">
             {search}
           </div>
         )}
