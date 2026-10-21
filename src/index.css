@@ -335,9 +335,13 @@ button[class*="bg-[#7EC8E3]"]:hover {
   transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1);
   z-index: 0;
   border-radius: inherit;
+  pointer-events: none;
+}
+.header-btn-signin:hover,
+.header-btn-signin:hover * {
+  color: #FFFFFF !important;
 }
 .header-btn-signin:hover {
-  color: #FFFFFF !important;
   border-color: #02213B !important;
   transform: translateY(-2px);
   box-shadow: 0 8px 20px -3px rgba(2, 33, 59, 0.28);
@@ -366,9 +370,13 @@ button[class*="bg-[#7EC8E3]"]:hover {
   transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1);
   z-index: 0;
   border-radius: inherit;
+  pointer-events: none;
+}
+.header-btn-list:hover,
+.header-btn-list:hover * {
+  color: #02213B !important;
 }
 .header-btn-list:hover {
-  color: #02213B !important;
   transform: translateY(-2px);
   box-shadow: 0 8px 22px -3px rgba(92, 189, 229, 0.5);
 }
@@ -404,8 +412,11 @@ button[class*="bg-[#7EC8E3]"]:hover {
   border-radius: inherit;
   pointer-events: none;
 }
-.section-head-btn:hover {
+.section-head-btn:hover,
+.section-head-btn:hover * {
   color: #02213B !important;
+}
+.section-head-btn:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 22px -3px rgba(92, 189, 229, 0.45);
 }
@@ -415,6 +426,45 @@ button[class*="bg-[#7EC8E3]"]:hover {
 .section-head-btn:active {
   transform: translateY(0) scale(0.97);
 }
+
+/* ==========================================================================
+   Host Banner Sky Button Hover Animation ("List Your Property")
+   Smooth Deep Navy sweep from the left + white text + soft depth elevation
+   ========================================================================== */
+.host-btn-sky {
+  position: relative !important;
+  overflow: hidden !important;
+  z-index: 1 !important;
+  transition: color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.host-btn-sky::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: #02213B;
+  transform: translateX(-101%);
+  transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.host-btn-sky:hover,
+.host-btn-sky:hover * {
+  color: #FFFFFF !important;
+}
+.host-btn-sky:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px -3px rgba(2, 33, 59, 0.5);
+}
+.host-btn-sky:hover::before {
+  transform: translateX(0);
+}
+.host-btn-sky:active {
+  transform: translateY(0) scale(0.97);
+}
+
 
 
 

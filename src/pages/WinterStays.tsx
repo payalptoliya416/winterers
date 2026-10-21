@@ -383,9 +383,9 @@ export default function WinterStays() {
               <div className="mt-6 sm:mt-8">
                 <Link
                   to="/stays"
-                  className="inline-flex items-center justify-center rounded-full bg-sky hover:bg-[#68bede] px-7 py-3 text-xs sm:text-sm font-semibold text-navy transition-all duration-200 active:scale-95 shadow-sm"
+                  className="host-btn-sky inline-flex items-center justify-center rounded-[18px] bg-sky px-7 py-3 text-xs sm:text-sm font-semibold text-navy shadow-sm"
                 >
-                  Explore the Collection
+                  <span className="relative z-10">Explore the Collection</span>
                 </Link>
               </div>
             </div>
@@ -415,9 +415,9 @@ export default function WinterStays() {
 
                 <Link
                   to="/stays/2"
-                  className="inline-flex items-center justify-center rounded-[12px] bg-navy hover:bg-[#06182c] px-5 py-2 text-sm font-semibold text-white transition-all active:scale-95"
+                  className="section-head-btn inline-flex items-center justify-center rounded-[12px] bg-navy px-5 py-2 text-sm font-semibold text-white shadow-sm"
                 >
-                  View Property
+                  <span className="relative z-10">View Property</span>
                 </Link>
               </div>
             </div>
@@ -682,7 +682,7 @@ export default function WinterStays() {
             </div>
             <Link
               to="/stays"
-              className="section-head-btn inline-flex items-center justify-center rounded-full bg-[#071D36] px-6 py-2.5 text-xs sm:text-sm font-semibold text-white shadow-sm whitespace-nowrap self-start sm:self-auto"
+              className="section-head-btn inline-flex items-center justify-center rounded-[18px] bg-[#071D36] px-6 py-2.5 text-xs sm:text-sm font-semibold text-white shadow-sm whitespace-nowrap self-start sm:self-auto"
             >
               <span className="relative z-10">See all recommendations</span>
             </Link>

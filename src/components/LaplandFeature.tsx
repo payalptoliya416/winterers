@@ -62,9 +62,9 @@ export default function LaplandFeature() {
             <div className="mt-8 sm:mt-[64px]">
               <Link
                 to="/experiences"
-                className="inline-flex items-center justify-center rounded-[18px] bg-[#071D36] hover:bg-[#051527] px-8 py-3.5 text-xs sm:text-sm font-medium text-white transition-all duration-200 hover:shadow-md active:scale-95"
+                className="section-head-btn inline-flex items-center justify-center rounded-[18px] bg-[#071D36] px-8 py-3.5 text-xs sm:text-sm font-medium text-white whitespace-nowrap"
               >
-                Explore Lapland
+                <span className="relative z-10">Explore Lapland</span>
               </Link>
             </div>
           </div>

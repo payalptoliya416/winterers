@@ -43,9 +43,9 @@ export default function HostBanner() {
           <div className="mt-10 flex flex-wrap items-center gap-3.5">
             <Link
               to="/list-property"
-              className="inline-flex items-center justify-center rounded-[18px] bg-[#7EC8E3] px-6 py-2.5 sm:px-7 sm:py-3 text-sm sm:text-base font-medium text-[#02213B] transition-all duration-200 hover:brightness-105 active:scale-95"
+              className="host-btn-sky inline-flex items-center justify-center rounded-[18px] bg-[#7EC8E3] px-6 py-2.5 sm:px-7 sm:py-3 text-sm sm:text-base font-medium text-[#02213B] whitespace-nowrap"
             >
-              List Your Property
+              <span className="relative z-10">List Your Property</span>
             </Link>
           </div>
         </div>

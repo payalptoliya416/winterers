@@ -21,8 +21,8 @@ export default function DestinationsPage() {
         }
         text="From snow-covered alpine villages to remote Arctic landscapes, discover destinations made for unforgettable winter escapes."
       >
-        <Button variant="light" size="lg" to="/stays">
-          View Winter Stays
+        <Button variant="light" size="lg" to="/stays" className="header-btn-signin rounded-[18px]">
+          <span className="relative z-10">View Winter Stays</span>
         </Button>
       </Hero>
 
@@ -75,9 +75,9 @@ export default function DestinationsPage() {
               <Button
                 variant="sky"
                 to="/stays"
-                className="px-6 py-2.5 sm:px-7 sm:py-3 text-xs sm:text-sm font-medium text-[#02213B] hover:brightness-105 active:scale-95 shadow-sm"
+                className="host-btn-sky px-6 py-2.5 sm:px-7 sm:py-3 text-xs sm:text-sm font-medium text-[#02213B] shadow-sm rounded-[18px]"
               >
-                Explore Northern Norway
+                <span className="relative z-10">Explore Northern Norway</span>
               </Button>
             </div>
           </div>
@@ -125,9 +125,9 @@ export default function DestinationsPage() {
               <div className="mt-8">
                 <Button
                   to="/stays"
-                  className="bg-navy hover:bg-[#071D36] px-8 py-3 text-xs sm:text-sm font-semibold text-white transition shadow-sm rounded-[18px]"
+                  className="section-head-btn bg-navy px-8 py-3 text-xs sm:text-sm font-semibold text-white shadow-sm rounded-[18px]"
                 >
-                  Discover Winter Stays
+                  <span className="relative z-10">Discover Winter Stays</span>
                 </Button>
               </div>
             </div>
