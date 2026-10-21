@@ -205,9 +205,9 @@ export default function PropertyDetail() {
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [isFullscreen, setIsFullscreen] = useState(false);
 
-  // Booking Card state
-  const [checkInDate, setCheckInDate] = useState<Date | null>(new Date('2026-11-14'));
-  const [checkOutDate, setCheckOutDate] = useState<Date | null>(new Date('2026-11-19'));
+  // Booking Card state (independent from Hero search bar, unselected by default)
+  const [checkInDate, setCheckInDate] = useState<Date | null>(null);
+  const [checkOutDate, setCheckOutDate] = useState<Date | null>(null);
   const [checkInOpen, setCheckInOpen] = useState(false);
   const [checkOutOpen, setCheckOutOpen] = useState(false);
   const checkInRef = useRef<HTMLDivElement>(null);
@@ -285,7 +285,7 @@ export default function PropertyDetail() {
   };
 
   return (
-    <div className="w-full pt-36 pb-16">
+    <div className="w-full pt-36">
       {/* 1. Breadcrumbs */}
       <div className="w-full px-3 sm:px-6 mb-3 sm:mb-3.5">
         <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-[13px] text-slate-500 font-body">
@@ -921,7 +921,7 @@ export default function PropertyDetail() {
                       CHECK-IN
                     </label>
                     <div className="flex items-center justify-between mt-0.5">
-                      <span className="text-sm sm:text-base text-[#0D1F3C] font-normal">
+                      <span className={`text-sm sm:text-base font-normal ${checkInDate ? 'text-[#0D1F3C]' : 'text-[#7B8FA6]'}`}>
                         {formatCardDate(checkInDate)}
                       </span>
                       <Calendar className="w-4 h-4 text-[#0D1F3C] shrink-0" />
@@ -965,7 +965,7 @@ export default function PropertyDetail() {
                       CHECK-OUT
                     </label>
                     <div className="flex items-center justify-between mt-0.5">
-                      <span className="text-sm sm:text-base text-[#0D1F3C] font-normal">
+                      <span className={`text-sm sm:text-base font-normal ${checkOutDate ? 'text-[#0D1F3C]' : 'text-[#7B8FA6]'}`}>
                         {formatCardDate(checkOutDate)}
                       </span>
                       <Calendar className="w-4 h-4 text-[#0D1F3C] shrink-0" />
